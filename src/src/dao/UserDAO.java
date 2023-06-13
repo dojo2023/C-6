@@ -237,27 +237,58 @@ public class UserDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SQL文を準備する
-			String sql = "update users set password=?, lf_id=?, df_id=? where u_id=?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+			String sql_u = "update users set password=?, where u_id=? ";
+			String sql_l = "update user_likefoods set lf_id=? where u_id=?";
+			String sql_d = "update user_dislikefoods set df_id=? where u_id=?";
+
+			PreparedStatement pStmt_u = conn.prepareStatement(sql_u);
+			PreparedStatement pStmt_l = conn.prepareStatement(sql_l);
+			PreparedStatement pStmt_d = conn.prepareStatement(sql_d);
+
+			int flag_l = -1;
+			int flag_d = -1;
+
 			// SQL文を完成させる
 			if (user.getPassword() != null && !user.getPassword().equals("")) {
-				pStmt.setString(1, user.getPassword());
+				pStmt_u.setString(1, user.getPassword());
 			} else {
-				pStmt.setString(1, null);
+				pStmt_u.setString(1, null);
 			}
-			if (user.getLf_id() != null && !user.getLf_id().equals("")) {
-				pStmt.setString(2, user.getLf_id());
+			if (user.getU_id() != null && !user.getU_id().equals("")) {
+				pStmt_u.setString(2, user.getU_id());
 			} else {
-				pStmt.setString(2, null);
+				pStmt_u.setString(2, null);
 			}
-			if (user.getDf_id() != null && !user.getDf_id().equals("")) {
-				pStmt.setString(3, user.getDf_id());
-			} else {
-				pStmt.setString(3, null);
+
+			for (int lf_id : user.getLf_id()) {
+				if (user.getLf_id() != null && !user.getLf_id().equals("")) {
+					pStmt_l.setInt(1, lf_id);
+				} else {
+					pStmt_l.setInt(1, -1);
+				}
+				if (user.getU_id() != null && !user.getU_id().equals("")) {
+					pStmt_l.setString(2, user.getU_id());
+				} else {
+					pStmt_l.setString(2, null);
+				}
+				flag_l = pStmt_l.executeUpdate();
 			}
-			pStmt.setString(4, user.getU_id());
+
+			for (int df_id : user.getDf_id()) {
+				if (user.getDf_id() != null && !user.getDf_id().equals("")) {
+					pStmt_d.setInt(1, df_id);
+				} else {
+					pStmt_d.setInt(1, -1);
+				}
+				if (user.getU_id() != null && !user.getU_id().equals("")) {
+					pStmt_d.setString(2, user.getU_id());
+				} else {
+					pStmt_d.setString(2, null);
+				}
+				flag_d = pStmt_d.executeUpdate();
+			}
 			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1) {
+			if (pStmt_u.executeUpdate() == 1 && flag_l == 1 && flag_d == 1) {
 				result = true;
 			}
 		} catch (SQLException e) {
@@ -291,7 +322,11 @@ public class UserDAO {
 			String sql = "delete from users where u_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			// SQL文を完成させる
-			pStmt.setString(1, number);
+			if (number != null && ! number.equals("")) {
+				pStmt.setString(1, number);
+			} else {
+				pStmt.setString(1, null);
+			}
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
