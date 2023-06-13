@@ -25,7 +25,7 @@ public class UserDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, param.getU_id());
 			pStmt.setString(2, param.getPassword());
-			pStmt.setString(3, param.getPosition());
+			pStmt.setInt(3, param.getPosition());
 			// SELECT文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			// ユーザーIDとパスワードが一致するユーザーがいたかどうかをチェックする
@@ -54,7 +54,7 @@ public class UserDAO {
 		return loginResult;
 	}
 
-	public List<User> selectLf(User param) {
+	public List<User> selectLfDf(User param) {
 		Connection conn = null;
 		List<User> cardList = new ArrayList<User>();
 		try {
@@ -62,78 +62,62 @@ public class UserDAO {
 			Class.forName("org.h2.Driver");
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+
 			// SQL文を準備する  （検索するSQL文）検索する項目増やせる
-			String sql = "select users.u_id, user_likefoods.lf_id from users "
+			String sql_lf = "select users.u_id, users.password, user_likefoods.lf_id from users "
 					+ "left join user_likefoods on users.u_id = user_likefoods.u_id "
 					+ "left join foods on foods.f_id = user_likefoods.lf_id"
 					+ "where users.u_id = ? ";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			// SQL文を完成させる(?を埋める)
-			if (param.getU_id() != null) {
-				pStmt.setString(1, param.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
-			} else {
-				pStmt.setString(1, "%");
-			}
-			// ここから何も触ってないです
-			// SQL文を実行し、結果表を取得する
-			ResultSet rs = pStmt.executeQuery();
-			// 結果表をコレクションにコピーする （通常のArrayリストに入れている）
-			while (rs.next()) {
-				User card = new User(
-						rs.getString("users.u_id"),
-						rs.getString("user_likefoods.lf_id"));
-				cardList.add(card);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			cardList = null;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			cardList = null;
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-					cardList = null;
-				}
-			}
-		}
-		// 結果を返す
-		return cardList;
-	}
-
-	public List<User> selectDf(User param) {
-		Connection conn = null;
-		List<User> cardList = new ArrayList<User>();
-		try {
-			// JDBCドライバを読み込む  Javaによるデータベース接続
-			Class.forName("org.h2.Driver");
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
-			// SQL文を準備する  （検索するSQL文）検索する項目増やせる
-			String sql = "select users.u_id, user_dislikefoods.df_id from users"
+			String sql_df = "select users.u_id, user_dislikefoods.df_id from users"
 					+ "left join user_dislikefoods on users.u_id = user_dislikefoods.u_id "
 					+ "left join foods on foods.f_id = user_dislikefoods.df_id"
 					+ "where users.u_id = ? ";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			PreparedStatement pStmt_lf = conn.prepareStatement(sql_lf);
+			PreparedStatement pStmt_df = conn.prepareStatement(sql_df);
+
 			// SQL文を完成させる(?を埋める)
 			if (param.getU_id() != null) {
-				pStmt.setString(1, param.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+				pStmt_lf.setString(1, param.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+				pStmt_df.setString(1, param.getU_id());
 			} else {
-				pStmt.setString(1, "%");
+				pStmt_lf.setString(1, "%");
+				pStmt_df.setString(1, "%");
 			}
-			// ここから何も触ってないです
+
 			// SQL文を実行し、結果表を取得する
-			ResultSet rs = pStmt.executeQuery();
+			ResultSet rs_lf = pStmt_lf.executeQuery();
+			ResultSet rs_df = pStmt_df.executeQuery();
+
 			// 結果表をコレクションにコピーする （通常のArrayリストに入れている）
-			while (rs.next()) {
-				User card = new User(
-						rs.getString("users.u_id"),
-						rs.getString("user_dislikefoods.df_id"));
+			// 1行目をスキップするかも
+			boolean f1 = rs_lf.next();
+			boolean f2 = rs_df.next();
+
+			while (f1 || f2) {
+				User card = null;
+				if(f1 && f2) {
+					card = new User(
+					rs_lf.getString("users.u_id"),
+					rs_lf.getString("users.password"),
+					rs_lf.getInt("user_likefoods.lf_id"),
+					rs_df.getInt("user_dislikefoods.df_id"));
+				}else if (f1) {
+					card = new User(
+							rs_lf.getString("users.u_id"),
+							rs_lf.getString("users.password"),
+							rs_lf.getInt("user_likefoods.lf_id"),
+							-1);
+				}else if (f2) {
+					card = new User(
+							rs_lf.getString("users.u_id"),
+							rs_lf.getString("users.password"),
+							-1,
+							rs_df.getInt("user_dislikefoods.df_id"));
+				}
 				cardList.add(card);
+				f1 = rs_lf.next();
+				f2 = rs_df.next();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -154,7 +138,7 @@ public class UserDAO {
 		}
 		// 結果を返す
 		return cardList;
-	}
+	}}
 
 	public boolean insert(User card) {
 		Connection conn = null;
