@@ -10,7 +10,7 @@ public class User implements Serializable{
 	// DC定義書から追加
 	private String u_id;
 	private String password;
-	private int position;
+	private int position = 1; // 一般ユーザー：1
 	private List<Integer> lf_id = new ArrayList<>();
 	private List<Integer> df_id = new ArrayList<>();
 
@@ -18,7 +18,13 @@ public class User implements Serializable{
 	public User(String u_id, String password, int position, int lf_id, int df_id) {
 		this.u_id = u_id;
 		this.password = password;
-		this.position = position;
+		this.lf_id.add(lf_id);
+		this.df_id.add(df_id);
+	}
+
+	public User(String u_id, String password, int lf_id, int df_id) {
+		this.u_id = u_id;
+		this.password = password;
 		this.lf_id.add(lf_id);
 		this.df_id.add(df_id);
 	}
@@ -26,9 +32,6 @@ public class User implements Serializable{
 	public User() {
 		this.u_id = "";
 		this.password = "";
-		this.position = -1;
-		this.lf_id.add(-1);
-		this.df_id.add(-1);
 	}
 
 	// get, setメソッドの追加
@@ -52,9 +55,9 @@ public class User implements Serializable{
 		return position;
 	}
 
-	public void setPosition(int position) {
-		this.position = position;
-	}
+//	public void setPosition(int position) {
+//		this.position = position;
+//	}
 
 	public List<Integer> getLf_id() {
 		return lf_id;
