@@ -11,8 +11,8 @@ public class Users implements Serializable{
 	private List<User>users = new ArrayList<User>();
 
 	// コンストラクタの追加
-	public Users(User users) {
-		this.users.add(users);
+	public Users(User user) {
+		this.users.add(user);
 	}
 
 	// get, setメソッドの追加
@@ -20,7 +20,7 @@ public class Users implements Serializable{
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setUsers(List<User> user) {
+		this.users = user;
 	}
 }

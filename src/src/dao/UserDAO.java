@@ -138,7 +138,7 @@ public class UserDAO {
 		}
 		// 結果を返す
 		return cardList;
-	}}
+	}
 
 	public boolean insert(User card) {
 		Connection conn = null;
