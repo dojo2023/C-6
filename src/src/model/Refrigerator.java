@@ -16,13 +16,13 @@ public class Refrigerator implements Serializable{
 	private List<Double> num = new ArrayList<>();
 
 	// 2種類のコンストラクタの追加
-	public Refrigerator(int ref_id, String u_id, int f_id, double f_count, String text, double num) {
+	public Refrigerator(int ref_id, String u_id, int f_id, double f_count, List<String> text, List<Double> num) {
 		this.ref_id = ref_id;
 		this.u_id = u_id;
 		this.f_id = f_id;
 		this.f_count = f_count;
-		this.text.add(text);
-		this.num.add(num);
+		this.text = text;
+		this.num = num;
 	}
 
 	// get, setメソッドの追加

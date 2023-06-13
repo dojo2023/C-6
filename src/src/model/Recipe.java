@@ -1,11 +1,11 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class Recipe implements Serializable{
+public class Recipe implements Serializable {
 	private int rec_id;
 	private String r_name;
 	private String time;
@@ -22,12 +22,14 @@ public class Recipe implements Serializable{
 	private int i_id;
 	private List<String> ingredient = new ArrayList<>();
 
-
 	// 2種類のコンストラクタの追加
-	public Recipe(int rec_id, String r_name, String time,  String image,
-	boolean wanpan, boolean save_time, boolean microwave_oven,
-	String recipe, int cooking_expenses, int eating_out_expenses,
-	String u_id, Date r_date, int r_count, int i_id, String ingredient) {
+	public Recipe(int rec_id, String r_name, String time, String image,
+			boolean wanpan, boolean save_time, boolean microwave_oven,
+			String recipe, int cooking_expenses, int eating_out_expenses,
+			String u_id, Date r_date, int r_count, int i_id, String ingredient) {
+		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
+		java.util.Date utilDate = sqlNow;
+
 		this.rec_id = rec_id;
 		this.r_name = r_name;
 		this.time = time;
@@ -39,13 +41,16 @@ public class Recipe implements Serializable{
 		this.cooking_expenses = cooking_expenses;
 		this.eating_out_expenses = eating_out_expenses;
 		this.u_id = u_id;
-		this.r_date = new Date();
+		this.r_date = new Date(utilDate.getTime());
 		this.r_count = r_count;
 		this.i_id = i_id;
 		this.ingredient.add(ingredient);
 	}
 
 	public Recipe() {
+		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
+		java.util.Date utilDate = sqlNow;
+
 		this.rec_id = -1;
 		this.r_name = "";
 		this.time = "";
@@ -57,7 +62,7 @@ public class Recipe implements Serializable{
 		this.cooking_expenses = -1;
 		this.eating_out_expenses = -1;
 		this.u_id = "";
-		this.r_date = new Date();
+		this.r_date = new Date(utilDate.getTime());
 		this.r_count = -1;
 		this.i_id = -1;
 		this.ingredient.add("");
@@ -96,7 +101,7 @@ public class Recipe implements Serializable{
 		this.image = image;
 	}
 
-	public boolean isWanpan() {
+	public boolean getsWanpan() {
 		return wanpan;
 	}
 
@@ -104,7 +109,7 @@ public class Recipe implements Serializable{
 		this.wanpan = wanpan;
 	}
 
-	public boolean isSave_time() {
+	public boolean getsSave_time() {
 		return save_time;
 	}
 
@@ -112,7 +117,7 @@ public class Recipe implements Serializable{
 		this.save_time = save_time;
 	}
 
-	public boolean isMicrowave_oven() {
+	public boolean getsMicrowave_oven() {
 		return microwave_oven;
 	}
 
@@ -183,6 +188,5 @@ public class Recipe implements Serializable{
 	public void setIngredient(List<String> ingredient) {
 		this.ingredient = ingredient;
 	}
-
 
 }
