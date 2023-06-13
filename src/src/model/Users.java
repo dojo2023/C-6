@@ -1,5 +1,26 @@
 package model;
 
-public class Users {
+//以下2行の追加
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+//「implements Serializable」の追加
+public class Users implements Serializable{
+	// Userを元に追加
+	private List<User>users = new ArrayList<User>();
+
+	// コンストラクタの追加
+	public Users(User users) {
+		this.users.add(users);
+	}
+
+	// get, setメソッドの追加
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 }
