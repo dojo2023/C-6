@@ -149,36 +149,64 @@ public class UserDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SQL文を準備する
-			String sql = "insert into User (u_id, password,position,lf_id ,df_id) values (?, ?, ?, ?, ?)";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+			String sql_u = "insert into users (u_id, password, position) values (?, ?, ?)";
+			String sql_l = "insert into user_likefoods (u_id, lf_id) values (?, ?)";
+			String sql_d = "insert into user_dislikefoods (u_id, df_id) values (?, ?)";
+
+			PreparedStatement pStmt_u = conn.prepareStatement(sql_u);
+			PreparedStatement pStmt_l = conn.prepareStatement(sql_l);
+			PreparedStatement pStmt_d = conn.prepareStatement(sql_d);
+
+			int flag_l = -1;
+			int flag_d = -1;
+
 			// SQL文を完成させる
 			if (card.getU_id() != null && !card.getU_id().equals("")) {
-				pStmt.setString(1, card.getU_id);
+				pStmt_u.setString(1, card.getU_id());
 			} else {
-				pStmt.setString(1, null);
+				pStmt_u.setString(1, null);
 			}
 			if (card.getPassword() != null && !card.getPassword().equals("")) {
-				pStmt.setString(2, card.getPassword());
+				pStmt_u.setString(2, card.getPassword());
 			} else {
-				pStmt.setString(2, null);
+				pStmt_u.setString(2, null);
 			}
-			if (card.getPosition() != null && !card.getPosition().equals("")) {
-				pStmt.setString(3, card.getPosition());
+			if (card.getPosition() != -1) {
+				pStmt_u.setInt(3, card.getPosition());
 			} else {
-				pStmt.setString(3, null);
+				pStmt_u.setInt(3, -1);
 			}
-			if (card.getLf_id() != null && !card.getLf_id().equals("")) {
-				pStmt.setString(4, card.getLf_id());
-			} else {
-				pStmt.setString(4, null);
+
+			for (int lf_id : card.getLf_id()) {
+				if (card.getU_id() != null && !card.getU_id().equals("")) {
+					pStmt_l.setString(1, card.getU_id());
+				} else {
+					pStmt_l.setString(1, null);
+				}
+				if (lf_id != -1) {
+					pStmt_l.setInt(2, lf_id);
+				} else {
+					pStmt_l.setInt(2, -1);
+				}
+				flag_l = pStmt_l.executeUpdate();
 			}
-			if (card.getDf_id() != null && !card.getDf_id().equals("")) {
-				pStmt.setString(5, card.getDf_id());
-			} else {
-				pStmt.setString(5, null);
+
+			for (int df_id : card.getDf_id()) {
+				if (card.getU_id() != null && !card.getU_id().equals("")) {
+					pStmt_d.setString(1, card.getU_id());
+				} else {
+					pStmt_d.setString(1, null);
+				}
+				if (df_id != -1) {
+					pStmt_d.setInt(2, df_id);
+				} else {
+					pStmt_d.setInt(2, -1);
+				}
+				flag_d = pStmt_d.executeUpdate();
 			}
+
 			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1) {
+			if (pStmt_u.executeUpdate() == 1 && flag_l == 1 && flag_d == 1) {
 				result = true;
 			}
 		} catch (SQLException e) {
