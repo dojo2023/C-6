@@ -34,11 +34,13 @@ public class MainFoodServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 
-		String f_id_s = request.getParameter("f_id");
-		int f_id = Integer.parseInt(f_id_s);
+		int f_id = Integer.parseInt(request.getParameter("f_id"));
 
 		MainFoodDAO mDAO = new MainFoodDAO();
-		List<MainFood> cardList = mDAO.select(new MainFood(f_id));
+		List<MainFood> mainFood = mDAO.select(new MainFood(f_id));
+
+		// 検索結果をリクエストスコープに格納する
+		request.setAttribute("mainFood", mainFood);
 
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/mainFood.jsp");
