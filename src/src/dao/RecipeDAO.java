@@ -92,7 +92,7 @@ public class RecipeDAO {
 	}
 
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
-	public boolean insert(Recipe card) {
+	public boolean insert(Recipe recipe) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -116,69 +116,69 @@ public class RecipeDAO {
 			int flag = -1;
 
 			// SQL文を完成させる
-			if (card.getR_name() != null && !card.getR_name().equals("")) {
-				pStmt_r.setString(1, card.getR_name());
+			if (recipe.getR_name() != null && !recipe.getR_name().equals("")) {
+				pStmt_r.setString(1, recipe.getR_name());
 			} else {
 				pStmt_r.setString(1, null);
 			}
-			if (card.getTime() != null && !card.getTime().equals("")) {
-				pStmt_r.setString(2, card.getTime());
+			if (recipe.getTime() != null && !recipe.getTime().equals("")) {
+				pStmt_r.setString(2, recipe.getTime());
 			} else {
 				pStmt_r.setString(2, null);
 			}
-			if (card.getImage() != null && !card.getImage().equals("")) {
-				pStmt_r.setString(3, card.getImage());
+			if (recipe.getImage() != null && !recipe.getImage().equals("")) {
+				pStmt_r.setString(3, recipe.getImage());
 			} else {
 				pStmt_r.setString(3, null);
 			}
-			pStmt_r.setBoolean(4, card.getsWanpan());
-			pStmt_r.setBoolean(5, card.getsSave_time());
-			pStmt_r.setBoolean(6, card.getsMicrowave_oven());
-			if (card.getRecipe() != null && !card.getRecipe().equals("")) {
-				pStmt_r.setString(7, card.getRecipe());
+			pStmt_r.setBoolean(4, recipe.getsWanpan());
+			pStmt_r.setBoolean(5, recipe.getsSave_time());
+			pStmt_r.setBoolean(6, recipe.getsMicrowave_oven());
+			if (recipe.getRecipe() != null && !recipe.getRecipe().equals("")) {
+				pStmt_r.setString(7, recipe.getRecipe());
 			} else {
 				pStmt_r.setString(7, null);
 			}
-			if (card.getCooking_expenses() != -1) {
-				pStmt_r.setInt(8, card.getCooking_expenses());
+			if (recipe.getCooking_expenses() != -1) {
+				pStmt_r.setInt(8, recipe.getCooking_expenses());
 			} else {
 				pStmt_r.setInt(8, -1);
 			}
-			if (card.getEating_out_expenses() != -1) {
-				pStmt_r.setInt(9, card.getEating_out_expenses());
+			if (recipe.getEating_out_expenses() != -1) {
+				pStmt_r.setInt(9, recipe.getEating_out_expenses());
 			} else {
 				pStmt_r.setInt(9, -1);
 			}
 
-			if (card.getU_id() != null && !card.getU_id().equals("")) {
-				pStmt_c.setString(1, card.getU_id());
+			if (recipe.getU_id() != null && !recipe.getU_id().equals("")) {
+				pStmt_c.setString(1, recipe.getU_id());
 			} else {
 				pStmt_c.setString(1, null);
 			}
-			if (card.getRec_id() != -1) {
-				pStmt_c.setInt(2, card.getRec_id());
+			if (recipe.getRec_id() != -1) {
+				pStmt_c.setInt(2, recipe.getRec_id());
 			} else {
 				pStmt_c.setInt(2, -1);
 			}
-			if (card.getR_date() != null && !card.getR_date().equals("")) {
-				pStmt_c.setDate(3, card.getR_date());
+			if (recipe.getR_date() != null && !recipe.getR_date().equals("")) {
+				pStmt_c.setDate(3, recipe.getR_date());
 			} else {
 				pStmt_c.setDate(3, null);
 			}
-			if (card.getR_count() != -1) {
-				pStmt_c.setInt(4, card.getR_count());
+			if (recipe.getR_count() != -1) {
+				pStmt_c.setInt(4, recipe.getR_count());
 			} else {
 				pStmt_c.setInt(4, -1);
 			}
 
-			for (String ingredient : card.getIngredient()) {
-				if (card.getI_id() != -1) {
-					pStmt_i.setInt(1, card.getI_id());
+			for (String ingredient : recipe.getIngredient()) {
+				if (recipe.getI_id() != -1) {
+					pStmt_i.setInt(1, recipe.getI_id());
 				} else {
 					pStmt_i.setInt(1, -1);
 				}
-				if (card.getRec_id() != -1) {
-					pStmt_i.setInt(2, card.getRec_id());
+				if (recipe.getRec_id() != -1) {
+					pStmt_i.setInt(2, recipe.getRec_id());
 				} else {
 					pStmt_i.setInt(2, -1);
 				}
@@ -215,7 +215,7 @@ public class RecipeDAO {
 	}
 
 	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
-	public boolean update(Recipe card) {
+	public boolean update(Recipe recipe) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -239,79 +239,79 @@ public class RecipeDAO {
 			int flag = -1;
 
 			// SQL文を完成させる
-			if (card.getR_name() != null && !card.getR_name().equals("")) {
-				pStmt_r.setString(1, card.getR_name());
+			if (recipe.getR_name() != null && !recipe.getR_name().equals("")) {
+				pStmt_r.setString(1, recipe.getR_name());
 			} else {
 				pStmt_r.setString(1, null);
 			}
-			if (card.getTime() != null && !card.getTime().equals("")) {
-				pStmt_r.setString(2, card.getTime());
+			if (recipe.getTime() != null && !recipe.getTime().equals("")) {
+				pStmt_r.setString(2, recipe.getTime());
 			} else {
 				pStmt_r.setString(2, null);
 			}
-			if (card.getImage() != null && !card.getImage().equals("")) {
-				pStmt_r.setString(3, card.getImage());
+			if (recipe.getImage() != null && !recipe.getImage().equals("")) {
+				pStmt_r.setString(3, recipe.getImage());
 			} else {
 				pStmt_r.setString(3, null);
 			}
-			pStmt_r.setBoolean(4, card.getsWanpan());
-			pStmt_r.setBoolean(5, card.getsSave_time());
-			pStmt_r.setBoolean(6, card.getsMicrowave_oven());
-			if (card.getRecipe() != null && !card.getRecipe().equals("")) {
-				pStmt_r.setString(7, card.getRecipe());
+			pStmt_r.setBoolean(4, recipe.getsWanpan());
+			pStmt_r.setBoolean(5, recipe.getsSave_time());
+			pStmt_r.setBoolean(6, recipe.getsMicrowave_oven());
+			if (recipe.getRecipe() != null && !recipe.getRecipe().equals("")) {
+				pStmt_r.setString(7, recipe.getRecipe());
 			} else {
 				pStmt_r.setString(7, null);
 			}
-			if (card.getCooking_expenses() != -1) {
-				pStmt_r.setInt(8, card.getCooking_expenses());
+			if (recipe.getCooking_expenses() != -1) {
+				pStmt_r.setInt(8, recipe.getCooking_expenses());
 			} else {
 				pStmt_r.setInt(8, -1);
 			}
-			if (card.getEating_out_expenses() != -1) {
-				pStmt_r.setInt(9, card.getEating_out_expenses());
+			if (recipe.getEating_out_expenses() != -1) {
+				pStmt_r.setInt(9, recipe.getEating_out_expenses());
 			} else {
 				pStmt_r.setInt(9, -1);
 			}
-			if (card.getRec_id() != -1) {
-				pStmt_r.setInt(10, card.getRec_id());
+			if (recipe.getRec_id() != -1) {
+				pStmt_r.setInt(10, recipe.getRec_id());
 			} else {
 				pStmt_r.setInt(10, -1);
 			}
 
-			if (card.getU_id() != null && !card.getU_id().equals("")) {
-				pStmt_c.setString(1, card.getU_id());
+			if (recipe.getU_id() != null && !recipe.getU_id().equals("")) {
+				pStmt_c.setString(1, recipe.getU_id());
 			} else {
 				pStmt_c.setString(1, null);
 			}
-			if (card.getRec_id() != -1) {
-				pStmt_c.setInt(2, card.getRec_id());
+			if (recipe.getRec_id() != -1) {
+				pStmt_c.setInt(2, recipe.getRec_id());
 			} else {
 				pStmt_c.setInt(2, -1);
 			}
-			if (card.getR_date() != null) {
-				pStmt_c.setDate(3, card.getR_date());
+			if (recipe.getR_date() != null) {
+				pStmt_c.setDate(3, recipe.getR_date());
 			} else {
 				pStmt_c.setDate(3, null);
 			}
-			if (card.getR_count() != -1) {
-				pStmt_c.setInt(4, card.getR_count());
+			if (recipe.getR_count() != -1) {
+				pStmt_c.setInt(4, recipe.getR_count());
 			} else {
 				pStmt_c.setInt(4, -1);
 			}
-			if (card.getRec_id() != -1) {
-				pStmt_r.setInt(5, card.getRec_id());
+			if (recipe.getRec_id() != -1) {
+				pStmt_r.setInt(5, recipe.getRec_id());
 			} else {
 				pStmt_r.setInt(5, -1);
 			}
 
-			for (String ingredient : card.getIngredient()) {
-				if (card.getI_id() != -1) {
-					pStmt_i.setInt(1, card.getI_id());
+			for (String ingredient : recipe.getIngredient()) {
+				if (recipe.getI_id() != -1) {
+					pStmt_i.setInt(1, recipe.getI_id());
 				} else {
 					pStmt_i.setInt(1, -1);
 				}
-				if (card.getRec_id() != -1) {
-					pStmt_i.setInt(2, card.getRec_id());
+				if (recipe.getRec_id() != -1) {
+					pStmt_i.setInt(2, recipe.getRec_id());
 				} else {
 					pStmt_i.setInt(2, -1);
 				}
@@ -320,8 +320,8 @@ public class RecipeDAO {
 				} else {
 					pStmt_i.setString(3, null);
 				}
-				if (card.getRec_id() != -1) {
-					pStmt_r.setInt(4, card.getRec_id());
+				if (recipe.getRec_id() != -1) {
+					pStmt_r.setInt(4, recipe.getRec_id());
 				} else {
 					pStmt_r.setInt(4, -1);
 				}

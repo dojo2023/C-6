@@ -21,7 +21,7 @@ public class UserDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SELECT文を準備する
-			String sql = "select count(*) from users where u_id = ? and password = ? position = ?";
+			String sql = "select count(*) from users where u_id = ? and password = ? and position = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, param.getU_id());
 			pStmt.setString(2, param.getPassword());
@@ -140,7 +140,7 @@ public class UserDAO {
 		return cardList;
 	}
 
-	public boolean insert(User card) {
+	public boolean insert(User user) {
 		Connection conn = null;
 		boolean result = false;
 		try {
@@ -161,25 +161,25 @@ public class UserDAO {
 			int flag_d = -1;
 
 			// SQL文を完成させる
-			if (card.getU_id() != null && !card.getU_id().equals("")) {
-				pStmt_u.setString(1, card.getU_id());
+			if (user.getU_id() != null && !user.getU_id().equals("")) {
+				pStmt_u.setString(1, user.getU_id());
 			} else {
 				pStmt_u.setString(1, null);
 			}
-			if (card.getPassword() != null && !card.getPassword().equals("")) {
-				pStmt_u.setString(2, card.getPassword());
+			if (user.getPassword() != null && !user.getPassword().equals("")) {
+				pStmt_u.setString(2, user.getPassword());
 			} else {
 				pStmt_u.setString(2, null);
 			}
-			if (card.getPosition() != -1) {
-				pStmt_u.setInt(3, card.getPosition());
+			if (user.getPosition() != -1) {
+				pStmt_u.setInt(3, user.getPosition());
 			} else {
 				pStmt_u.setInt(3, -1);
 			}
 
-			for (int lf_id : card.getLf_id()) {
-				if (card.getU_id() != null && !card.getU_id().equals("")) {
-					pStmt_l.setString(1, card.getU_id());
+			for (int lf_id : user.getLf_id()) {
+				if (user.getU_id() != null && !user.getU_id().equals("")) {
+					pStmt_l.setString(1, user.getU_id());
 				} else {
 					pStmt_l.setString(1, null);
 				}
@@ -191,9 +191,9 @@ public class UserDAO {
 				flag_l = pStmt_l.executeUpdate();
 			}
 
-			for (int df_id : card.getDf_id()) {
-				if (card.getU_id() != null && !card.getU_id().equals("")) {
-					pStmt_d.setString(1, card.getU_id());
+			for (int df_id : user.getDf_id()) {
+				if (user.getU_id() != null && !user.getU_id().equals("")) {
+					pStmt_d.setString(1, user.getU_id());
 				} else {
 					pStmt_d.setString(1, null);
 				}
