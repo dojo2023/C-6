@@ -32,6 +32,16 @@ public class MainFood implements Serializable{
 		this.retention_period = "";
 		this.season = "";
 	}
+	public MainFood(int f_id) {
+		this.f_id = f_id;
+		this.f_name = "";
+		this.image = "";
+		this.identify = "";
+		this.strage_method= "";
+		this.retention_period = "";
+		this.season = "";
+	}
+
 	public int getF_id() {
 		return f_id;
 	}
