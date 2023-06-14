@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Recipe;
 import model.Refrigerator;
 
 public class RefrigeratorDAO {
@@ -85,7 +84,7 @@ public class RefrigeratorDAO {
 	}
 
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
-	public boolean insert(Refrigerator card) {
+	public boolean insert(Refrigerator refrigerator) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -107,39 +106,43 @@ public class RefrigeratorDAO {
 			PreparedStatement pStmt_t = conn.prepareStatement(sql_t);
 
 			// SQL文を完成させる
-			if (card.getRef_id() != -1) {
-				pStmt_r.setInt(1, card.getRef_id());
+			if (refrigerator.getRef_id() != -1) {
+				pStmt_r.setInt(1, refrigerator.getRef_id());
 			} else {
 				pStmt_r.setInt(1, -1);
 			}
-			if (card.getU_id() != null && !card.getU_id().equals("")) {
-				pStmt_r.setString(2, card.getU_id());
+			if (refrigerator.getU_id() != null && !refrigerator.getU_id().equals("")) {
+				pStmt_r.setString(2, refrigerator.getU_id());
 			} else {
 				pStmt_r.setString(2, null);
 			}
-			if (card.getF_id() != -1) {
-				pStmt_r.setInt(3, card.getF_id());
+			if (refrigerator.getF_id() != -1) {
+				pStmt_r.setInt(3, refrigerator.getF_id());
 			} else {
 				pStmt_r.setInt(3, -1);
 			}
-			if (card.getF_count() != -1) {
-				pStmt_r.setDouble(4, card.getF_count());
+			if (refrigerator.getF_count() != -1) {
+				pStmt_r.setDouble(4, refrigerator.getF_count());
 			} else {
 				pStmt_r.setDouble(4, -1);
 			}
 
-			if (card.getRef_id() != -1) {
-				pStmt_t.setInt(1, card.getRef_id());
+			if (refrigerator.getRef_id() != -1) {
+				pStmt_t.setInt(1, refrigerator.getRef_id());
 			} else {
 				pStmt_t.setInt(1, -1);
 			}
 
-			for (String text : card.getText()) {
-				pStmt_t.setString(2, text);
+			int i = 2;
+			for (String text : refrigerator.getText()) {
+				pStmt_t.setString(i, text);
+				i++;
 			}
 
-			for (double num : card.getNum()) {
-				pStmt_t.setDouble(3, num);
+			i = 3;
+			for (double num : refrigerator.getNum()) {
+				pStmt_t.setDouble(i, num);
+				i++;
 			}
 
 			// SQL文を実行する
@@ -166,7 +169,7 @@ public class RefrigeratorDAO {
 	}
 
 	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
-	public boolean update(Recipe card) {
+	public boolean update(Refrigerator refrigerator, Refrigerator pre_refrigerator) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -178,109 +181,65 @@ public class RefrigeratorDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql_r = "update recipes set r_name=?, time=?, image=?, wanpan=?, save_time=?, microwave_oven=?, recipe=?, "
-					+ "+ \"cooking_expenses=?, eating_out_expenses=? where rec_id=?";
-			String sql_c = "update recipes set u_id=?, rec_id=?, r_date=?, r_count=? where rec_id=?";
-			String sql_i = "update recipes set i_id=?, rec_id=?, ingredient=? where rec_id=?";
+			String sql_r = "update refrigerators set u_id=?, f_id=?, f_count=? where ref_id=? and u_id=? and f_id=?";
+			String sql_t = "update refrigerator_texts set text1=?, text2=?, text3=?, text4=?, text5=?, text6=?, text7=?, text8=?, text9=?, "
+					+ "num1=?, num2=?, num3=?, num4=?, num5=?, num6=?, num7=?, num8=?, num9=? where ref_id=?";
 
 			PreparedStatement pStmt_r = conn.prepareStatement(sql_r);
-			PreparedStatement pStmt_c = conn.prepareStatement(sql_c);
-			PreparedStatement pStmt_i = conn.prepareStatement(sql_i);
-
-			int flag = -1;
+			PreparedStatement pStmt_t = conn.prepareStatement(sql_t);
 
 			// SQL文を完成させる
-			if (card.getR_name() != null && !card.getR_name().equals("")) {
-				pStmt_r.setString(1, card.getR_name());
+			if (refrigerator.getU_id() != null && !refrigerator.getU_id().equals("")) {
+				pStmt_r.setString(1, refrigerator.getU_id());
 			} else {
 				pStmt_r.setString(1, null);
 			}
-			if (card.getTime() != null && !card.getTime().equals("")) {
-				pStmt_r.setString(2, card.getTime());
+			if (refrigerator.getF_id() != -1) {
+				pStmt_r.setInt(2, refrigerator.getF_id());
 			} else {
-				pStmt_r.setString(2, null);
+				pStmt_r.setInt(2, -1);
 			}
-			if (card.getImage() != null && !card.getImage().equals("")) {
-				pStmt_r.setString(3, card.getImage());
+			if (refrigerator.getF_count() != -1) {
+				pStmt_r.setDouble(3, refrigerator.getF_count());
 			} else {
-				pStmt_r.setString(3, null);
+				pStmt_r.setDouble(3, -1);
 			}
-			pStmt_r.setBoolean(4, card.getsWanpan());
-			pStmt_r.setBoolean(5, card.getsSave_time());
-			pStmt_r.setBoolean(6, card.getsMicrowave_oven());
-			if (card.getRecipe() != null && !card.getRecipe().equals("")) {
-				pStmt_r.setString(7, card.getRecipe());
+			if (refrigerator.getRef_id() != -1) {
+				pStmt_r.setInt(4, refrigerator.getRef_id());
 			} else {
-				pStmt_r.setString(7, null);
+				pStmt_r.setInt(4, -1);
 			}
-			if (card.getCooking_expenses() != -1) {
-				pStmt_r.setInt(8, card.getCooking_expenses());
+			if (pre_refrigerator.getU_id() != null && !pre_refrigerator.getU_id().equals("")) {
+				pStmt_r.setString(5, pre_refrigerator.getU_id());
 			} else {
-				pStmt_r.setInt(8, -1);
+				pStmt_r.setString(5, null);
 			}
-			if (card.getEating_out_expenses() != -1) {
-				pStmt_r.setInt(9, card.getEating_out_expenses());
+			if (pre_refrigerator.getF_id() != -1) {
+				pStmt_r.setInt(6, pre_refrigerator.getF_id());
 			} else {
-				pStmt_r.setInt(9, -1);
-			}
-			if (card.getRec_id() != -1) {
-				pStmt_r.setInt(10, card.getRec_id());
-			} else {
-				pStmt_r.setInt(10, -1);
+				pStmt_r.setInt(6, -1);
 			}
 
-			if (card.getU_id() != null && !card.getU_id().equals("")) {
-				pStmt_c.setString(1, card.getU_id());
-			} else {
-				pStmt_c.setString(1, null);
-			}
-			if (card.getRec_id() != -1) {
-				pStmt_c.setInt(2, card.getRec_id());
-			} else {
-				pStmt_c.setInt(2, -1);
-			}
-			if (card.getR_date() != null) {
-				pStmt_c.setDate(3, card.getR_date());
-			} else {
-				pStmt_c.setDate(3, null);
-			}
-			if (card.getR_count() != -1) {
-				pStmt_c.setInt(4, card.getR_count());
-			} else {
-				pStmt_c.setInt(4, -1);
-			}
-			if (card.getRec_id() != -1) {
-				pStmt_r.setInt(5, card.getRec_id());
-			} else {
-				pStmt_r.setInt(5, -1);
+			int i = 1;
+			for (String text : refrigerator.getText()) {
+				pStmt_t.setString(i, text);
+				i++;
 			}
 
-			for (String ingredient : card.getIngredient()) {
-				if (card.getI_id() != -1) {
-					pStmt_i.setInt(1, card.getI_id());
-				} else {
-					pStmt_i.setInt(1, -1);
-				}
-				if (card.getRec_id() != -1) {
-					pStmt_i.setInt(2, card.getRec_id());
-				} else {
-					pStmt_i.setInt(2, -1);
-				}
-				if (ingredient != null && !ingredient.equals("")) {
-					pStmt_i.setString(3, ingredient);
-				} else {
-					pStmt_i.setString(3, null);
-				}
-				if (card.getRec_id() != -1) {
-					pStmt_r.setInt(4, card.getRec_id());
-				} else {
-					pStmt_r.setInt(4, -1);
-				}
-				flag = pStmt_i.executeUpdate();
+			i = 2;
+			for (double num : refrigerator.getNum()) {
+				pStmt_t.setDouble(i, num);
+				i++;
+			}
+
+			if (refrigerator.getRef_id() != -1) {
+				pStmt_t.setInt(19, refrigerator.getRef_id());
+			} else {
+				pStmt_t.setInt(19, -1);
 			}
 
 			// SQL文を実行する
-			if (pStmt_r.executeUpdate() == 1 && pStmt_c.executeUpdate() == 1 && flag == 1) {
+			if (pStmt_r.executeUpdate() == 1 && pStmt_t.executeUpdate() == 1) {
 				result = true;
 			}
 		} catch (SQLException e) {
@@ -315,7 +274,7 @@ public class RefrigeratorDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "delete from recipes where rec_id=?";
+			String sql = "delete from refrigerators where ref_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

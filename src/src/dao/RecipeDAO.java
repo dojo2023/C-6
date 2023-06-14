@@ -215,7 +215,7 @@ public class RecipeDAO {
 	}
 
 	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
-	public boolean update(Recipe recipe) {
+	public boolean update(Recipe recipe, Recipe pre_recipe) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -229,8 +229,8 @@ public class RecipeDAO {
 			// SQL文を準備する
 			String sql_r = "update recipes set r_name=?, time=?, image=?, wanpan=?, save_time=?, microwave_oven=?, recipe=?, "
 					+ "+ \"cooking_expenses=?, eating_out_expenses=? where rec_id=?";
-			String sql_c = "update recipe_counts set u_id=?, rec_id=?, r_date=?, r_count=? where rec_id=?";
-			String sql_i = "update recipe_ingredients set i_id=?, rec_id=?, ingredient=? where rec_id=?";
+			String sql_c = "update recipe_counts set u_id=?, rec_id=?, r_date=?, r_count=? where u_id=? and rec_id=? and r_date=?";
+			String sql_i = "update recipe_ingredients set i_id=?, rec_id=?, ingredient=? where i_id=? and rec_id=?";
 
 			PreparedStatement pStmt_r = conn.prepareStatement(sql_r);
 			PreparedStatement pStmt_c = conn.prepareStatement(sql_c);
@@ -298,10 +298,20 @@ public class RecipeDAO {
 			} else {
 				pStmt_c.setInt(4, -1);
 			}
-			if (recipe.getRec_id() != -1) {
-				pStmt_r.setInt(5, recipe.getRec_id());
+			if (pre_recipe.getU_id() != null && !pre_recipe.getU_id().equals("")) {
+				pStmt_c.setString(5, pre_recipe.getU_id());
 			} else {
-				pStmt_r.setInt(5, -1);
+				pStmt_c.setString(5, null);
+			}
+			if (pre_recipe.getRec_id() != -1) {
+				pStmt_c.setInt(6, pre_recipe.getRec_id());
+			} else {
+				pStmt_c.setInt(6, -1);
+			}
+			if (pre_recipe.getR_date() != null) {
+				pStmt_c.setDate(7, pre_recipe.getR_date());
+			} else {
+				pStmt_c.setDate(7, null);
 			}
 
 			for (String ingredient : recipe.getIngredient()) {
@@ -320,10 +330,15 @@ public class RecipeDAO {
 				} else {
 					pStmt_i.setString(3, null);
 				}
-				if (recipe.getRec_id() != -1) {
-					pStmt_r.setInt(4, recipe.getRec_id());
+				if (pre_recipe.getI_id() != -1) {
+					pStmt_i.setInt(4, pre_recipe.getI_id());
 				} else {
-					pStmt_r.setInt(4, -1);
+					pStmt_i.setInt(4, -1);
+				}
+				if (pre_recipe.getRec_id() != -1) {
+					pStmt_r.setInt(5, pre_recipe.getRec_id());
+				} else {
+					pStmt_r.setInt(5, -1);
 				}
 				flag = pStmt_i.executeUpdate();
 			}
