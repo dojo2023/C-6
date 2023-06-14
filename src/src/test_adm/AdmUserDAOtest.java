@@ -1,4 +1,4 @@
-package test;
+package test_adm;
 
 public class AdmUserDAOtest {
 

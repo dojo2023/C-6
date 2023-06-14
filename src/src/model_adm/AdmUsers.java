@@ -1,4 +1,4 @@
-package model;
+package model_adm;
 
 //以下2行の追加
 import java.io.Serializable;

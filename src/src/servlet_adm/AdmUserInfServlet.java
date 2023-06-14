@@ -1,4 +1,4 @@
-package servlet;
+package servlet_adm;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AdmRecipeListServlet
+ * Servlet implementation class AdmUserInfServlet
  */
-@WebServlet("/AdmRecipeListServlet")
-public class AdmRecipeListServlet extends HttpServlet {
+@WebServlet("/AdmUserInfServlet")
+public class AdmUserInfServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

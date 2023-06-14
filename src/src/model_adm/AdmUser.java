@@ -1,4 +1,4 @@
-package model;
+package model_adm;
 
 import java.io.Serializable;
 
