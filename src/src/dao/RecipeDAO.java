@@ -31,6 +31,7 @@ public class RecipeDAO {
 					+ "left join recipe_ingredients as r_i on r.rec_id == r_i.rec_id"
 					+ "left join recipe_counts as r_c on r.rec_id == r_c.rec_id"
 					+ "where r_c.u_id == ? and r.rec_id == ?";
+			// 条件式がu_idとrec_idのみなので、他の検索条件の追加
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
