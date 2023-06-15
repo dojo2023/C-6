@@ -47,6 +47,23 @@ public class Recipe implements Serializable {
 		this.ingredient.add(ingredient);
 	}
 
+	public Recipe(String r_name, boolean wanpan, boolean save_time, boolean microwave_oven) {
+		this.rec_id = -1;
+		this.r_name = r_name;
+		this.time = "";
+		this.image = "";
+		this.wanpan = wanpan;
+		this.save_time = save_time;
+		this.microwave_oven = microwave_oven;
+		this.cooking_expenses = -1;
+		this.eating_out_expenses = -1;
+		this.u_id = "";
+		this.r_date = null;
+		this.r_count = -1;
+		this.i_id = -1;
+		this.ingredient.add("");
+	}
+
 	public Recipe() {
 		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
 		java.util.Date utilDate = sqlNow;
@@ -67,7 +84,27 @@ public class Recipe implements Serializable {
 		this.i_id = -1;
 		this.ingredient.add("");
 	}
+	//レシピ一覧表示時の空検索用コンストラクタの追加
+	public Recipe(int rec_id) {
+		// Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
+		// java.util.Date utilDate = sqlNow;
 
+		this.rec_id = rec_id;
+		this.r_name = "";
+		this.time = "";
+		this.image = "";
+		this.wanpan = false;
+		this.save_time = false;
+		this.microwave_oven = false;
+		this.recipe = "";
+		this.cooking_expenses = -1;
+		this.eating_out_expenses = -1;
+		this.u_id = "";
+		this.r_date = null;
+		this.r_count = -1;
+		this.i_id = -1;
+		this.ingredient.add("");
+	}
 	// get, setメソッドの追加
 	public int getRec_id() {
 		return rec_id;
