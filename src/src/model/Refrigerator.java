@@ -25,6 +25,33 @@ public class Refrigerator implements Serializable{
 		this.num = num;
 	}
 
+	public Refrigerator() {
+		this.ref_id = -1;
+		this.u_id = "";
+		this.f_id = -1;
+		this.f_count = -1;
+		this.text.add ("");
+		this.num.add((double)-1);
+	}
+
+	public Refrigerator(String u_id) {
+		this.ref_id = -1;
+		this.u_id = u_id;
+		this.f_id = -1;
+		this.f_count = -1;
+		this.text.add("");
+		this.num.add((double)-1);
+	}
+
+	public Refrigerator(int f_id) {
+		this.ref_id = -1;
+		this.u_id = "";
+		this.f_id = f_id;
+		this.f_count = -1;
+		this.text.add("");
+		this.num.add((double)-1);
+	}
+
 	// get, setメソッドの追加
 
 	public int getRef_id() {

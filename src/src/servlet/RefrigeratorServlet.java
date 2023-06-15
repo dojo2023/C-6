@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.RefrigeratorDAO;
-import model.Bc;
+import model.LoginUser;
 import model.Refrigerator;
-
-
 
 /**
  * Servlet implementation class LoginServlet
@@ -39,8 +37,10 @@ public class RefrigeratorServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		RefrigeratorDAO rDAO = new RefrigeratorDAO();
-		List<Refrigerator> refrigerator = rDAO.select(null)
 
+		// user idからその人の冷蔵庫をsetしてる
+		LoginUser loginUser = (LoginUser) session.getAttribute("id");
+		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId()));
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/refrigerator.jsp");
 		dispatcher.forward(request, response);
@@ -53,27 +53,24 @@ public class RefrigeratorServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String id = request.getParameter("ID");
-		String pw = request.getParameter("PW");
+		HttpSession session = request.getSession();
 
-		// ログイン処理を行う
-		UserDAO uDAO = new UserDAO();
-		if (uDAO.selectIdPwPo(new User(id, pw))) { // ログイン成功
-			// セッションスコープにIDを格納する
-			HttpSession session = request.getSession();
-			session.setAttribute("id", new LoginUser(id));
+		RefrigeratorDAO rDAO = new RefrigeratorDAO();
 
-			// メニューサーブレットにリダイレクトする
-			response.sendRedirect("/NMW/RefrigeratorServlet");
-		} else { // ログイン失敗
-			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-//			request.setAttribute("result",
-//			new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/NMW/LoginServlet"));
+		// user idからその人の冷蔵庫をsetしてる
+		LoginUser loginUser = (LoginUser) session.getAttribute("id");
+		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId()));
 
-			// 結果ページにフォワードする
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-			dispatcher.forward(request, response);
-		}
+		int f_id = ((Integer) (request.getAttribute("foods"))).intValue();
+		List<Refrigerator> pre_refrigerator = rDAO.select(new Refrigerator(f_id));
+
+		// 値を変更する処理
+		// set~~~~~
+
+		// updateする
+		rDAO.update(refrigerator.get(0), pre_refrigerator.get(0));
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/RefrigeratorServlet");
+		dispatcher.forward(request, response);
 	}
 }
