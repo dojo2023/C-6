@@ -34,7 +34,7 @@ public class MainFoodServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 
-		int f_id = Integer.parseInt(request.getParameter("f_id"));
+		int f_id = ((Integer)(request.getAttribute("foods"))).intValue();
 
 		MainFoodDAO mDAO = new MainFoodDAO();
 		List<MainFood> mainFood = mDAO.select(new MainFood(f_id));
