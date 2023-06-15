@@ -1,11 +1,21 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import dao.RecipeDAO;
+import model.Recipe;
+import model.Recipes;
+
 
 /**
  * Servlet implementation class RecipeListServlet
@@ -17,17 +27,85 @@ public class RecipeListServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		HttpSession session = request.getSession();
+		if (session.getAttribute("id") == null) {
+			response.sendRedirect("/NMW/LoginServlet");
+			return;
+		}
+
+		int rec_id = Integer.parseInt(request.getParameter("rec_id"));
+
+		// 検索処理を行う
+		RecipeDAO rDao = new RecipeDAO();
+		List<Recipe> recipeList = rDao.select(new Recipe(rec_id));
+
+		// 検索結果をリクエストスコープに格納する
+		request.setAttribute("recipeList", recipeList);
+
+		// 結果ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/recipeList.jsp");
+		dispatcher.forward(request, response);
+
+		// setした値をgetAttributeで取得して、selectで検索する（主要食材）
+		request.getAttribute("recipes");
+		// 複数要素によるレシピ検索処理を行う
+				RecipeDAO reDao = new RecipeDAO();
+				List<Recipe> recipesList = reDao.select(recipes);
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		HttpSession session = request.getSession();
+		if (session.getAttribute("id") == null) {
+			response.sendRedirect("/NMW/LoginServlet");
+			return;
+		}
+		// jspから検索条件をgetParameterで抽出する
+		// setAttribute()で設定する
+		// RecipeListServletに送る
+
+		// jspから検索条件をgetParameterで抽出する（主要食材）
+		String[] f_name = request.getParameterValues("f_name");
+//		List<String> f_name = new ArrayList<>();
+//		for(String f_list: f_name_list) {
+//			f_name.add(f_list);
+//		}
+		// jspから検索条件をgetParameterで抽出する（ワンパン等）
+		String[] c_id_list = request.getParameterValues("c_id");
+		List<Boolean> c_id = new ArrayList<Boolean>();
+		for(String c_list: c_id_list) {
+			c_id.add(Boolean.parseBoolean(c_list));
+		}
+
+		Recipes recipes = null;
+
+		for(int i=0; i<f_name.length; i++) {
+			recipes = new Recipes(new Recipe(f_name[i], c_id.get(0), c_id.get(1), c_id.get(2)));
+		}
+
+		// setAttribute()で設定する
+		request.setAttribute("recipes", recipes);
+
+		//  同サーブレット内にフォワードする
+		RequestDispatcher dispatcherC = request.getRequestDispatcher("/NMW/src/servlet/RecipeListServlet.java");
+		dispatcherC.forward(request, response);
+
+
+		// ↓流れ
+		// jspから検索条件をgetParameterで抽出する（完成）
+
+		// setAttribute()で設定する
+		// setした値をgetAttributeで取得して、selectで検索する
+		// RecipeListServletに送る
+		request.setAttribute("f_name", f_name);
 	}
 
 }
