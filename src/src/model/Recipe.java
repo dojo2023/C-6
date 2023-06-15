@@ -101,7 +101,7 @@ public class Recipe implements Serializable {
 		this.image = image;
 	}
 
-	public boolean getsWanpan() {
+	public boolean getWanpan() {
 		return wanpan;
 	}
 
