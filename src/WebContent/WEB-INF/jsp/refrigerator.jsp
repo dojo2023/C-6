@@ -4,9 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>冷蔵庫</title>
+<title>冷蔵庫 | れしぴろーくん</title>
 </head>
 <body>
+<!-- ヘッダーここから -->
+<h1>れしぴろーくん</h1>
+<!-- ヘッダーここまで -->
+
+<!-- メインここから -->
 	<a href="/NMW/RefrigeratorServlet.java">
 	冷蔵庫
 	</a>
@@ -46,5 +51,9 @@
 	<button type= "submit" name= "food" value= "gyuuniku"></button>
 	<button type= "submit" name= "food" value= "butaniku"></button>
 	<button type= "submit" name= "food" value= "torimiki"></button>
+<!-- メインここまで -->
+<!-- フッターここから -->
+<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
+<!-- フッターここまで -->
 </body>
 </html>
