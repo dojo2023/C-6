@@ -11,13 +11,19 @@ public class Recipes implements Serializable{
 		this.recipes.add(recipe);
 	}
 
+	public Recipes() {
+		this.recipes = null;
+	}
+
 	// get, setメソッドの追加
 	public List<Recipe> getRecipes() {
 		return recipes;
 	}
 
 	public void setRecipes(List<Recipe> recipe) {
-		this.recipes = recipe;
+		for(int i=0; i<recipe.size(); i++) {
+			this.recipes.add(recipe.get(i));
+		}
 	}
 
 }
