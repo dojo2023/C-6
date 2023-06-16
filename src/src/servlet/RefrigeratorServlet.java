@@ -30,7 +30,7 @@ public class RefrigeratorServlet extends HttpServlet {
 		/// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/simpleBC/LoginServlet");
+			response.sendRedirect("/NMW/LoginServlet");
 			return;
 		}
 
