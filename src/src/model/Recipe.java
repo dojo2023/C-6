@@ -90,8 +90,6 @@ public class Recipe implements Serializable {
 	}
 	//レシピ一覧表示時の空検索用コンストラクタの追加
 	public Recipe(int rec_id) {
-		// Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
-		// java.util.Date utilDate = sqlNow;
 
 		this.rec_id = rec_id;
 		this.r_name = "";

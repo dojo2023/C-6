@@ -76,12 +76,12 @@ public class RecipeListServlet extends HttpServlet {
 		// setAttribute()で設定する
 		// RecipeListServletに送る
 
+		// レシピ検索から検索結果に行くほうのform文をif文で作成
+		if ((request.getParameter("r_select")) == "1") {
+
 		// jspから検索条件をgetParameterで抽出する（主要食材）
 		String[] f_name = request.getParameterValues("f_name");
-//		List<String> f_name = new ArrayList<>();
-//		for(String f_list: f_name_list) {
-//			f_name.add(f_list);
-//		}
+
 		// jspから検索条件をgetParameterで抽出する（ワンパン等）
 		String[] c_id_list = request.getParameterValues("c_id");
 		List<Boolean> c_id = new ArrayList<Boolean>();
@@ -101,19 +101,25 @@ public class RecipeListServlet extends HttpServlet {
 		request.setAttribute("recipes", recipes);
 
 		//  同サーブレット内にフォワードする
-		RequestDispatcher dispatcherC = request.getRequestDispatcher("/NMW/src/servlet/RecipeListServlet.java");
+		RequestDispatcher dispatcherC = request.getRequestDispatcher("/NMW/RecipeListServlet");
 		dispatcherC.forward(request, response);
-
+		}
 		// レシピ一覧からレシピ詳細へフォワード処理
 		// リクエストパラメータを取得する
 
+		// レシピ検索から検索結果に行くほうのform文をif文で作成
+		if ((request.getParameter("r_select")) == "2") {
 		String rec_id = (request.getParameter("rec_id"));
 
 		request.setAttribute("rec_id", rec_id);
 
 		// レシピ詳細ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/RecipeServlet.java");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/RecipeServlet");
 		dispatcher.forward(request, response);
+		}
+
+
+		//
 
 		// ↓流れ
 		// jspから検索条件をgetParameterで抽出する（完成）
@@ -121,6 +127,17 @@ public class RecipeListServlet extends HttpServlet {
 		// setAttribute()で設定する
 		// setした値をgetAttributeで取得して、selectで検索する
 		// RecipeListServletに送る
+
+		// 方針
+		// レシピ検索(recipeList)DoPost→レシピリストservのDoGet --- 修了
+
+		// レシピ選択(RecipeList)Dopost→レシピ詳細画面(Recipe)のDoGet --- 修了
+		// ↑ form作成 --- 修了
+		// レシピ詳細(Recipe)DoPost→主要食材(MainFood?)DoGet
+
+		// <form>
+		// <input name="二個共通" value="個別">
+		// </form>
 	}
 
 }

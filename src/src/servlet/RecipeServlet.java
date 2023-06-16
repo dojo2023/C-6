@@ -35,20 +35,7 @@ public class RecipeServlet extends HttpServlet {
 				}
 				request.setCharacterEncoding("UTF-8");
 
-				/*
 				// リクエストパラメータを取得する
-				List<Recipe> recipe = new ArrayList<Recipe>();
-				recipe.add((Recipe)request.getAttribute("rec_id"));
-
-				RecipeDAO rDAO = new RecipeDAO();
-				List<Recipes> recipe1 = rDAO.select(new Recipes(recipes));
-
-				// 検索結果をリクエストスコープに格納する
-				request.setAttribute("recipe", recipe);
-				*/
-
-				 //  Recipes recipes
-
 				  int rec_id=(Integer)(request.getAttribute("rec_id"));
 				  Recipe r = new Recipe(rec_id);
 				  Recipes recipes = new Recipes(r);
@@ -56,10 +43,11 @@ public class RecipeServlet extends HttpServlet {
 				  RecipeDAO rDAO = new RecipeDAO();
 				  List<Recipe> recipe = rDAO.select(recipes);
 
+					// 検索結果をリクエストスコープに格納する
 				  request.setAttribute("recipe", recipe);
 
 				// 結果ページにフォワードする
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/mainFood.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/recipe.jsp");
 				dispatcher.forward(request, response);
 	}
 
@@ -67,7 +55,11 @@ public class RecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		// レシピ詳細(Recipe)DoPost→主要食材(MainFood?)DoGet
+		request.setAttribute("foods", request.getParameter("ingredient"));
+		// 結果ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/MainFoodServlet");
+		dispatcher.forward(request, response);
 	}
 
 }
