@@ -34,14 +34,15 @@ public class RecipeDAO {
 					+ "left join recipe_counts as r_c on r.rec_id = r_c.rec_id"
 					+ "where r.rec_id like ? or r.r_name like ? ";
 
+			// f_name ver.を作る
 			for (Recipe r : recipes.getRecipes()) {
-				sql = sql + "r_i.ingredient like" + r.getIngredient();
+				// "" で囲う必要ないかも
+				sql = sql + "or r_i.ingredient like \"%" + r.getIngredient() + "%\"";
 			}
 
-
-//					"or r.time like ? or r.wanpan like ? or "
-//					+ "r.save_time like ? or r.microwave_oven like ? or r.recipe like ? or r.cooking_expenses like ? "
-//					+ "or r.eating_out_expenses like ? or r_c.u_id like ? or r_c.r_date like ? or r_c.r_count like ?";
+					sql += "or r.time like ? or r.wanpan like ? or "
+					+ "r.save_time like ? or r.microwave_oven like ? or r.recipe like ? or r.cooking_expenses like ? "
+					+ "or r.eating_out_expenses like ? or r_c.u_id like ? or r_c.r_date like ? or r_c.r_count like ?";
 			// 条件式がu_idとrec_idのみなので、他の検索条件の追加
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -57,42 +58,42 @@ public class RecipeDAO {
 				pStmt.setString(2, "%");
 			}
 			if (param.getTime() != null && !param.getTime().equals("")) {
-				pStmt.setString(3, param.getTime());
+				pStmt.setString(3, "%" + param.getTime() + "%");
 			} else {
-				pStmt.setString(3, null);
+				pStmt.setString(3, "%");
 			}
 			pStmt.setBoolean(4, param.getWanpan());
 			pStmt.setBoolean(5, param.getsSave_time());
 			pStmt.setBoolean(6, param.getsMicrowave_oven());
 			if (param.getRecipe() != null && !param.getRecipe().equals("")) {
-				pStmt.setString(7, param.getRecipe());
+				pStmt.setString(7, "%" + param.getRecipe());
 			} else {
-				pStmt.setString(7, null);
+				pStmt.setString(7, "%");
 			}
 			if (param.getCooking_expenses() != -1) {
-				pStmt.setInt(8, param.getCooking_expenses());
+				pStmt.setString(8, "%" + param.getCooking_expenses() + "%");
 			} else {
-				pStmt.setInt(8, -1);
+				pStmt.setString(8, "%");
 			}
 			if (param.getEating_out_expenses() != -1) {
-				pStmt.setInt(9, param.getEating_out_expenses());
+				pStmt.setString(9, "%" + param.getEating_out_expenses() + "%");
 			} else {
-				pStmt.setInt(9, -1);
+				pStmt.setString(9, "%");
 			}
 			if (param.getU_id() != null && !param.getU_id().equals("")) {
-				pStmt.setString(10, param.getU_id());
+				pStmt.setString(10, "%" + param.getU_id() + "%");
 			} else {
-				pStmt.setString(10, null);
+				pStmt.setString(10, "%");
 			}
 			if (param.getR_date() != null && !param.getU_id().equals("")) {
-				pStmt.setString(11, param.getU_id());
+				pStmt.setString(11, "%" + param.getU_id() + "%");
 			} else {
-				pStmt.setString(11, null);
+				pStmt.setString(11, "%");
 			}
 			if (param.getR_count() != -1) {
-				pStmt.setInt(12, param.getR_count());
+				pStmt.setString(12, "%" + param.getR_count() + "%");
 			} else {
-				pStmt.setInt(12, -1);
+				pStmt.setString(12, "%");
 			}
 
 			// SQL文を実行し、結果表を取得する
@@ -278,9 +279,9 @@ public class RecipeDAO {
 
 			// SQL文を準備する
 			String sql_r = "update recipes set r_name=?, time=?, image=?, wanpan=?, save_time=?, microwave_oven=?, recipe=?, "
-					+ "+ \"cooking_expenses=?, eating_out_expenses=? where rec_id=?";
-			String sql_c = "update recipe_counts set u_id=?, rec_id=?, r_date=?, r_count=? where u_id=? and rec_id=? and r_date=?";
-			String sql_i = "update recipe_ingredients set i_id=?, rec_id=?, ingredient=? where i_id=? and rec_id=?";
+					+ "+ \"cooking_expenses=?, eating_out_expenses=? where rec_id like ?";
+			String sql_c = "update recipe_counts set u_id=?, rec_id=?, r_date=?, r_count=? where u_id like ? and rec_id like ? and r_date like ?";
+			String sql_i = "update recipe_ingredients set i_id=?, rec_id=?, ingredient=? where i_id like ? and rec_id like ?";
 
 			PreparedStatement pStmt_r = conn.prepareStatement(sql_r);
 			PreparedStatement pStmt_c = conn.prepareStatement(sql_c);
@@ -323,9 +324,9 @@ public class RecipeDAO {
 				pStmt_r.setInt(9, -1);
 			}
 			if (recipe.getRec_id() != -1) {
-				pStmt_r.setInt(10, recipe.getRec_id());
+				pStmt_r.setString(10, "%" + recipe.getRec_id() + "%");
 			} else {
-				pStmt_r.setInt(10, -1);
+				pStmt_r.setString(10, "%");
 			}
 
 			if (recipe.getU_id() != null && !recipe.getU_id().equals("")) {
@@ -349,19 +350,19 @@ public class RecipeDAO {
 				pStmt_c.setInt(4, -1);
 			}
 			if (pre_recipe.getU_id() != null && !pre_recipe.getU_id().equals("")) {
-				pStmt_c.setString(5, pre_recipe.getU_id());
+				pStmt_c.setString(5, "%" + pre_recipe.getU_id() + "%");
 			} else {
-				pStmt_c.setString(5, null);
+				pStmt_c.setString(5, "%");
 			}
 			if (pre_recipe.getRec_id() != -1) {
-				pStmt_c.setInt(6, pre_recipe.getRec_id());
+				pStmt_c.setString(6, "%" + pre_recipe.getRec_id() + "%");
 			} else {
-				pStmt_c.setInt(6, -1);
+				pStmt_c.setString(6, "%");
 			}
 			if (pre_recipe.getR_date() != null) {
-				pStmt_c.setDate(7, pre_recipe.getR_date());
+				pStmt_c.setString(7, "%" + pre_recipe.getR_date() + "%");
 			} else {
-				pStmt_c.setDate(7, null);
+				pStmt_c.setString(7, "%");
 			}
 
 			for (String ingredient : recipe.getIngredient()) {
@@ -381,14 +382,14 @@ public class RecipeDAO {
 					pStmt_i.setString(3, null);
 				}
 				if (pre_recipe.getI_id() != -1) {
-					pStmt_i.setInt(4, pre_recipe.getI_id());
+					pStmt_i.setString(4, "%" + pre_recipe.getI_id() + "%");
 				} else {
-					pStmt_i.setInt(4, -1);
+					pStmt_i.setString(4, "%");
 				}
 				if (pre_recipe.getRec_id() != -1) {
-					pStmt_r.setInt(5, pre_recipe.getRec_id());
+					pStmt_r.setString(5, "%" + pre_recipe.getRec_id() + "%");
 				} else {
-					pStmt_r.setInt(5, -1);
+					pStmt_r.setString(5, "%");
 				}
 				flag = pStmt_i.executeUpdate();
 			}

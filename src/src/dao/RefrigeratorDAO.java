@@ -29,14 +29,19 @@ public class RefrigeratorDAO {
 					+ "r_t.num1, r_t.num2, r_t.num3, r_t.num4, r_t.num5, r_t.num6, r_t.num7, r_t.num8, r_t.num9"
 					+ "from refrigerators as r"
 					+ "left join refrigerator_texts as r_t on r.ref_id == r_t.ref_id"
-					+ "where r.u_id == ?";
+					+ "where r.u_id like ? or r.f_id like ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			if (param.getRef_id() != -1) {
-				pStmt.setString(1, "%" + param.getRef_id() + "%");
+				pStmt.setString(1, "%" + param.getU_id() + "%");
 			} else {
 				pStmt.setString(1, "%");
+			}
+			if (param.getF_id() != -1) {
+				pStmt.setString(2, "%" + param.getF_id() + "%");
+			} else {
+				pStmt.setString(2, "%");
 			}
 
 			// SQL文を実行し、結果表を取得する
@@ -181,9 +186,9 @@ public class RefrigeratorDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql_r = "update refrigerators set u_id=?, f_id=?, f_count=? where ref_id=? and u_id=? and f_id=?";
+			String sql_r = "update refrigerators set u_id=?, f_id=?, f_count=? where ref_id like ? and u_id like ? and f_id like ?";
 			String sql_t = "update refrigerator_texts set text1=?, text2=?, text3=?, text4=?, text5=?, text6=?, text7=?, text8=?, text9=?, "
-					+ "num1=?, num2=?, num3=?, num4=?, num5=?, num6=?, num7=?, num8=?, num9=? where ref_id=?";
+					+ "num1=?, num2=?, num3=?, num4=?, num5=?, num6=?, num7=?, num8=?, num9=? where ref_id like ?";
 
 			PreparedStatement pStmt_r = conn.prepareStatement(sql_r);
 			PreparedStatement pStmt_t = conn.prepareStatement(sql_t);
@@ -205,19 +210,19 @@ public class RefrigeratorDAO {
 				pStmt_r.setDouble(3, -1);
 			}
 			if (refrigerator.getRef_id() != -1) {
-				pStmt_r.setInt(4, refrigerator.getRef_id());
+				pStmt_r.setString(4, "%" + refrigerator.getRef_id() + "%");
 			} else {
-				pStmt_r.setInt(4, -1);
+				pStmt_r.setString(4, "%");
 			}
 			if (pre_refrigerator.getU_id() != null && !pre_refrigerator.getU_id().equals("")) {
-				pStmt_r.setString(5, pre_refrigerator.getU_id());
+				pStmt_r.setString(5, "%" + pre_refrigerator.getU_id() + "%");
 			} else {
-				pStmt_r.setString(5, null);
+				pStmt_r.setString(5, "%");
 			}
 			if (pre_refrigerator.getF_id() != -1) {
-				pStmt_r.setInt(6, pre_refrigerator.getF_id());
+				pStmt_r.setString(6, "%" + pre_refrigerator.getF_id() + "%");
 			} else {
-				pStmt_r.setInt(6, -1);
+				pStmt_r.setString(6, "%");
 			}
 
 			int i = 1;
@@ -233,9 +238,9 @@ public class RefrigeratorDAO {
 			}
 
 			if (refrigerator.getRef_id() != -1) {
-				pStmt_t.setInt(19, refrigerator.getRef_id());
+				pStmt_t.setString(19, "%" + refrigerator.getRef_id() + "%");
 			} else {
-				pStmt_t.setInt(19, -1);
+				pStmt_t.setString(19, "%");
 			}
 
 			// SQL文を実行する

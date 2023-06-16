@@ -25,12 +25,12 @@ public class CalendarDAO {
 					+ " recipes.r_name ,recipes.cooking_expenses ,recipes.eating_out_expenses"
 					+ "from calendars left join recipes"
 					+ "on calendars.rec_id = recipes.rec_id"
-					+ "where calendars.u_id = ? ";
+					+ "where calendars.u_id like ? ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる(?を埋める)
 			if (calendar.getU_id() != null) {
-				pStmt.setString(1, calendar.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+				pStmt.setString(1, "%" + calendar.getU_id() + "%"); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
 			} else {
 				pStmt.setString(1, "%");
 
@@ -152,7 +152,7 @@ public class CalendarDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "update calendars set c_count=? where u_id=? and rec_id=? and date=?";
+			String sql = "update calendars set c_count=? where u_id like ? and rec_id like ? and date like ?";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -164,19 +164,19 @@ public class CalendarDAO {
 				pStmt.setInt(1, -1);
 			}
 			if (calendar.getU_id() != null && !calendar.getU_id().equals("")) {
-				pStmt.setString(2, calendar.getU_id());
+				pStmt.setString(2, "%" + calendar.getU_id() + "%");
 			} else {
-				pStmt.setString(2, null);
+				pStmt.setString(2, "%");
 			}
 			if (calendar.getRec_id() != -1) {
-				pStmt.setInt(3, calendar.getRec_id());
+				pStmt.setString(3, "%" + calendar.getRec_id() + "%");
 			} else {
-				pStmt.setInt(3, -1);
+				pStmt.setString(3, "%");
 			}
 			if (calendar.getDate() != null) {
-				pStmt.setDate(4, calendar.getDate());
+				pStmt.setString(4, "%" + calendar.getDate() + "%");
 			} else {
-				pStmt.setDate(4, null);
+				pStmt.setString(4, "%");
 			}
 
 			// SQL文を実行する

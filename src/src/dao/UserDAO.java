@@ -21,11 +21,11 @@ public class UserDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SELECT文を準備する
-			String sql = "select count(*) from users where u_id = ? and password = ? and position = ?";
+			String sql = "select count(*) from users where u_id = ? and password like ? and position like ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, param.getU_id());
-			pStmt.setString(2, param.getPassword());
-			pStmt.setInt(3, param.getPosition());
+			pStmt.setString(1, "%" + param.getU_id() + "%");
+			pStmt.setString(2, "%" + param.getPassword() + "%");
+			pStmt.setString(3, "%" + param.getPosition() + "%");
 			// SELECT文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			// ユーザーIDとパスワードが一致するユーザーがいたかどうかをチェックする
@@ -67,19 +67,19 @@ public class UserDAO {
 			String sql_lf = "select users.u_id, users.password, user_likefoods.lf_id from users "
 					+ "left join user_likefoods on users.u_id = user_likefoods.u_id "
 					+ "left join foods on foods.f_id = user_likefoods.lf_id"
-					+ "where users.u_id = ?";
+					+ "where users.u_id like ?";
 			String sql_df = "select users.u_id, user_dislikefoods.df_id from users"
 					+ "left join user_dislikefoods on users.u_id = user_dislikefoods.u_id "
 					+ "left join foods on foods.f_id = user_dislikefoods.df_id"
-					+ "where users.u_id = ?";
+					+ "where users.u_id like ?";
 
 			PreparedStatement pStmt_lf = conn.prepareStatement(sql_lf);
 			PreparedStatement pStmt_df = conn.prepareStatement(sql_df);
 
 			// SQL文を完成させる(?を埋める)
 			if (param.getU_id() != null) {
-				pStmt_lf.setString(1, param.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
-				pStmt_df.setString(1, param.getU_id());
+				pStmt_lf.setString(1, "%" + param.getU_id() + "%"); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+				pStmt_df.setString(1, "%" + param.getU_id() + "%");
 			} else {
 				pStmt_lf.setString(1, "%");
 				pStmt_df.setString(1, "%");
@@ -239,8 +239,8 @@ public class UserDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SQL文を準備する
 			String sql_u = "update users set password=?, where u_id=?";
-			String sql_l = "update user_likefoods set lf_id=? where u_id=? and lf_id=?";
-			String sql_d = "update user_dislikefoods set df_id=? where u_id=? and df_id=?";
+			String sql_l = "update user_likefoods set lf_id=? where u_id like ? and lf_id like ?";
+			String sql_d = "update user_dislikefoods set df_id=? where u_id like ? and df_id like ?";
 
 			PreparedStatement pStmt_u = conn.prepareStatement(sql_u);
 			PreparedStatement pStmt_l = conn.prepareStatement(sql_l);
@@ -256,9 +256,9 @@ public class UserDAO {
 				pStmt_u.setString(1, null);
 			}
 			if (user.getU_id() != null && !user.getU_id().equals("")) {
-				pStmt_u.setString(2, user.getU_id());
+				pStmt_u.setString(2, "%" + user.getU_id() + "%");
 			} else {
-				pStmt_u.setString(2, null);
+				pStmt_u.setString(2, "%");
 			}
 
 			for (int i=0; i< user.getLf_id().size(); i++) {
@@ -273,9 +273,9 @@ public class UserDAO {
 					pStmt_l.setString(2, null);
 				}
 				if (pre_user.getDf_id() != null) {
-					pStmt_l.setInt(3, pre_user.getLf_id().get(i));
+					pStmt_l.setString(3, "%" + pre_user.getLf_id().get(i) + "%");
 				} else {
-					pStmt_l.setInt(3, -1);
+					pStmt_l.setString(3, "%");
 				}
 				flag_l = pStmt_l.executeUpdate();
 			}
@@ -287,14 +287,14 @@ public class UserDAO {
 					pStmt_d.setInt(1, -1);
 				}
 				if (user.getU_id() != null && !user.getU_id().equals("")) {
-					pStmt_d.setString(2, user.getU_id());
+					pStmt_d.setString(2, "%" + user.getU_id() + "%");
 				} else {
-					pStmt_d.setString(2, null);
+					pStmt_d.setString(2, "%");
 				}
 				if (pre_user.getDf_id() != null) {
-					pStmt_d.setInt(3, pre_user.getDf_id().get(i));
+					pStmt_d.setString(3, "%" + pre_user.getDf_id().get(i) + "%");
 				} else {
-					pStmt_d.setInt(3, -1);
+					pStmt_d.setString(3, "%");
 				}
 				flag_d = pStmt_d.executeUpdate();
 			}
