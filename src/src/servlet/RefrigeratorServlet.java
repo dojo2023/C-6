@@ -42,6 +42,8 @@ public class RefrigeratorServlet extends HttpServlet {
 		LoginUser loginUser = (LoginUser) session.getAttribute("id");
 		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId()));
 
+		request.setAttribute("refrigerator", refrigerator);
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/refrigerator.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -59,13 +61,11 @@ public class RefrigeratorServlet extends HttpServlet {
 
 		// user idからその人の冷蔵庫をsetしてる
 		LoginUser loginUser = (LoginUser) session.getAttribute("id");
-		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId()));
-
 		int f_id = ((Integer) (request.getAttribute("foods"))).intValue();
-		List<Refrigerator> pre_refrigerator = rDAO.select(new Refrigerator(f_id));
+		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
+		List<Refrigerator> pre_refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
 
-		// 値を変更する処理
-		// set~~~~~
+		pre_refrigerator.get(0).setF_count(pre_refrigerator.get(0).getF_count() +1);
 
 		// updateする
 		rDAO.update(refrigerator.get(0), pre_refrigerator.get(0));
