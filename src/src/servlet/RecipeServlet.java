@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.RecipeDAO;
+import model.Recipe;
 import model.Recipes;
 
 
@@ -33,16 +33,30 @@ public class RecipeServlet extends HttpServlet {
 					response.sendRedirect("/NMW/LoginServlet");
 					return;
 				}
-				// リクエストパラメータを取得する
 				request.setCharacterEncoding("UTF-8");
-				List<Recipes> recipes = new ArrayList<Recipes>();
-				recipes.add((Recipes)request.getAttribute("rec_id"));
+
+				/*
+				// リクエストパラメータを取得する
+				List<Recipe> recipe = new ArrayList<Recipe>();
+				recipe.add((Recipe)request.getAttribute("rec_id"));
 
 				RecipeDAO rDAO = new RecipeDAO();
-				List<Recipes> recipe = rDAO.select(new Recipes(recipes));
+				List<Recipes> recipe1 = rDAO.select(new Recipes(recipes));
 
 				// 検索結果をリクエストスコープに格納する
 				request.setAttribute("recipe", recipe);
+				*/
+
+				 //  Recipes recipes
+
+				  int rec_id=(Integer)(request.getAttribute("rec_id"));
+				  Recipe r = new Recipe(rec_id);
+				  Recipes recipes = new Recipes(r);
+
+				  RecipeDAO rDAO = new RecipeDAO();
+				  List<Recipe> recipe = rDAO.select(recipes);
+
+				  request.setAttribute("recipe", recipe);
 
 				// 結果ページにフォワードする
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/mainFood.jsp");
