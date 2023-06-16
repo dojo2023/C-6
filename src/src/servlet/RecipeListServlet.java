@@ -55,7 +55,9 @@ public class RecipeListServlet extends HttpServlet {
 				RecipeDAO reDao = new RecipeDAO();
 				List<Recipe> recipesList = reDao.select(recipes);
 
-		// 検索の時と、詳細表示の2つのformの識別(valueで)
+		/* 検索の時と、詳細表示の2つのformの識別(valueで)
+		 * <form name = "" value="">を使ってサーブレットのgetAttriで受け取れる
+		 * form name（呼び出し名）は統一。value（要素）を分ける。 */
 	}
 
 	/**
