@@ -29,7 +29,7 @@ public class RefrigeratorDAO {
 					+ "r_t.num1, r_t.num2, r_t.num3, r_t.num4, r_t.num5, r_t.num6, r_t.num7, r_t.num8, r_t.num9"
 					+ "from refrigerators as r"
 					+ "left join refrigerator_texts as r_t on r.ref_id == r_t.ref_id"
-					+ "where r.ref_id == ?";
+					+ "where r.u_id == ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
