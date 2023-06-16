@@ -21,12 +21,13 @@ public class Recipe implements Serializable {
 	private int r_count;
 	private int i_id;
 	private List<String> ingredient = new ArrayList<>();
+	private Double r_i_count;
 
 	// 2種類のコンストラクタの追加
 	public Recipe(int rec_id, String r_name, String time, String image,
 			boolean wanpan, boolean save_time, boolean microwave_oven,
 			String recipe, int cooking_expenses, int eating_out_expenses,
-			String u_id, Date r_date, int r_count, int i_id, String ingredient) {
+			String u_id, Date r_date, int r_count, int i_id, String ingredient, Double r_i_count) {
 		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
 		java.util.Date utilDate = sqlNow;
 
@@ -45,6 +46,7 @@ public class Recipe implements Serializable {
 		this.r_count = r_count;
 		this.i_id = i_id;
 		this.ingredient.add(ingredient);
+		this.r_i_count = r_i_count;
 	}
 
 	public Recipe(String r_name, boolean wanpan, boolean save_time, boolean microwave_oven) {
@@ -62,6 +64,7 @@ public class Recipe implements Serializable {
 		this.r_count = -1;
 		this.i_id = -1;
 		this.ingredient.add("");
+		this.r_i_count = -1.0;
 	}
 
 	public Recipe() {
@@ -83,6 +86,7 @@ public class Recipe implements Serializable {
 		this.r_count = -1;
 		this.i_id = -1;
 		this.ingredient.add("");
+		this.r_i_count = -1.0;
 	}
 	//レシピ一覧表示時の空検索用コンストラクタの追加
 	public Recipe(int rec_id) {
@@ -104,6 +108,7 @@ public class Recipe implements Serializable {
 		this.r_count = -1;
 		this.i_id = -1;
 		this.ingredient.add("");
+		this.r_i_count = -1.0;
 	}
 	// get, setメソッドの追加
 	public int getRec_id() {
@@ -224,6 +229,14 @@ public class Recipe implements Serializable {
 
 	public void setIngredient(List<String> ingredient) {
 		this.ingredient = ingredient;
+	}
+
+	public Double getR_i_count() {
+		return r_i_count;
+	}
+
+	public void setR_i_count(Double r_i_count) {
+		this.r_i_count = r_i_count;
 	}
 
 }
