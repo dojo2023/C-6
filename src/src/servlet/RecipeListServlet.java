@@ -50,11 +50,12 @@ public class RecipeListServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 
 		// setした値をgetAttributeで取得して、selectで検索する（主要食材）
-		request.getAttribute("recipes");
+		Recipes recipes = (Recipes)request.getAttribute("recipes");
 		// 複数要素によるレシピ検索処理を行う
 				RecipeDAO reDao = new RecipeDAO();
 				List<Recipe> recipesList = reDao.select(recipes);
 
+		// 検索の時と、詳細表示の2つのformの識別(valueで)
 	}
 
 	/**
@@ -68,6 +69,7 @@ public class RecipeListServlet extends HttpServlet {
 			response.sendRedirect("/NMW/LoginServlet");
 			return;
 		}
+		request.setCharacterEncoding("UTF-8");
 		// jspから検索条件をgetParameterで抽出する
 		// setAttribute()で設定する
 		// RecipeListServletに送る
@@ -85,11 +87,13 @@ public class RecipeListServlet extends HttpServlet {
 			c_id.add(Boolean.parseBoolean(c_list));
 		}
 
-		Recipes recipes = null;
+		Recipes recipes = new Recipes();
+		List<Recipe> recipe_list = new ArrayList<Recipe>();
 
 		for(int i=0; i<f_name.length; i++) {
-			recipes = new Recipes(new Recipe(f_name[i], c_id.get(0), c_id.get(1), c_id.get(2)));
+			recipe_list.add(new Recipe(f_name[i], c_id.get(0), c_id.get(1), c_id.get(2)));
 		}
+		recipes.setRecipes(recipe_list);
 
 		// setAttribute()で設定する
 		request.setAttribute("recipes", recipes);
@@ -98,6 +102,16 @@ public class RecipeListServlet extends HttpServlet {
 		RequestDispatcher dispatcherC = request.getRequestDispatcher("/NMW/src/servlet/RecipeListServlet.java");
 		dispatcherC.forward(request, response);
 
+		// レシピ一覧からレシピ詳細へフォワード処理
+		// リクエストパラメータを取得する
+
+		String rec_id = (request.getParameter("rec_id"));
+
+		request.setAttribute("rec_id", rec_id);
+
+		// レシピ詳細ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/RecipeServlet.java");
+		dispatcher.forward(request, response);
 
 		// ↓流れ
 		// jspから検索条件をgetParameterで抽出する（完成）
@@ -105,7 +119,6 @@ public class RecipeListServlet extends HttpServlet {
 		// setAttribute()で設定する
 		// setした値をgetAttributeで取得して、selectで検索する
 		// RecipeListServletに送る
-		request.setAttribute("f_name", f_name);
 	}
 
 }
