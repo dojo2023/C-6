@@ -54,7 +54,7 @@ public class CalendarServlet extends HttpServlet {
 			eatingOutExpensese[i] = 0;
 		}
 
-//		 配列の日付番目に値段データの格納
+		// 配列の日付番目に値段データの格納
 		for (Calendar c : calendar) {
 			// Date => String => int
 			cookingExpenses[Integer.parseInt(String.valueOf(c.getDate()))] = Integer
@@ -70,9 +70,10 @@ public class CalendarServlet extends HttpServlet {
         //Calendarの日付をSimpleDateFormatで指定した書式で文字列に変換
         cal.set(java.util.Calendar.DATE, 1);
 
-		int c_e_weekSum[] = new int[5];
-		int e_o_weekSum[] = new int[5];
-		int diff_weekSum[] = new int[5];
+        int weekMax = cal.getActualMaximum(java.util.Calendar.WEEK_OF_MONTH);
+		int c_e_weekSum[] = new int[weekMax];
+		int e_o_weekSum[] = new int[weekMax];
+		int diff_weekSum[] = new int[weekMax];
 
 		// 配列の初期化
 		for (int i = 0; i < c_e_weekSum.length; i++) {
