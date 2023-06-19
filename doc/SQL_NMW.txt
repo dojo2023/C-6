@@ -8,11 +8,47 @@ jdbc:h2:file:C:/pleiades/workspace/data/NMW
 sa		（なし）
 
 【IDPWテーブルを作成するSQL文】
-CREATE TABLE USERS (
+DROP TABLE calendars;
+
+CREATE TABLE users (
   u_id VARCHAR(20) PRIMARY KEY,
   password VARCHAR(20) NOT NULL,
   position int default 1
 );
 
+CREATE TABLE recipes(
+  rec_id int PRIMARY KEY AUTO_INCREMENT,
+  r_name VARCHAR(50), 
+  time VARCHAR(30),
+  image VARCHAR(50),
+  wanpan BOOLEAN DEFAULT FALSE,
+  save_time BOOLEAN DEFAULT FALSE,
+  microwave_oven BOOLEAN DEFAULT FALSE,
+  recipe VARCHAR(600),
+  cooking_expenses int,
+  eating_out_expenses int
+)
+
+CREATE TABLE calendars(
+  u_id VARCHAR(20),
+  rec_id int NOT NULL,
+  date DATE,
+  c_count int,
+  PRIMARY KEY(u_id, rec_id, date)
+);
+
 【IDPWテーブルにサンプルデータを登録するSQL文】
 INSERT INTO users (u_id, password) VALUES ('DOJO', 'password');
+
+
+INSERT INTO recipes (r_name, time, image, wanpan, save_time, microwave_oven, recipe, cooking_expenses, eating_out_expenses) VALUES ('簡単ランチ♡から揚げの卵とじ丼', '10~15m', '/img/tamagotozidon', TRUE, TRUE, FALSE, '唐揚げは食べやすい大きさにカット
+*冷たい場合はレンジで少し加熱しておいても
+玉葱と椎茸（お好みの茸でOK）はスライス
+フライパンに◎を入れ、煮立ったら玉葱と椎茸を加えて煮る
+から揚げを加え、2分位煮る
+溶き卵を回し入れ　半熟になってきたら火を止め、蓋をして蒸らす
+器に温かいご飯を盛り ４をのせる
+お好みで 葱や三つ葉、海苔等をのせたり 七味を振っても♬', 300, 1200);
+
+
+INSERT INTO calendars (u_id, rec_id, date, c_count) VALUES ('DOJO', '001', '2023-06-19', 1);
