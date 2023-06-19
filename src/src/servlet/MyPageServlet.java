@@ -57,10 +57,13 @@ public class MyPageServlet extends HttpServlet {
 				return;
 		}
 		//myPageEditサーブレットへユーザーIDを持った状態で遷移
-		request.setAttribute("id" ,request.getParameter("id"));
+		LoginUser loginUser = (LoginUser) session.getAttribute("id");
+		request.setAttribute("loginUser" ,loginUser);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/myPageEditServlet");
 		dispatcher.forward(request, response);
+
+
 	}
 
 }
