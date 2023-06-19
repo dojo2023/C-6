@@ -66,7 +66,25 @@ public class Recipe implements Serializable {
 		this.ingredient.add("");
 		this.r_i_count = -1.0;
 	}
+	public Recipe(int rec_id, String u_id, Date r_date) {
 
+		this.rec_id = rec_id;
+		this.r_name = "";
+		this.time = "";
+		this.image = "";
+		this.wanpan = false;
+		this.save_time = false;
+		this.microwave_oven = false;
+		this.recipe = "";
+		this.cooking_expenses = -1;
+		this.eating_out_expenses = -1;
+		this.u_id = u_id;
+		this.r_date = r_date;
+		this.r_count = -1;
+		this.i_id = -1;
+		this.ingredient.add("");
+		this.r_i_count = -1.0;
+	}
 	public Recipe() {
 		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
 		java.util.Date utilDate = sqlNow;
