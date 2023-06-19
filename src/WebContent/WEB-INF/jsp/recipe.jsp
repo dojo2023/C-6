@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>レシピ</title>
 </head>
 <body>
 <!-- ヘッダーここから -->
@@ -18,6 +18,22 @@
 <!-- ヘッダーここまで -->
 <!-- メインここから -->
 <h2>からあげ丼</h2>
+	<img src = "/NMW/img/zitan.png">10-15分
+	<img src = "/NMW/img/zisui.png">\300
+	<img src = "/NMW/img/gaisyoku.png">\1200
+
+	<p>材料　(1人前)</p>
+	材料を表示
+
+	<p>作り方</p>
+	作り方を表示
+
+
+	<button type="submit">レシピを使用</button>
+	<button type="reset">回数リセット</button>
+
+	<img src="/NMW/img/logo_resipiro-.png">
+	<p>本日1回料理したピヨ</p>
 
 <!-- メインここまで -->
 <!-- フッターここから -->
