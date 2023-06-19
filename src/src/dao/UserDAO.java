@@ -21,11 +21,11 @@ public class UserDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SELECT文を準備する
-			String sql = "select count(*) from users where u_id = ? and password like ? and position like ?";
+			String sql = "select count(*) from users where u_id = ? and password = ? and position = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			pStmt.setString(1, "%" + param.getU_id() + "%");
-			pStmt.setString(2, "%" + param.getPassword() + "%");
-			pStmt.setString(3, "%" + param.getPosition() + "%");
+			pStmt.setString(1, param.getU_id());
+			pStmt.setString(2, param.getPassword());
+			pStmt.setInt(3, param.getPosition());
 			// SELECT文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			// ユーザーIDとパスワードが一致するユーザーがいたかどうかをチェックする
