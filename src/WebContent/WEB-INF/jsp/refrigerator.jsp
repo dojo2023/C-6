@@ -40,7 +40,7 @@
 	<button type= "submit" name= "food" value= "tamago"></button>
 	<button type= "submit" name= "food" value= "gyuuniku"></button>
 	<button type= "submit" name= "food" value= "butaniku"></button>
-	<button type= "submit" name= "food" value= "torimiki"></button>
+	<button type= "submit" name= "food" value= "toriniku"></button>
 <!-- メインここまで -->
 <!-- フッターここから -->
 <p>&copy; Copyright recipiro-kun. All rights reserverd.</p>

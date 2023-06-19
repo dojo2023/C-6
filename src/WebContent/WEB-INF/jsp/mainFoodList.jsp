@@ -38,7 +38,7 @@
 	<button type= "submit" name= "food" value= "tamago"></button>
 	<button type= "submit" name= "food" value= "gyuuniku"></button>
 	<button type= "submit" name= "food" value= "butaniku"></button>
-	<button type= "submit" name= "food" value= "torimiki"></button>
+	<button type= "submit" name= "food" value= "toriniku"></button>
 
 	<p>クリックすると、食材の詳細を閲覧できるピヨ</p>
 	<p>これで食材保存も完璧だっピ！</p>
