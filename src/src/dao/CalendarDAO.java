@@ -21,18 +21,18 @@ public class CalendarDAO {
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SELECT文を準備する
-			String sql = "select calendars.u_id ,calendars.rec_id , calendars.date ,calendars.c_count ,"
-					+ " recipes.r_name ,recipes.cooking_expenses ,recipes.eating_out_expenses"
+			String sql = "select calendars.u_id, calendars.rec_id, calendars.date, calendars.c_count, "
+					+ " recipes.r_name, recipes.cooking_expenses, recipes.eating_out_expenses"
 					+ "from calendars left join recipes"
 					+ "on calendars.rec_id = recipes.rec_id"
-					+ "where calendars.u_id like ? ";
+					+ "where calendars.u_id = ? ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる(?を埋める)
 			if (calendar.getU_id() != null) {
-				pStmt.setString(1, "%" + calendar.getU_id() + "%"); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+				pStmt.setString(1, calendar.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
 			} else {
-				pStmt.setString(1, "%");
+				pStmt.setString(1, null);
 
 			}
 
