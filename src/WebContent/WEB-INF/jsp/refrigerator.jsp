@@ -29,6 +29,7 @@
 	</a>
 
 	<p>冷蔵庫</p>
+	<select></select>
 
 	<button type= "submit" name= "food" value= "negi"></button>
 	<button type= "submit" name= "food" value= "kyuuri"></button>
