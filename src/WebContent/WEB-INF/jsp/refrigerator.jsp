@@ -9,9 +9,7 @@
 <body>
 <!-- ヘッダーここから -->
 <h1>れしぴろーくん</h1>
-<!-- ヘッダーここまで -->
 
-<!-- メインここから -->
 	<a href="/NMW/RefrigeratorServlet.java">
 	冷蔵庫
 	</a>
@@ -27,7 +25,8 @@
 	<a href="NMW/MyPageServlet.java">
 	マイページ
 	</a>
-
+<!-- ヘッダーここまで -->
+<!-- メインここから -->
 	<p>冷蔵庫</p>
 	<select></select>
 
