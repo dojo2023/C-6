@@ -20,6 +20,7 @@ public class Recipe implements Serializable {
 	private Date r_date;
 	private int r_count;
 	private int i_id;
+	private int f_id;
 	private List<String> ingredient = new ArrayList<>();
 	private Double r_i_count;
 
@@ -27,7 +28,7 @@ public class Recipe implements Serializable {
 	public Recipe(int rec_id, String r_name, String time, String image,
 			boolean wanpan, boolean save_time, boolean microwave_oven,
 			String recipe, int cooking_expenses, int eating_out_expenses,
-			String u_id, Date r_date, int r_count, int i_id, String ingredient, Double r_i_count) {
+			String u_id, Date r_date, int r_count, int i_id, int f_id, String ingredient, Double r_i_count) {
 		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
 		java.util.Date utilDate = sqlNow;
 
@@ -45,6 +46,7 @@ public class Recipe implements Serializable {
 		this.r_date = new Date(utilDate.getTime());
 		this.r_count = r_count;
 		this.i_id = i_id;
+		this.f_id = f_id;
 		this.ingredient.add(ingredient);
 		this.r_i_count = r_i_count;
 	}
@@ -253,6 +255,14 @@ public class Recipe implements Serializable {
 
 	public void setR_i_count(Double r_i_count) {
 		this.r_i_count = r_i_count;
+	}
+
+	public int getF_id() {
+		return f_id;
+	}
+
+	public void setF_id(int f_id) {
+		this.f_id = f_id;
 	}
 
 }
