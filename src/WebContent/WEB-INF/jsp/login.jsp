@@ -13,19 +13,19 @@
 
 <!-- メインここから -->
 <h2>ログイン</h2>
-<form id= login method="POST" action="/NMW/LoginServlet">
+<form id="login" method="POST" action="/NMW/LoginServlet">
 	<table>
 		<tr>
 			<td>
 				<label>ID<br>
-				<input type="text" name="ID">
+				<input type="text" name="ID" value="DOJO">
 				</label>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>パスワード<br>
-				<input type="password" name="PW">
+				<input type="password" name="PW" value="password">
 				</label>
 			</td>
 		</tr>

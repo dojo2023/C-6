@@ -8,10 +8,11 @@ jdbc:h2:file:C:/pleiades/workspace/data/NMW
 sa		（なし）
 
 【IDPWテーブルを作成するSQL文】
-CREATE TABLE IDPW (
-  ID VARCHAR(20) PRIMARY KEY,
-  PW VARCHAR(20) NOT NULL
+CREATE TABLE USERS (
+  u_id VARCHAR(20) PRIMARY KEY,
+  password VARCHAR(20) NOT NULL
+  position int default 1
 );
 
 【IDPWテーブルにサンプルデータを登録するSQL文】
-INSERT INTO IDPW (ID, PW) VALUES ('DOJO', 'password');
+INSERT INTO users (u_id, password,position) VALUES ('DOJO', 'password','');
