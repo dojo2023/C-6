@@ -19,7 +19,7 @@ public class Calendar implements Serializable {
 
 		this.u_id = u_id;
 		this.rec_id = rec_id;
-		this.date = new Date(utilDate.getTime());
+		this.date = new Date(utilDate.getTime());	// YYYY-MM-DD
 		this.c_count = c_count;
 		this.r_name = r_name;
 		this.cooking_expenses = cooking_expenses;
@@ -34,6 +34,16 @@ public class Calendar implements Serializable {
 		this.r_name = r_name;
 		this.cooking_expenses = cooking_expenses;
 		this.eating_out_expenses = eating_out_expenses;
+	}
+
+	public Calendar(String u_id) {
+		this.u_id = u_id;
+		this.rec_id = -1;
+		this.date = null;
+		this.c_count = -1;
+		this.r_name = "";
+		this.cooking_expenses = -1;
+		this.eating_out_expenses = -1;
 	}
 
 	public Calendar() {

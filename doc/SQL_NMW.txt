@@ -1,0 +1,18 @@
+【ドライバ】
+org.h2.Driver
+
+【JDBC URL】
+jdbc:h2:file:C:/pleiades/workspace/data/NMW
+
+【ユーザー名】	【パスワード】
+sa		（なし）
+
+【IDPWテーブルを作成するSQL文】
+CREATE TABLE USERS (
+  u_id VARCHAR(20) PRIMARY KEY,
+  password VARCHAR(20) NOT NULL,
+  position int default 1
+);
+
+【IDPWテーブルにサンプルデータを登録するSQL文】
+INSERT INTO users (u_id, password) VALUES ('DOJO', 'password');

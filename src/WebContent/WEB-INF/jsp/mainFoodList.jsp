@@ -10,11 +10,11 @@
 <!-- ヘッダーここから -->
 <h1>れしぴろーくん</h1>
 
-	<a href="/NMW/RefrigeratorServlet.java">冷蔵庫</a>
-	<a href="NMW/RecipeListServlet.java">レシピ</a>
-	<a href="NMW/MainFoodListServlet.java">食材管理</a>
-	<a href="NMW/CalendarServlet.java">カレンダー</a>
-	<a href="NMW/MyPageServlet.java">マイページ</a>
+	<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
+	<a href="/NMW/RecipeListServlet">レシピ</a>
+	<a href="/NMW/MainFoodListServlet">食材管理</a>
+	<a href="/NMW/CalendarServlet">カレンダー</a>
+	<a href="/NMW/MyPageServlet">マイページ</a>
 <!-- ヘッダーここまで -->
 
 <!-- メインここから -->
@@ -38,7 +38,7 @@
 	<button type= "submit" name= "food" value= "tamago"></button>
 	<button type= "submit" name= "food" value= "gyuuniku"></button>
 	<button type= "submit" name= "food" value= "butaniku"></button>
-	<button type= "submit" name= "food" value= "torimiki"></button>
+	<button type= "submit" name= "food" value= "toriniku"></button>
 
 	<p>クリックすると、食材の詳細を閲覧できるピヨ</p>
 	<p>これで食材保存も完璧だっピ！</p>
