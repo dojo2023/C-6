@@ -22,6 +22,13 @@ public class User implements Serializable{
 		this.df_id.add(df_id);
 	}
 
+	public User(String u_id, String password, List<Integer> lf_id, List<Integer> df_id) {
+		this.u_id = u_id;
+		this.password = password;
+		this.lf_id = lf_id;
+		this.df_id = df_id;
+	}
+
 	public User(String u_id, String password, int lf_id, int df_id) {
 		this.u_id = u_id;
 		this.password = password;
