@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,20 @@
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
 	<p>冷蔵庫</p>
+
+	<c:forEach var="refrigerator" items="${ refrigerator }" varStatus="status">
+		<img src="/NMW/img/${ refrigerator.image }" width="50">
+	</c:forEach>
+
 	<select></select>
+
+	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
+		<form action="/NMW//NMW/RefrigeratorServlet" method="post">
+			<button type="submit" name="food" value="${ mainFood.f_id }">
+				<img src="/NMW/img/${ mainFood.image }" width="50">
+			</button>
+		</form>
+	</c:forEach>
 
 	<button type="submit" name="food" value="negi">
 		<img src="/NMW/img/refrigerator/naganegi.png" width="50">
