@@ -36,11 +36,14 @@ public class RecipeListServlet extends HttpServlet {
 			return;
 		}
 
+        //レシピ一覧の表示
 		int rec_id = Integer.parseInt(request.getParameter("rec_id"));
+		Recipe r = new Recipe(rec_id);
+		Recipes rs = new Recipes(r);
 
 		// 検索処理を行う
 		RecipeDAO rDao = new RecipeDAO();
-		List<Recipe> recipeList = rDao.select(new Recipe(rec_id));
+		List<Recipe> recipeList = rDao.select(rs);
 
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("recipeList", recipeList);
