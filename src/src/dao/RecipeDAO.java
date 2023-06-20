@@ -167,12 +167,12 @@ public class RecipeDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "select r.rec_id, r.r_name, r.time, r.image, r.wanpan, r.save_time, r.microwave_oven, "
-					+ "r.recipe, r.cooking_expenses, r.eating_out_expenses"
-					+ "from recipes as r"
-					+ "where r.rec_id like ? or r.r_name like ? or r.time like ? or r.wanpan like ? or "
-					+ "r.save_time like ? or r.microwave_oven like ? or r.recipe like ? or r.cooking_expenses like ? "
-					+ "or r.eating_out_expenses like ?";
+			String sql = "select rec_id, r_name, time, image, wanpan, save_time, microwave_oven, "
+					+ "recipe, cooking_expenses, eating_out_expenses"
+					+ "from recipes"
+					+ "where rec_id like ? or r_name like ? or time like ? or wanpan like ? or "
+					+ "save_time like ? or microwave_oven like ? or recipe like ? or cooking_expenses like ? "
+					+ "or eating_out_expenses like ?";
 			// 条件式がu_idとrec_idのみなので、他の検索条件の追加
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
