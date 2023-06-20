@@ -8,7 +8,9 @@
 </head>
 <body>
 <!-- ヘッダーここから -->
-<h1>れしぴろーくん</h1>
+<header>
+	<h1>れしぴろーくん</h1>
+</header>
 <!-- ヘッダーここまで -->
 
 <!-- メインここから -->
@@ -39,7 +41,9 @@
 </form>
 <!-- メインここまで -->
 <!-- フッターここから -->
-<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
+<footer>
+	<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
+</footer>
 <!-- フッターここまで -->
 </body>
 </html>
