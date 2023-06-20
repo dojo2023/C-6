@@ -26,6 +26,8 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		request.setAttribute("error", "");
 		// ログインページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
@@ -57,6 +59,8 @@ public class LoginServlet extends HttpServlet {
 				// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
 //				request.setAttribute("result",
 //				new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/NMW/LoginServlet"));
+
+				request.setAttribute("error", "ID、パスワードが一致しません。");
 
 				// 結果ページにフォワードする
 //				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");

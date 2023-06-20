@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,7 @@
 <form id="login_form" method="POST" action="/NMW/LoginServlet" onSubmit="return check()">
 	<ul>
 		<li>
-			<p id="error_message"></p>
+			<p id="error_message">${error}</p>
 			<label>ID<br>
 			<input type="text" name="ID" value="DOJO">
 			</label>
