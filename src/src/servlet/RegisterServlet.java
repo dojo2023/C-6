@@ -40,17 +40,30 @@ public class RegisterServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String u_id = request.getParameter("ID");
 		String password = request.getParameter("PW");
-		String lf_id_s[] = ((String)request.getAttribute("Lf_id")).split(",");
+
 		List<Integer> lf_id = new ArrayList<Integer>();
-		for(int i = 0; i < lf_id_s.length;i++) {
-			lf_id.add(Integer.parseInt(lf_id_s[i]));
+		String lf_id_s = (String)request.getAttribute("Lf_id");
+		if (lf_id_s != null) {	// null判定
+			String lf_id_s_l[] = lf_id_s.split(",");
+			for(int i = 0; i < lf_id_s_l.length;i++) {
+				lf_id.add(Integer.parseInt(lf_id_s_l[i]));
+			}
+		} else {
+			lf_id.add(-1);	// nullの場合は-1
 		}
 
-		String df_id_s[] = ((String)request.getAttribute("Df_id")).split(",");
+
 		List<Integer> df_id = new ArrayList<Integer>();
-		for(int i = 0; i < df_id_s.length;i++) {
-			df_id.add(Integer.parseInt(df_id_s[i]));
+		String df_id_s = (String)request.getAttribute("Df_id");
+		if (df_id_s != null) {
+			String df_id_s_l[] = df_id_s.split(",");
+			for(int i = 0; i < df_id_s_l.length;i++) {
+				df_id.add(Integer.parseInt(df_id_s_l[i]));
+			}
+		} else {
+			df_id.add(-1);
 		}
+
 
 		// 登録処理を行う
 		// 登録成功
