@@ -38,27 +38,35 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String id = request.getParameter("ID");
-		String pw = request.getParameter("PW");
 
-		// ログイン処理を行う
-		UserDAO uDAO = new UserDAO();
-		if (uDAO.selectIdPwPo(new User(id, pw))) { // ログイン成功
-			// セッションスコープにIDを格納する
-			HttpSession session = request.getSession();
-			session.setAttribute("id", new LoginUser(id));
+		// inputのLOGINを押されたとき、以下の式にLOGINが返される
+		if (request.getParameter("LOGIN") != null) {
+			String id = request.getParameter("ID");
+			String pw = request.getParameter("PW");
 
-			// メニューサーブレットにリダイレクトする
-			response.sendRedirect("/NMW/RefrigeratorServlet");
-		} else { // ログイン失敗
-			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-//			request.setAttribute("result",
-//			new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/NMW/LoginServlet"));
+			// ログイン処理を行う
+			UserDAO uDAO = new UserDAO();
+			if (uDAO.selectIdPwPo(new User(id, pw))) { // ログイン成功
+				// セッションスコープにIDを格納する
+				HttpSession session = request.getSession();
+				session.setAttribute("id", new LoginUser(id));
 
-			// 結果ページにフォワードする
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-			dispatcher.forward(request, response);
+				// メニューサーブレットにリダイレクトする
+				response.sendRedirect("/NMW/RefrigeratorServlet");
+			} else { // ログイン失敗
+				// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
+//				request.setAttribute("result",
+//				new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/NMW/LoginServlet"));
+
+				// 結果ページにフォワードする
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+				dispatcher.forward(request, response);
+			}
+		} else {
+			response.sendRedirect("/NMW/RegisterServlet");
 		}
+
+
 	}
 }
