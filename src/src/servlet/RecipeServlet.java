@@ -101,8 +101,19 @@ public class RecipeServlet extends HttpServlet {
 			// レシピ使用回数をリクエストスコープに格納する
 			request.setAttribute("recipe", recipe.get(0).getR_count());
 			// レシピ詳細.jspにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/recipe.jsp");
-			dispatcher.forward(request, response);
+			RequestDispatcher dispatcher1 = request.getRequestDispatcher("/WEB-INF/jsp/recipe.jsp");
+			dispatcher1.forward(request, response);
+
+
+			//食材の増減
+			//レシピID(rec_id)を受け取る
+			// レシピID(rec_id)をリクエストスコープに格納する
+			request.setAttribute("rec_id",rec_id );
+			// 冷蔵庫サーブレットにフォワードする
+			RequestDispatcher dispatcher2 = request.getRequestDispatcher("/NMW/RefrigeratorServlet");
+			dispatcher2.forward(request, response);
+
+
 			// レシピ使用回数リセット時の処理
 		} else if ((request.getParameter("r_recipe")) == "3") {
 			HttpSession session = request.getSession();
