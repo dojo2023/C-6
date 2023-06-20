@@ -8,13 +8,9 @@
 </head>
 <body>
 	<!-- ヘッダーここから -->
-	<h1>れしぴろーくん</h1>
-
-	<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
-	<a href="/NMW/RecipeListServlet">レシピ</a>
-	<a href="/NMW/MainFoodListServlet">食材管理</a>
-	<a href="/NMW/CalendarServlet">カレンダー</a>
-	<a href="/NMW/MyPageServlet">マイページ</a>
+	<header>
+		<h1>れしぴろーくん</h1>
+	</header>
 	<!-- ヘッダーここまで -->
 
 	<!-- メインここから -->
@@ -57,7 +53,9 @@
 	</form>
 	<!-- メインここまで -->
 	<!-- フッターここから -->
-	<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
+	<footer>
+		<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
+	</footer>
 	<!-- フッターここまで -->
 </body>
 </html>
