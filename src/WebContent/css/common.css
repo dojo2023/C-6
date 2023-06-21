@@ -59,6 +59,11 @@ footer, #footer {
     color: var(--brown);
 }
 
+.logo {
+	width: 200px;
+	height: 150px;
+}
+
 /* menu start */
 nav {
     text-align: center;
