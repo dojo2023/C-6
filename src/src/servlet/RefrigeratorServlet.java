@@ -47,11 +47,13 @@ public class RefrigeratorServlet extends HttpServlet {
 		LoginUser loginUser = (LoginUser) session.getAttribute("id");
 		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId()));
 		List<MainFood> mainFood = mDAO.select(new MainFood());
-		List<MainFood> mainFoodImg = rDAO.selectImg(new Refrigerator(loginUser.getId()));
+		List<MainFood> mainFoodImg = rDAO.selectImg(new Refrigerator(loginUser.getId()));	// imgの取得
+		List<Recipe> mainFoodUnit = rDAO.selectUnit(refrigerator);							// Unitの取得
 
 		request.setAttribute("refrigerator", refrigerator);
 		request.setAttribute("mainFood", mainFood);
 		request.setAttribute("mainFoodImg", mainFoodImg);
+		request.setAttribute("mainFoodUnit", mainFoodUnit);
 		if (refrigerator != null) {
 			request.setAttribute("refrigeratorSize", refrigerator.size());
 		} else if (mainFood != null) {
@@ -82,7 +84,11 @@ public class RefrigeratorServlet extends HttpServlet {
 				for (Recipe recipe_list : recipe) {
 					//レシピの食材IDと冷蔵庫の食材IDが同じだったら
 					if (recipe_list.getF_id() == refrigerator_f_list.getF_id()) {
-						refrigerator_f_list.setF_count(refrigerator_f_list.getF_count() - recipe_list.getR_i_count());
+						if (refrigerator_f_list.getF_count() - recipe_list.getR_i_count() < 0) {
+							refrigerator_f_list.setF_count(0);	// 0以下の時は0に
+						} else {
+							refrigerator_f_list.setF_count(refrigerator_f_list.getF_count() - recipe_list.getR_i_count());
+						}
 						break;
 					}
 				}
@@ -115,7 +121,24 @@ public class RefrigeratorServlet extends HttpServlet {
 		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
 		List<Refrigerator> pre_refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
 
+		Recipe r = new Recipe(f_id);
+		RecipeDAO recDAO = new RecipeDAO();
+
+		// (r_count)の有無によるinsertとupdateをわけるif文
+		Recipes recipes = new Recipes(r);
+		List<Recipe> recipe = recDAO.select(recipes);
+
 		pre_refrigerator.get(0).setF_count(pre_refrigerator.get(0).getF_count() + 1);
+
+		switch(recipe.get(0).getUnit()) {
+			case 1:
+				refrigerator.get(0).setF_count(refrigerator.get(0).getF_count() + 100);
+			case 2:
+			case 3:
+			case 4:
+			default:
+				refrigerator.get(0).setF_count(refrigerator.get(0).getF_count() + 1);
+		}
 
 		// updateする
 		rDAO.update(refrigerator.get(0), pre_refrigerator.get(0));
