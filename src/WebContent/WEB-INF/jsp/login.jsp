@@ -8,6 +8,8 @@
 <title>ログイン | れしぴろーくん</title>
 <!-- スタイルシートの挿入 -->
 <link rel= "stylesheet" href="/NMW/css/common.css">
+<style>
+</style>
 </head>
 <body>
 <!-- ヘッダーここから -->
@@ -33,7 +35,7 @@
 			</label>
 		</li>
 		<li>
-			<input id="login" type="submit" name="LOGIN" value="ログイン">
+			<input id="login" class="btn" type="submit" name="LOGIN" value="ログイン">
 		</li>
 	</ul>
 </form>
