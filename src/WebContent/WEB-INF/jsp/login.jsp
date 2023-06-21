@@ -6,41 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン | れしぴろーくん</title>
+<!-- スタイルシートの挿入 -->
+<link rel= "stylesheet" href="/NMW/css/common.css">
 </head>
 <body>
 <!-- ヘッダーここから -->
 <header>
-	<h1>れしぴろーくん</h1>
+	<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 </header>
 <!-- ヘッダーここまで -->
 
 <!-- メインここから -->
 <h2>ログイン</h2>
-<!-- <form id="login_form" method="POST" action="/NMW/LoginServlet" onSubmit="return check()"> -->
-<!-- 	<table> -->
-<!-- 		<tr> -->
-<!-- 			<td> -->
-<!-- 				<p id="error_message"></p> -->
-<!-- 				<label>ID<br> -->
-<!-- 				<input type="text" name="ID" value="DOJO"> -->
-<!-- 				</label> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr> -->
-<!-- 			<td> -->
-<!-- 				<label>パスワード<br> -->
-<!-- 				<input type="password" name="PW" value="password"> -->
-<!-- 				</label> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr> -->
-<!-- 			<td colspan="2"> -->
-<!-- 				<input id="login" type="submit" name="LOGIN" value="ログイン"> -->
-<!-- 				<input id="register"  type="submit" name="REGISTER" value="新規登録"> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 	</table> -->
-<!-- </form> -->
+
 <form id="login_form" method="POST" action="/NMW/LoginServlet" onSubmit="return check()">
 	<ul>
 		<li>
@@ -66,6 +44,8 @@
 	<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
 </footer>
 <!-- フッターここまで -->
+
+<!-- JavaScriptここから -->
 <script type="text/javascript" src="js/login.js"></script>
 </body>
 </html>
