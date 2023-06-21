@@ -22,20 +22,33 @@
 	</header>
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
-	<form method="">
-	ID
-	<br>
-	<input type="text" name="ID" value="id">
-	<br> パスワード
-	<br>
-	<input type="text" name="PW" value="password">
-	<br> 好きな食べ物
-	<br>
-	<input type="text" name="likefood" value=""> <br>嫌いな食べ物
-	<br>
-	<input type="text" name="dislikefood" value="">
+	<form method="POST" action="">
 
-	<br><button type="button">編集</button>
+       <ul>
+         <li>
+		      ID<br>
+		     <input type="text" name="ID" value="id">
+		 </li>
+		 <li>
+		      <br>
+		     パスワード<br>
+		     <input type="text" name="PW" value="password">
+		 </li>
+		     <br>
+		     好きな食べ物<br>
+		     <input type="text" name="likefood" value="">
+		 <li>
+		     <br>
+		     嫌いな食べ物<br>
+		     <input type="text" name="dislikefood" value="">
+	     </li>
+	     <li>
+		     <br><button type="button" class="btn">
+		     <input type="submit" name="edit" value="編集">
+		     編集</button>
+		 </li>
+	  </ul>
+	</form>
 
 	<!-- メインここまで -->
 	<!-- フッターここから -->
