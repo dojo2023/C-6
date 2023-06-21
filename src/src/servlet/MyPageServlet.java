@@ -35,6 +35,12 @@ public class MyPageServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		UserDAO uDAO = new UserDAO();
+		int rec_id = -1;
+		if (request.getAttribute("rec_id") != null) {
+			rec_id = Integer.parseInt(request.getAttribute("rec_id").toString());
+
+		}
+
 
 		// user idからユーザー情報(マイページ)をsetしてる
 		LoginUser loginUser = (LoginUser) session.getAttribute("id");
@@ -44,6 +50,7 @@ public class MyPageServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/myPage.jsp");
 		dispatcher.forward(request, response);
+
 	}
 
 	/**

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +10,13 @@
 <link rel="stylesheet" href="/NMW/css/common.css">
 </head>
 <body>
-	<!-- ヘッダーここから -->
+<!-- ヘッダーここから -->
+<header>
+	<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
+</header>
+<!-- ヘッダーここまで -->
 	<header>
-		<h1>れしぴろーくん</h1>
+
 		<nav>
 			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
 			<a href="/NMW/RecipeListServlet">レシピ</a>
@@ -23,31 +28,27 @@
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
 	<c:forEach var="m" items="${user_inf}" >
-		<form method="POST" action="">
-
+		<form method="POST" action="/NMW/MyPageEdit">
 	       <ul>
 	         <li>
 			      ID<br>
-			     <input type="text" name="ID" value="${m.number}">
+			     <input type="text" name="ID" value="${m.u_id}">
 			 </li>
 			 <li>
 			     パスワード<br>
-			     <input type="text" name="PW" value=value="${e.number}">
+			     <input type="text" name="PW" value="${m.password}">
 			 </li>
-
 			     好きな食べ物<br>
-			     <input type="text" name="likefood" value="${e.number}">
+			     <input type="text" name="likefood" value="${m.lf_id}">
 			 <li>
-
 			     嫌いな食べ物<br>
-			     <input type="text" name="dislikefood" value="${e.number}">
+			     <input type="text" name="dislikefood" value="${m.df_id}">
 		     </li>
 		     <li>
-			     <br><button type="button" class="btn">
-			     </button>
+			     <br><input type="submit" class="btn" name="edit" value="編集">
 			 </li>
 		  </ul>
-		      <input type="submit" name="edit" value="編集">
+
 		</form>
 	</c:forEach>
 
