@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>新規登録 | れしぴろーくん</title>
+<link rel="stylesheet" href="/simpleBC/css/myPageEdit.css">
+<link rel="stylesheet" href="/simpleBC/css/common.css">
+
 </head>
 <body>
 	<!-- ヘッダーここから -->

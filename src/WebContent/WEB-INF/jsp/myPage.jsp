@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/simpleBC/css/myPage.css">
+<link rel="stylesheet" href="/simpleBC/css/common.css">
 </head>
 <body>
 	<!-- ヘッダーここから -->
@@ -20,6 +22,7 @@
 	</header>
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
+	<form method="">
 	ID
 	<br>
 	<input type="text" name="ID" value="id">
@@ -28,11 +31,11 @@
 	<input type="text" name="PW" value="password">
 	<br> 好きな食べ物
 	<br>
-	<input type="text" name="likefood" value=""> 嫌いな食べ物
+	<input type="text" name="likefood" value=""> <br>嫌いな食べ物
 	<br>
 	<input type="text" name="dislikefood" value="">
 
-	<button type="button">編集</button>
+	<br><button type="button">編集</button>
 
 	<!-- メインここまで -->
 	<!-- フッターここから -->
