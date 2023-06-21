@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,20 @@
 	</header>
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
+	<!-- servletからレシピ内容のリスト受け取り -->
+	<ul>
+		<c:forEach var="r" items="${recipe}">
+			<li>
+			${ r.image }
+			<h2>${ r.r_name }</h2>
+			${ r.time }
+			${ r.wanpan }
+			${ r.save_time }
+			${ r.microwave_oven }
+			</li>
+		</c:forEach>
+	</ul>
+
 	<h2>からあげ丼</h2>
 	<img src="/NMW/img/zitan.png">10-15分
 	<img src="/NMW/img/zisui.png">\300
@@ -29,14 +44,15 @@
 	材料を表示
 
 	<p>作り方</p>
-	作り方を表示
 
-
-	<button type="submit">レシピを使用</button>
-	<button type="reset">回数リセット</button>
-
+	<form  action="/NMW//NMW/RecipeServlet" method="post"">
+		<!-- レシピ使用ボタンクリック時 -->
+		<input type="submit" name="r_recipe" value="2">レシピを使用<br>
+		<!-- レシピ使用回数リセットボタンクリック時 -->
+		<button type="submit" name="r_recipe" value="3">回数リセット</button>
+	</form>
 	<img src="/NMW/img/logo_resipiro-.png">
-	<p>本日1回料理したピヨ</p>
+	<p>本日${ recipe }回料理したピヨ</p>
 
 	<!-- メインここまで -->
 	<!-- フッターここから -->

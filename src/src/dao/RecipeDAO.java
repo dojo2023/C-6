@@ -29,7 +29,7 @@ public class RecipeDAO {
 			String sql = "select r.rec_id, r.r_name, r.time, r.image, r.wanpan, r.save_time, r.microwave_oven, "
 					+ "r.recipe, r.cooking_expenses, r.eating_out_expenses, r_c.u_id, r_c.r_date, r_c.r_count"
 					+ "r_i.ingredient, r_i.r_count, r_i.unit"
-					+ "from recipes as r"
+					+ " from recipes as r "
 					+ "left join recipe_ingredients as r_i on r.rec_id = r_i.rec_id"
 					+ "left join recipe_counts as r_c on r.rec_id = r_c.rec_id"
 					+ "where r.rec_id like ? or r.r_name like ? or r_i.f_id like ? ";
