@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,32 @@
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
 	<img src="/NMW/img/recipe/kensaku.png">
-	<img src="">からあげ丼 所要時間15分
+	<!--
+	<img src="">からあげ丼 所要時間15分t
+	-->
+	<ul>
+		<c:forEach var="r_l" items=" ${recipeList}" >
+				<li>
+				${ r_l.image}
+				</li>
+				<li>
+				${ r_l.r_name }
+				</li>
+				<li>
+				${ r_l.time }
+				</li>
+				<li>
+				${ r_l.wanpan }
+				</li>
+				<li>
+				${ r_l.save_time }
+				</li>
+				<li>
+				${ r_l.microwave_oven }
+				</li>
+		</c:forEach>
+	</ul>
+
 	<!-- メインここまで -->
 	<!-- フッターここから -->
 	<footer>

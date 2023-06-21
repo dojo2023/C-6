@@ -139,7 +139,7 @@ public class CalendarDAO {
 		return calendarResult;
 	}
 
-	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+	// 引数calenderで指定されたレコードを更新し、成功したらtrueを返す
 	public boolean update(Calendar calendar) {
 		Connection conn = null;
 		boolean calendarResult = false;

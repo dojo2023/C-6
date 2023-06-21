@@ -5,16 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>カレンダー | れしぴろーくん</title>
+<!-- スタイルシートの挿入 -->
+<link rel= "stylesheet" href="/NMW/css/common.css">
 </head>
 <body>
 <!-- ヘッダーここから -->
-<h1>れしぴろーくん</h1>
+<header>
+<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 
 	<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
 	<a href="/NMW/RecipeListServlet">レシピ</a>
 	<a href="/NMW/MainFoodListServlet">食材管理</a>
 	<a href="/NMW/CalendarServlet">カレンダー</a>
 	<a href="/NMW/MyPageServlet">マイページ</a>
+</header>
 <!-- ヘッダーここまで -->
 
 <!-- メインここから -->

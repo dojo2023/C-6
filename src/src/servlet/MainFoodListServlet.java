@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import dao.MainFoodDAO;
+import model.MainFood;
 
 /**
  * Servlet implementation class MainFoodListServlet
@@ -28,12 +32,10 @@ public class MainFoodListServlet extends HttpServlet {
 			return;
 		}
 
-		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-
-		String f_id = (request.getParameter("foods"));
-
-		request.setAttribute("foods", f_id);
+		MainFoodDAO mDAO = new MainFoodDAO();
+		List<MainFood> mainFood = mDAO.select(new MainFood());
+		request.setAttribute("mainFood", mainFood);
 
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/mainFoodList.jsp");
@@ -44,7 +46,16 @@ public class MainFoodListServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// リクエストパラメータを取得する
+		request.setCharacterEncoding("UTF-8");
 
+		String f_id = (request.getParameter("foods"));
+
+		request.setAttribute("f_id", f_id);
+
+		// 結果ページにフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/MainFoodServlet");
+		dispatcher.forward(request, response);
 	}
 
 }

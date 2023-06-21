@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>食材詳細 | れしぴろーくん</title>
+<link rel="stylesheet" href="/NMW/css/common.css">
 </head>
 <body>
 	<!-- ヘッダーここから -->
 	<header>
-		<h1>れしぴろーくん</h1>
+		<h1 class="logo"><img src = "/NMW/img/logo/logo.png" alt="れしぴろーくん"></h1>
 		<nav>
 			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
 			<a href="/NMW/RecipeListServlet">レシピ</a>
@@ -22,6 +24,9 @@
 	<!-- メインここから -->
 
 	<p>おいしい食材の見分け方</p>
+		<c:forEach var="m" items="${ mainFood }" >
+			${ m.identify }
+		</c:forEach>
 	<p>ーー 保存方法 ーー</p>
 	<p>ーー 保存期間 ーー</p>
 	<p>ーー 旬 ーー</p>
