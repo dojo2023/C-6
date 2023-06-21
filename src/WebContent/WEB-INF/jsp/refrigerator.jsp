@@ -45,7 +45,7 @@
 					<% if(count+j >= 0) {%>
 						<option><%= count+j %></option>
 					<% } else {%>
-						<% break; %>
+						<% j = -3.0; %>
 					<% } %>
 				<% } %>
 				</select>
@@ -55,7 +55,7 @@
 						<% if(count+j >= 0) {%>
 							<option><%= count+j %></option>
 						<% } else {%>
-							<% break; %>
+							<% j = -300; %>
 						<% } %>
 				<% } %>
 				</select>
