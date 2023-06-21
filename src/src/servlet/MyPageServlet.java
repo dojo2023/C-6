@@ -56,6 +56,9 @@ public class MyPageServlet extends HttpServlet {
 				response.sendRedirect("/NMW/LoginServlet");
 				return;
 		}
+		//編集ボタンを押してユーザー情報へ遷移
+		request.getParameter("myPage");
+
 		//myPageEditサーブレットへユーザーIDを持った状態で遷移
 		LoginUser loginUser = (LoginUser) session.getAttribute("id");
 		request.setAttribute("loginUser" ,loginUser);
