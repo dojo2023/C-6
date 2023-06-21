@@ -54,7 +54,7 @@ public class MainFoodListServlet extends HttpServlet {
 		request.setAttribute("f_id", f_id);
 
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/mainFood.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/MainFoodServlet");
 		dispatcher.forward(request, response);
 	}
 
