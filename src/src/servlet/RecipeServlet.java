@@ -44,7 +44,11 @@ public class RecipeServlet extends HttpServlet {
 
 		// リクエストパラメータを取得する
 		// r_count=0は非表示
-		int rec_id = (Integer) (request.getAttribute("rec_id"));
+		int rec_id = -1;
+		if (request.getAttribute("rec_id") != null) {
+			rec_id = Integer.parseInt(request.getAttribute("rec_id").toString());
+		}
+
 		Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
 		Recipes recipes = new Recipes(r);
 
@@ -84,7 +88,11 @@ public class RecipeServlet extends HttpServlet {
 			java.util.Date utilDate = sqlNow;
 
 			// リクエストパラメータを取得する
-			int rec_id = Integer.parseInt(request.getParameter("rec_id"));
+			int rec_id = -1;
+			if (request.getAttribute("rec_id") != null) {
+				rec_id = Integer.parseInt(request.getAttribute("rec_id").toString());
+			}
+
 			Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
 			RecipeDAO rDAO = new RecipeDAO();
 
@@ -131,7 +139,11 @@ public class RecipeServlet extends HttpServlet {
 			java.util.Date utilDate = sqlNow;
 
 			// リクエストパラメータを取得する
-			int rec_id = Integer.parseInt(request.getParameter("rec_id"));
+			int rec_id = -1;
+			if (request.getAttribute("rec_id") != null) {
+				rec_id = Integer.parseInt(request.getAttribute("rec_id").toString());
+			}
+
 			Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
 			RecipeDAO rDAO = new RecipeDAO();
 			r.setR_count(r.getR_count() - 1);
