@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="servlet.RefrigeratorServlet" %>
+<%@ page import="model.Refrigerator" %>
+<%@ page import="model.MainFood" %>
+<%@ page import="java.util.List" %>
+<% List<Refrigerator> refrigerator = (List<Refrigerator>)request.getAttribute("refrigerator"); %>
+<% List<MainFood> mainFood = (List<MainFood>)request.getAttribute("mainFood"); %>
+<% List<MainFood> mainFoodImg = (List<MainFood>)request.getAttribute("mainFoodImg"); %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,16 +31,42 @@
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
 	<p>冷蔵庫</p>
+	<% if(refrigerator != null){ %>
+		<% for(int i=0; i<refrigerator.size();i++){ %>
+			<img src="/NMW/img/<% mainFoodImg.get(i).getImage(); %>" width="50">
+			<% double count = refrigerator.get(i).getF_count(); %>
+			<select>
+				<option><%= count+2.0 %></option>
+				<option><%= count+1.75 %></option>
+				<option><%= count+1.5 %></option>
+				<option><%= count+1.25 %></option>
+				<option><%= count+1.0 %></option>
+				<option><%= count+0.75 %></option>
+				<option><%= count+0.5 %></option>
+				<option><%= count+0.25 %></option>
+				<option><%= count %></option>
+				<option><%= count-0.25 %></option>
+				<option><%= count-0.5 %></option>
+				<option><%= count-1.5 %></option>
+				<option><%= count-0.75 %></option>
+				<option><%= count-1.0 %></option>
+				<option><%= count-1.25 %></option>
+				<option><%= count-1.75 %></option>
+				<option><%= count-2.0 %></option>
+			</select>
+			<% if((i %=4) == 0){ %>
+				<br>
+			<% } %>
+		<% } %>
+	<% } %>
+<%-- 	<c:forEach begin="0" end="${ refrigeratorSize }"> --%>
 
+<%-- 	</c:forEach> --%>
+<%-- 	<c:forEach var="refrigerator" items="${ refrigerator }" varStatus="status"> --%>
+<%-- 		<img src="/NMW/img/${ refrigerator.image }" width="50"> --%>
+<%-- 	</c:forEach> --%>
 
-	<c:forEach begin="0" end="${ refrigeratorSize }">
-
-	</c:forEach>
-	<c:forEach var="refrigerator" items="${ refrigerator }" varStatus="status">
-		<img src="/NMW/img/${ refrigerator.image }" width="50">
-	</c:forEach>
-
-	<select></select>
+<!-- 	<select></select> -->
 
 <!-- 	一覧表示 -->
 	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
