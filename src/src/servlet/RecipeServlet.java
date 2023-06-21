@@ -103,15 +103,7 @@ public class RecipeServlet extends HttpServlet {
 			if (recipe.get(0).getR_count() == -1.0) {
 				rDAO.insert(r);
 			} else {
-				switch(recipe.get(0).getUnit()) {
-					case 1:
-						recipe.get(0).setR_count(recipe.get(0).getR_count() + 100);
-					case 2:
-					case 3:
-					case 4:
-					default:
-						recipe.get(0).setR_count(recipe.get(0).getR_count() + 1);
-				}
+				recipe.get(0).setR_count(recipe.get(0).getR_count() + 1);
 				rDAO.update(recipe.get(0), recipe.get(0));
 			}
 			// レシピ使用回数をリクエストスコープに格納する

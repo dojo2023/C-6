@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.MainFood;
+import model.Recipe;
 import model.Refrigerator;
 
 public class RefrigeratorDAO {
@@ -64,7 +65,6 @@ public class RefrigeratorDAO {
 						rs.getDouble("refrigerators.f_count"),
 						c_t,
 						c_n);
-				;
 				cardList.add(card);
 			}
 		} catch (SQLException e) {
@@ -131,7 +131,6 @@ public class RefrigeratorDAO {
 						rs.getString("foods.strage_method"),
 						rs.getString("foods.retention_period"),
 						rs.getString("foods.season"));
-				;
 				cardList.add(mainFood);
 			}
 		} catch (SQLException e) {
@@ -155,6 +154,83 @@ public class RefrigeratorDAO {
 		// 結果を返す
 		return cardList;
 	}
+
+	public List<Recipe> selectUnit(List<Refrigerator> param) {
+		Connection conn = null;
+		List<Recipe> cardList = new ArrayList<Recipe>();
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+
+			// SQL文を準備する
+			String sql = "select r_i.unit"
+					+ "from refrigerators as r"
+					+ "left join recipe_ingredients as r_i on r.f_id = r_i.f_id"
+					+ "where r.f_id like ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			for (Refrigerator recipe : param) {
+				// SQL文を完成させる
+				if (recipe.getF_id() != -1) {
+					pStmt.setString(1, "%" + recipe.getF_id() + "%");
+				} else {
+					pStmt.setString(1, "%");
+				}
+
+				// SQL文を実行し、結果表を取得する
+				ResultSet rs = pStmt.executeQuery();
+
+				// 結果表をコレクションにコピーする
+				while (rs.next()) {
+					Recipe card = new Recipe(
+							rs.getInt("recipes.rec_id"),
+							rs.getString("recipes.r_name"),
+							rs.getString("recipes.time"),
+							rs.getString("recipes.image"),
+							rs.getBoolean("recipes.wanpan"),
+							rs.getBoolean("recipes.save_time"),
+							rs.getBoolean("recipes.microwave_oven"),
+							rs.getString("recipes.recipe"),
+							rs.getInt("recipes.cooking_expenses"),
+							rs.getInt("recipes.eating_out_expenses"),
+							rs.getString("recipe_counts.u_id"),
+							rs.getDate("recipe_counts.r_date"),
+							rs.getInt("recipe_counts.r_count"),
+							rs.getInt("recipe_ingredients.i_id"),
+							rs.getInt("recipe_ingredients.f_id"),
+							rs.getString("recipe_ingredients.ingredient"),
+							rs.getDouble("recipe_ingredients.r_i_count"),
+							rs.getInt("recipe_ingredients.unit"));
+					cardList.add(card);
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cardList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			cardList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					cardList = null;
+				}
+			}
+		}
+
+		// 結果を返す
+		return cardList;
+	}
+
 
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(Refrigerator refrigerator) {
