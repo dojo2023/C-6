@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/simpleBC/css/myPage.css">
-<link rel="stylesheet" href="/simpleBC/css/common.css">
+<link rel="stylesheet" href="/NMW/css/myPage.css">
+<link rel="stylesheet" href="/NMW/css/common.css">
 </head>
 <body>
 	<!-- ヘッダーここから -->
@@ -22,33 +22,34 @@
 	</header>
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
-	<form method="POST" action="">
+	<c:forEach var="m" items="${user_inf}" >
+		<form method="POST" action="">
 
-       <ul>
-         <li>
-		      ID<br>
-		     <input type="text" name="ID" value="id">
-		 </li>
-		 <li>
-		      <br>
-		     パスワード<br>
-		     <input type="text" name="PW" value="password">
-		 </li>
-		     <br>
-		     好きな食べ物<br>
-		     <input type="text" name="likefood" value="">
-		 <li>
-		     <br>
-		     嫌いな食べ物<br>
-		     <input type="text" name="dislikefood" value="">
-	     </li>
-	     <li>
-		     <br><button type="button" class="btn">
-		     <input type="submit" name="edit" value="編集">
-		     編集</button>
-		 </li>
-	  </ul>
-	</form>
+	       <ul>
+	         <li>
+			      ID<br>
+			     <input type="text" name="ID" value="${m.number}">
+			 </li>
+			 <li>
+			     パスワード<br>
+			     <input type="text" name="PW" value=value="${e.number}">
+			 </li>
+
+			     好きな食べ物<br>
+			     <input type="text" name="likefood" value="${e.number}">
+			 <li>
+
+			     嫌いな食べ物<br>
+			     <input type="text" name="dislikefood" value="${e.number}">
+		     </li>
+		     <li>
+			     <br><button type="button" class="btn">
+			     </button>
+			 </li>
+		  </ul>
+		      <input type="submit" name="edit" value="編集">
+		</form>
+	</c:forEach>
 
 	<!-- メインここまで -->
 	<!-- フッターここから -->
