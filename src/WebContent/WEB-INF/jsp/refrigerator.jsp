@@ -23,12 +23,17 @@
 	<!-- メインここから -->
 	<p>冷蔵庫</p>
 
+
+	<c:forEach begin="0" end="${ refrigeratorSize }">
+
+	</c:forEach>
 	<c:forEach var="refrigerator" items="${ refrigerator }" varStatus="status">
 		<img src="/NMW/img/${ refrigerator.image }" width="50">
 	</c:forEach>
 
 	<select></select>
 
+<!-- 	一覧表示 -->
 	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
 		<form action="/NMW//NMW/RefrigeratorServlet" method="post">
 			<button type="submit" name="food" value="${ mainFood.f_id }">

@@ -29,7 +29,7 @@ public class RefrigeratorDAO {
 					+ "r_t.text1, r_t.text2, r_t.text3, r_t.text4, r_t.text5, r_t.text6, r_t.text7, r_t.text8, r_t.text9, "
 					+ "r_t.num1, r_t.num2, r_t.num3, r_t.num4, r_t.num5, r_t.num6, r_t.num7, r_t.num8, r_t.num9"
 					+ "from refrigerators as r"
-					+ "left join refrigerator_texts as r_t on r.ref_id == r_t.ref_id"
+					+ "left join refrigerator_texts as r_t on r.ref_id = r_t.ref_id"
 					+ "where r.u_id like ? or r.f_id like ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -89,7 +89,7 @@ public class RefrigeratorDAO {
 		return cardList;
 	}
 
-	public List<MainFood> selectImg(Refrigerator param, MainFood mainfood) {
+	public List<MainFood> selectImg(Refrigerator param) {
 		Connection conn = null;
 		List<MainFood> cardList = new ArrayList<MainFood>();
 
@@ -101,11 +101,23 @@ public class RefrigeratorDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "select m.f_id, m.image"
+			String sql = "select m.f_id, m.f_name, m.image, m.identify, m.strage_method, m.retention_period, m.season"
 					+ "from refrigerators as r"
-					+ "left join foods as m on r.f_id == m.f_id";
+					+ "left join foods as m on r.f_id = m.f_id"
+					+ "where r.u_id like ? or r.f_id like ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
+			// SQL文を完成させる
+			if (param.getRef_id() != -1) {
+				pStmt.setString(1, "%" + param.getU_id() + "%");
+			} else {
+				pStmt.setString(1, "%");
+			}
+			if (param.getF_id() != -1) {
+				pStmt.setString(2, "%" + param.getF_id() + "%");
+			} else {
+				pStmt.setString(2, "%");
+			}
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 

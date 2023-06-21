@@ -11,11 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.MainFoodDAO;
 import dao.RecipeDAO;
 import dao.RefrigeratorDAO;
 import model.LoginUser;
-import model.MainFood;
 import model.Recipe;
 import model.Recipes;
 import model.Refrigerator;
@@ -39,17 +37,22 @@ public class RefrigeratorServlet extends HttpServlet {
 			return;
 		}
 
-		request.setCharacterEncoding("UTF-8");
-		RefrigeratorDAO rDAO = new RefrigeratorDAO();
-		MainFoodDAO mDAO = new MainFoodDAO();
+//		request.setCharacterEncoding("UTF-8");
+//		RefrigeratorDAO rDAO = new RefrigeratorDAO();
+//		MainFoodDAO mDAO = new MainFoodDAO();
+//
+//		// user idからその人の冷蔵庫をsetしてる
+//		LoginUser loginUser = (LoginUser) session.getAttribute("id");
+//		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId()));
+//		List<MainFood> mainFood = mDAO.select(new MainFood());
+//		List<MainFood> mainFoodImg = rDAO.selectImg(new Refrigerator(loginUser.getId()));
 
-		// user idからその人の冷蔵庫をsetしてる
-		LoginUser loginUser = (LoginUser) session.getAttribute("id");
-		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId()));
-		List<MainFood> mainFood = rDAO.selectImg(refrigerator, mDAO.select(new MainFood()));
-
-		request.setAttribute("refrigerator", refrigerator);
-		request.setAttribute("mainFood", mainFood);
+//		request.setAttribute("refrigerator", refrigerator);
+//		request.setAttribute("mainFood", mainFood);
+//		request.setAttribute("mainFoodImg", mainFoodImg);
+//		request.setAttribute("refrigeratorSize", refrigerator.size());
+//		request.setAttribute("mainFoodSize", mainFood.size());
+//		request.setAttribute("mainFoodImgSize", mainFoodImg.size());
 
 
 		//冷蔵庫のサーブレットに送る
