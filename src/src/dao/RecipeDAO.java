@@ -446,9 +446,9 @@ public class RecipeDAO {
 					pStmt_i.setDouble(4, -1.0);
 				}
 				if (recipe.getUnit() != -1) {
-					pStmt_i.setDouble(5, recipe.getUnit());
+					pStmt_i.setInt(5, recipe.getUnit());
 				} else {
-					pStmt_i.setDouble(5, -1);
+					pStmt_i.setInt(5, -1);
 				}
 				flag = pStmt_i.executeUpdate();
 			}
@@ -604,9 +604,9 @@ public class RecipeDAO {
 					pStmt_i.setString(5, "%");
 				}
 				if (recipe.getUnit() != -1) {
-					pStmt_i.setDouble(6, recipe.getUnit());
+					pStmt_i.setInt(6, recipe.getUnit());
 				} else {
-					pStmt_i.setDouble(6, -1);
+					pStmt_i.setInt(6, -1);
 				}
 				if (pre_recipe.getI_id() != -1) {
 					pStmt_i.setString(7, "%" + pre_recipe.getI_id() + "%");
