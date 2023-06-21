@@ -20,7 +20,7 @@
 	</header>
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
-	<img src="/NMW/img/kensaku.png">
+	<img src="/NMW/img/recipe/kensaku.png">
 	<img src="">からあげ丼 所要時間15分
 	<!-- メインここまで -->
 	<!-- フッターここから -->

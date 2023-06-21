@@ -37,7 +37,10 @@ public class RecipeListServlet extends HttpServlet {
 		}
 
         //レシピ一覧の表示
-		int rec_id = Integer.parseInt(request.getParameter("rec_id"));
+		int rec_id = -1;
+		if (request.getAttribute("rec_id") != null) {
+			rec_id = Integer.parseInt(request.getAttribute("rec_id").toString());
+		}
 		Recipe r = new Recipe(rec_id);
 		Recipes rs = new Recipes(r);
 
@@ -120,27 +123,6 @@ public class RecipeListServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/RecipeServlet");
 		dispatcher.forward(request, response);
 		}
-
-
-		//
-
-		// ↓流れ
-		// jspから検索条件をgetParameterで抽出する（完成）
-
-		// setAttribute()で設定する
-		// setした値をgetAttributeで取得して、selectで検索する
-		// RecipeListServletに送る
-
-		// 方針
-		// レシピ検索(recipeList)DoPost→レシピリストservのDoGet --- 修了
-
-		// レシピ選択(RecipeList)Dopost→レシピ詳細画面(Recipe)のDoGet --- 修了
-		// ↑ form作成 --- 修了
-		// レシピ詳細(Recipe)DoPost→主要食材(MainFood?)DoGet
-
-		// <form>
-		// <input name="二個共通" value="個別">
-		// </form>
 	}
 
 }
