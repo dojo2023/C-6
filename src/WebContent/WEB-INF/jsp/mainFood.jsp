@@ -22,14 +22,19 @@
 	</header>
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
+		<c:forEach var="m" items="${ mainFood }" >
+			${ m.f_name }
+			<img src="/NMW/img${ m.image }">
 
 	<p>おいしい食材の見分け方</p>
-		<c:forEach var="m" items="${ mainFood }" >
 			${ m.identify }
-		</c:forEach>
 	<p>ーー 保存方法 ーー</p>
+			${ m.strage_method }
 	<p>ーー 保存期間 ーー</p>
+			${ m.retention_period }
 	<p>ーー 旬 ーー</p>
+			${ m.season }
+		</c:forEach>
 
 	<!-- フッターここから -->
 	<footer>

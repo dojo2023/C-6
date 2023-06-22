@@ -14,7 +14,7 @@
 <body>
 <!-- ヘッダーここから -->
 <header>
-	<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
+	<a href ="/NMW/LoginServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 </header>
 <!-- ヘッダーここまで -->
 
@@ -35,7 +35,7 @@
 			</label>
 		</li>
 		<li>
-			<input id="login" class="btn" type="submit" name="LOGIN" value="ログイン">
+			<input id="login" class="btn btn--orange" type="submit" name="LOGIN" value="ログイン">
 		</li>
 	</ul>
 </form>

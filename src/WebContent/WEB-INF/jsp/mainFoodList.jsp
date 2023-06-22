@@ -30,8 +30,8 @@
 		</form>
 	</c:forEach>
 
-	<p>クリックすると、食材の詳細を閲覧できるピヨ</p>
-	<p>これで食材保存も完璧だっピ！</p>
+	<img src = "/NMW/img/logo/resipiro-right.png"><p>クリックすると、食材の詳細を閲覧できるピヨ</p>
+	<p>これで食材保存も完璧だっピ！</p><img src = "/NMW/img/logo/logo2.png">
 	<!-- メインここまで -->
 	<!-- フッターここから -->
 	<footer>

@@ -44,6 +44,7 @@ public class CalendarServlet extends HttpServlet {
 
 		// その月のカレンダーを取得
 		List<Calendar> calendar = caleDAO.select(new Calendar(loginUser.getId(), new Date(utilDate.getTime())));
+//		System.out.println(calendar);
 
 		int cookingExpenses[] = new int[31];
 		int eatingOutExpensese[] = new int[31];

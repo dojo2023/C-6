@@ -5,14 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>新規登録 | れしぴろーくん</title>
-<link rel="stylesheet" href="/simpleBC/css/myPageEdit.css">
-<link rel="stylesheet" href="/simpleBC/css/common.css">
+<link rel="stylesheet" href="/NMW/css/myPageEdit.css">
+<link rel="stylesheet" href="/NMW/css/common.css">
 
 </head>
 <body>
 	<!-- ヘッダーここから -->
 	<header>
-		<h1>れしぴろーくん</h1>
+		<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 		<nav>
 			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
 			<a href="/NMW/RecipeListServlet">レシピ</a>
@@ -27,20 +27,21 @@
 	ID
 	<br>
 	<input type="text" name="ID" value="id">
-	<br> パスワード
+	<br><p id="error_msg" class="font-red"></p>
+	<br><label for="password">新しいパスワード</label>
 	<br>
-	<input type="text" name="PW" value="password">
-	<br> パスワードをもう一度入力してください
+	<input id="password" type="password" name="PW" value="password" placeholder="パスワード" required>
+	<br><label for="confirm_password">パスワードをもう一度入力してください</label>
 	<br>
-	<input type="text" name="c_PW" value="confirm_password">
+	<input id="confirm_password" type="password" name="c_PW" value="confirm_password" placeholder="パスワード" required>
 	<br> 好きな食べ物
 	<br>
 	<input type="text" name="likefood" value=""> 嫌いな食べ物
 	<br>
 	<input type="text" name="dislikefood" value="">
 
-	<button type="submit" name="likefood" value="好きな食べ物ボタン"></button>
-	<button type="submit" name="dislikefood" value="嫌いな食べ物ボタン"></button>
+	<button type="submit" class="btn btn--orange" name="likefood" value="好きな食べ物ボタン"></button>
+	<button type="submit" class="btn btn--orange" name="dislikefood" value="嫌いな食べ物ボタン"></button>
 	<br>
 	<button type="submit" name="food" value="negi"></button>
 	<button type="submit" name="food" value="kyuuri"></button>
@@ -64,8 +65,8 @@
 	<button type="submit" name="food" value="butaniku"></button>
 	<button type="submit" name="food" value="toriniku"></button>
 
-	<input type="submit" name="SAVE" value="保存">
-	<input type="submit" name="DELETE" value="アカウント削除">
+	<input type="submit" class="btn btn--orange" name="SAVE" value="保存">
+	<input type="submit" class="btn btn--orange" name="DELETE" value="アカウント削除">
 	<!-- メインここまで -->
 	<!-- フッターここから -->
 	<footer>
