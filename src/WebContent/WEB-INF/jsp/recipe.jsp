@@ -23,7 +23,7 @@
 	<!-- メインここから -->
 	<!-- servletからレシピ内容のリスト受け取り -->
 	<ul>
-		<c:forEach var="r" items="${recipe}">
+		<c:forEach var="r" items=" ${recipe}">
 			<li>
 			${ r.image }
 			<h2>${ r.r_name }</h2>
@@ -45,12 +45,12 @@
 
 	<p>作り方</p>
 
-	<form  action="/NMW//NMW/RecipeServlet" method="post"">
+
 		<!-- レシピ使用ボタンクリック時 -->
 		<input type="submit" name="r_recipe" value="2">レシピを使用<br>
 		<!-- レシピ使用回数リセットボタンクリック時 -->
 		<button type="submit" name="r_recipe" value="3">回数リセット</button>
-	</form>
+
 	<img src="/NMW/img/logo_resipiro-.png">
 	<p>本日${ recipe }回料理したピヨ</p>
 
