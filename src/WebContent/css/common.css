@@ -138,6 +138,12 @@ button.btn {
     border-radius: 0.5rem;
 }
 
+.btn--orange,
+input.btn--orange {
+	color: var(--white);
+	background-color: var(--orange);
+}
+
 .btn--blue,
 input.btn--blue {
     /* color: #fff;
