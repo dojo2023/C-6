@@ -27,23 +27,28 @@ public class RecipeDAO {
 
 			// SQL文を準備する
 			String sql = "select r.rec_id, r.r_name, r.time, r.image, r.wanpan, r.save_time, r.microwave_oven, "
-					+ "r.recipe, r.cooking_expenses, r.eating_out_expenses, r_c.u_id, r_c.r_date, r_c.r_count"
-					+ "r_i.ingredient, r_i.r_count, r_i.unit"
+					+ "r.recipe, r.cooking_expenses, r.eating_out_expenses, r_c.u_id, r_c.r_date, r_c.r_count, "
+					+ "r_i.i_id, r_i.f_id, r_i.ingredient, r_i.r_i_count, r_i.unit "
 					+ " from recipes as r "
-					+ "left join recipe_ingredients as r_i on r.rec_id = r_i.rec_id"
-					+ "left join recipe_counts as r_c on r.rec_id = r_c.rec_id"
-					+ "where r.rec_id like ? or r.r_name like ? or r_i.f_id like ? ";
+					+ "left join recipe_ingredients as r_i on r.rec_id = r_i.rec_id "
+					+ "left join recipe_counts as r_c on r.rec_id = r_c.rec_id "
+					+ "where r.rec_id like ? or r.r_name like ? or r_i.i_id like ? or r_i.f_id like ? ";
 
 			// f_name ver.を作る
 			for (Recipe r : recipes.getRecipes()) {
-				// "" で囲う必要ないかも
-				sql = sql + "or r_i.ingredient like \"%" + r.getIngredient() + "%\"";
+				if (r.getIngredient() != null) {
+					// "" で囲う必要ないかも
+					sql = sql + "or r_i.ingredient like \'%" + r.getIngredient() + "%\'";
+				} else {
+					break;
+				}
 			}
 
 					sql += "or r_i.r_i_count like ? or r_i.unit like ? or r.time like ? or r.wanpan like ? or "
 					+ "r.save_time like ? or r.microwave_oven like ? or r.recipe like ? or r.cooking_expenses like ? "
 					+ "or r.eating_out_expenses like ? or r_c.u_id like ? or r_c.r_date like ? or r_c.r_count like ?";
 			// 条件式がu_idとrec_idのみなので、他の検索条件の追加
+			System.out.println(sql);
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -57,58 +62,63 @@ public class RecipeDAO {
 			} else {
 				pStmt.setString(2, "%");
 			}
-			if (param.getF_id() != -1) {
-				pStmt.setString(3, "%" + param.getF_id() + "%");
+			if (param.getI_id() != -1) {
+				pStmt.setString(3, "%" + param.getI_id() + "%");
 			} else {
 				pStmt.setString(3, "%");
 			}
-			if (param.getR_i_count() != null && !param.getR_i_count().equals("")) {
-				pStmt.setString(4, "%" + param.getR_i_count() + "%");
+			if (param.getF_id() != -1) {
+				pStmt.setString(4, "%" + param.getF_id() + "%");
 			} else {
 				pStmt.setString(4, "%");
 			}
-			if (param.getUnit() != -1) {
-				pStmt.setString(5, "%" + param.getUnit() + "%");
+			if (param.getR_i_count() != null && !param.getR_i_count().equals("")) {
+				pStmt.setString(5, "%" + param.getR_i_count() + "%");
 			} else {
 				pStmt.setString(5, "%");
 			}
-			if (param.getTime() != null && !param.getTime().equals("")) {
-				pStmt.setString(6, "%" + param.getTime() + "%");
+			if (param.getUnit() != -1) {
+				pStmt.setString(6, "%" + param.getUnit() + "%");
 			} else {
 				pStmt.setString(6, "%");
 			}
-			pStmt.setBoolean(7, param.getWanpan());
-			pStmt.setBoolean(8, param.getsSave_time());
-			pStmt.setBoolean(9, param.getsMicrowave_oven());
-			if (param.getRecipe() != null && !param.getRecipe().equals("")) {
-				pStmt.setString(10, "%" + param.getRecipe());
+			if (param.getTime() != null && !param.getTime().equals("")) {
+				pStmt.setString(7, "%" + param.getTime() + "%");
 			} else {
-				pStmt.setString(10, "%");
+				pStmt.setString(7, "%");
 			}
-			if (param.getCooking_expenses() != -1) {
-				pStmt.setString(11, "%" + param.getCooking_expenses() + "%");
+			pStmt.setBoolean(8, param.getWanpan());
+			pStmt.setBoolean(9, param.getSave_time());
+			pStmt.setBoolean(10, param.getMicrowave_oven());
+			if (param.getRecipe() != null && !param.getRecipe().equals("")) {
+				pStmt.setString(11, "%" + param.getRecipe());
 			} else {
 				pStmt.setString(11, "%");
 			}
-			if (param.getEating_out_expenses() != -1) {
-				pStmt.setString(12, "%" + param.getEating_out_expenses() + "%");
+			if (param.getCooking_expenses() != -1) {
+				pStmt.setString(12, "%" + param.getCooking_expenses() + "%");
 			} else {
 				pStmt.setString(12, "%");
 			}
-			if (param.getU_id() != null && !param.getU_id().equals("")) {
-				pStmt.setString(13, "%" + param.getU_id() + "%");
+			if (param.getEating_out_expenses() != -1) {
+				pStmt.setString(13, "%" + param.getEating_out_expenses() + "%");
 			} else {
 				pStmt.setString(13, "%");
 			}
-			if (param.getR_date() != null) {
-				pStmt.setString(14, "%" + param.getR_date() + "%");
+			if (param.getU_id() != null && !param.getU_id().equals("")) {
+				pStmt.setString(14, "%" + param.getU_id() + "%");
 			} else {
 				pStmt.setString(14, "%");
 			}
-			if (param.getR_count() != -1) {
-				pStmt.setString(15, "%" + param.getR_count() + "%");
+			if (param.getR_date() != null) {
+				pStmt.setString(15, "%" + param.getR_date() + "%");
 			} else {
 				pStmt.setString(15, "%");
+			}
+			if (param.getR_count() != -1) {
+				pStmt.setString(16, "%" + param.getR_count() + "%");
+			} else {
+				pStmt.setString(16, "%");
 			}
 
 			// SQL文を実行し、結果表を取得する
@@ -173,11 +183,11 @@ public class RecipeDAO {
 
 			// SQL文を準備する
 			String sql = "select rec_id, r_name, time, image, wanpan, save_time, microwave_oven, "
-					+ "recipe, cooking_expenses, eating_out_expenses"
-					+ "from recipes"
+					+ "recipe, cooking_expenses, eating_out_expenses "
+					+ "from recipes "
 					+ "where rec_id like ? or r_name like ? or time like ? or wanpan like ? or "
 					+ "save_time like ? or microwave_oven like ? or recipe like ? or cooking_expenses like ? "
-					+ "or eating_out_expenses like ?";
+					+ "or eating_out_expenses like ? or i_id like ?";
 			// 条件式がu_idとrec_idのみなので、他の検索条件の追加
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -198,8 +208,8 @@ public class RecipeDAO {
 				pStmt.setString(3, "%");
 			}
 			pStmt.setBoolean(4, param.getWanpan());
-			pStmt.setBoolean(5, param.getsSave_time());
-			pStmt.setBoolean(6, param.getsMicrowave_oven());
+			pStmt.setBoolean(5, param.getSave_time());
+			pStmt.setBoolean(6, param.getMicrowave_oven());
 			if (param.getRecipe() != null && !param.getRecipe().equals("")) {
 				pStmt.setString(7, "%" + param.getRecipe());
 			} else {
@@ -214,6 +224,11 @@ public class RecipeDAO {
 				pStmt.setString(9, "%" + param.getEating_out_expenses() + "%");
 			} else {
 				pStmt.setString(9, "%");
+			}
+			if (param.getI_id() != -1) {
+				pStmt.setString(10, "%" + param.getI_id() + "%");
+			} else {
+				pStmt.setString(10, "%");
 			}
 
 			// SQL文を実行し、結果表を取得する
@@ -385,8 +400,8 @@ public class RecipeDAO {
 				pStmt_r.setString(3, null);
 			}
 			pStmt_r.setBoolean(4, recipe.getWanpan());
-			pStmt_r.setBoolean(5, recipe.getsSave_time());
-			pStmt_r.setBoolean(6, recipe.getsMicrowave_oven());
+			pStmt_r.setBoolean(5, recipe.getSave_time());
+			pStmt_r.setBoolean(6, recipe.getMicrowave_oven());
 			if (recipe.getRecipe() != null && !recipe.getRecipe().equals("")) {
 				pStmt_r.setString(7, recipe.getRecipe());
 			} else {
@@ -518,8 +533,8 @@ public class RecipeDAO {
 				pStmt_r.setString(3, null);
 			}
 			pStmt_r.setBoolean(4, recipe.getWanpan());
-			pStmt_r.setBoolean(5, recipe.getsSave_time());
-			pStmt_r.setBoolean(6, recipe.getsMicrowave_oven());
+			pStmt_r.setBoolean(5, recipe.getSave_time());
+			pStmt_r.setBoolean(6, recipe.getMicrowave_oven());
 			if (recipe.getRecipe() != null && !recipe.getRecipe().equals("")) {
 				pStmt_r.setString(7, recipe.getRecipe());
 			} else {

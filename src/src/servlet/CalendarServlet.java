@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -92,7 +93,7 @@ public class CalendarServlet extends HttpServlet {
 				}
 			}
 			cal.add(java.util.Calendar.DATE, 1);
-			System.out.println(cal.get(java.util.Calendar.YEAR)+"/"+(cal.get(java.util.Calendar.MONTH)+1) +"/"+cal.get(java.util.Calendar.DATE));
+//			System.out.println(cal.get(java.util.Calendar.YEAR)+"/"+(cal.get(java.util.Calendar.MONTH)+1) +"/"+cal.get(java.util.Calendar.DATE));
 		}
 
 		for (int i = 0; i < diff_weekSum.length; i++) {
@@ -105,6 +106,9 @@ public class CalendarServlet extends HttpServlet {
 		request.setAttribute("e_o_Sum", Arrays.stream(e_o_weekSum).sum());
 		request.setAttribute("diff_weekSum", diff_weekSum);
 		request.setAttribute("diff_Sum", Arrays.stream(diff_weekSum).sum());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/calendar.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	//	/**

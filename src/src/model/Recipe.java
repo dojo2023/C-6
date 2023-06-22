@@ -177,7 +177,7 @@ public class Recipe implements Serializable {
 		this.wanpan = wanpan;
 	}
 
-	public boolean getsSave_time() {
+	public boolean getSave_time() {
 		return save_time;
 	}
 
@@ -185,7 +185,7 @@ public class Recipe implements Serializable {
 		this.save_time = save_time;
 	}
 
-	public boolean getsMicrowave_oven() {
+	public boolean getMicrowave_oven() {
 		return microwave_oven;
 	}
 

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.MainFoodDAO;
 import dao.UserDAO;
+import model.MainFood;
 import model.User;
 
 /**
@@ -26,6 +28,12 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		MainFoodDAO mDAO = new MainFoodDAO();
+		List<MainFood> mainFood = mDAO.select(new MainFood());
+
+		request.setCharacterEncoding("UTF-8");
+		request.setAttribute("mainFood", mainFood);
+
 		// ログインしてたら登録ページにフォワードする（URL変わらない）
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/register.jsp");
 		dispatcher.forward(request, response);

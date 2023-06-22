@@ -1,1 +1,97 @@
 @charset "UTF-8";
+
+form{
+	display: inline;
+}
+/*れしぴろー吹き出し*/
+.balloon {
+  width: 100%;
+  margin: 2em 0;
+  overflow: hidden;
+}
+
+.balloon .icon {
+  float: left;
+  margin-right: -90px;
+  width: 150px;
+}
+.balloon .icon img{
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.balloon .chatting {
+  width: 100%;
+}
+
+.says {
+  display: inline-block;
+  position: relative;
+  margin: 40px 0 0 105px;
+  padding: 17px 13px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 18px;
+  left: -24px;
+  border: 12px solid transparent;
+  border-right: 12px solid #fff;
+}
+
+.says p {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+/*れしぴ子吹き出し*/
+.balloon2 {
+  width: 100%;
+  margin: 2em 0;
+  overflow: hidden;
+}
+
+.balloon2 .icon2 {
+  float: right;
+  margin-right: 230px;
+  width: 120px;
+}
+.balloon2 .icon2 img{
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.balloon2 .chatting2 {
+  width: 100%;
+}
+
+.says2 {
+  display: inline-block;
+  position: relative;
+  margin: 40px 0 0 105px;
+  padding: 17px 13px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.says2:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 18px;
+  right: -24px;
+  border: 12px solid transparent;
+  border-left: 12px solid #fff;
+}
+
+.says2 p {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}

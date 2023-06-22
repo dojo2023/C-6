@@ -11,7 +11,7 @@
 <body>
 	<!-- ヘッダーここから -->
 	<header>
-		<h1 class="logo"><img src = "/NMW/img/logo/logo.png" alt="れしぴろーくん"></h1>
+		<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 		<nav>
 			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
 			<a href="/NMW/RecipeListServlet">レシピ</a>

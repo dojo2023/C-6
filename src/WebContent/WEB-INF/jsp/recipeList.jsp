@@ -26,9 +26,13 @@
 	<img src="">からあげ丼 所要時間15分t
 	-->
 	<ul>
-		<c:forEach var="r_l" items=" ${recipeList}" >
+		<c:forEach var="r_l" items="${ recipeList }" varStatus="status">
 				<li>
-				${ r_l.image}
+				<form  action="/NMW/RecipeServlet" method="post">
+
+				<input type="submit" name = "r_select" value="2">
+				${ r_l.image }
+				</form>
 				</li>
 				<li>
 				${ r_l.r_name }
@@ -45,6 +49,9 @@
 				<li>
 				${ r_l.microwave_oven }
 				</li>
+
+
+
 		</c:forEach>
 	</ul>
 
