@@ -14,7 +14,7 @@
 <body>
 <!-- ヘッダーここから -->
 <header>
-	<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
+	<a href ="/NMW/LoginServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 </header>
 <!-- ヘッダーここまで -->
 
