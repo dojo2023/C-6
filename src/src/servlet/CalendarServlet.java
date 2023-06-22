@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -105,6 +106,9 @@ public class CalendarServlet extends HttpServlet {
 		request.setAttribute("e_o_Sum", Arrays.stream(e_o_weekSum).sum());
 		request.setAttribute("diff_weekSum", diff_weekSum);
 		request.setAttribute("diff_Sum", Arrays.stream(diff_weekSum).sum());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/calendar.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	//	/**
