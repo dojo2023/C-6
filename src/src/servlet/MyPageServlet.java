@@ -34,15 +34,16 @@ public class MyPageServlet extends HttpServlet {
 		}
 		request.setCharacterEncoding("UTF-8");
 
-		UserDAO uDAO = new UserDAO();
-		int rec_id = -1;
-		if (request.getAttribute("rec_id") != null) {
-			rec_id = Integer.parseInt(request.getAttribute("rec_id").toString());
+
+/*		int edit = -1;
+		if (request.getAttribute("edit") != null) {
+			edit = Integer.parseInt(request.getAttribute("edit").toString());
 
 		}
-
+*/
 
 		// user idからユーザー情報(マイページ)をsetしてる
+		UserDAO uDAO = new UserDAO();
 		LoginUser loginUser = (LoginUser) session.getAttribute("id");
 		List<User> user_inf = uDAO.selectLfDf(new User(loginUser.getId()));
 

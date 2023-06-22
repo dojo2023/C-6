@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.MainFood;
 import model.User;
 
 public class UserDAO {
@@ -66,24 +67,26 @@ public class UserDAO {
 			// SQL文を準備する  （検索するSQL文）検索する項目増やせる
 			String sql_lf = "select users.u_id, users.password, user_likefoods.lf_id from users "
 					+ "left join user_likefoods on users.u_id = user_likefoods.u_id "
-					+ "left join foods on foods.f_id = user_likefoods.lf_id"
-					+ "where users.u_id like ?";
-			String sql_df = "select users.u_id, user_dislikefoods.df_id from users"
+					+ "left join foods on foods.f_id = user_likefoods.lf_id "
+					+ "where users.u_id = ?";
+			String sql_df = "select users.u_id, user_dislikefoods.df_id from users "
 					+ "left join user_dislikefoods on users.u_id = user_dislikefoods.u_id "
-					+ "left join foods on foods.f_id = user_dislikefoods.df_id"
-					+ "where users.u_id like ?";
+					+ "left join foods on foods.f_id = user_dislikefoods.df_id "
+					+ "where users.u_id = ?";
 
 			PreparedStatement pStmt_lf = conn.prepareStatement(sql_lf);
 			PreparedStatement pStmt_df = conn.prepareStatement(sql_df);
 
 			// SQL文を完成させる(?を埋める)
 			if (param.getU_id() != null) {
-				pStmt_lf.setString(1, "%" + param.getU_id() + "%"); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
-				pStmt_df.setString(1, "%" + param.getU_id() + "%");
+				pStmt_lf.setString(1, param.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+				pStmt_df.setString(1, param.getU_id());
 			} else {
-				pStmt_lf.setString(1, "%");
-				pStmt_df.setString(1, "%");
+				pStmt_lf.setString(1, "");
+				pStmt_df.setString(1, "");
 			}
+
+
 
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs_lf = pStmt_lf.executeQuery();
@@ -119,6 +122,77 @@ public class UserDAO {
 				f1 = rs_lf.next();
 				f2 = rs_df.next();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cardList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			cardList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					cardList = null;
+				}
+			}
+		}
+		// 結果を返す
+		return cardList;
+	}
+
+	public List<MainFood> selectF_name(User param) {
+		Connection conn = null;
+		List<MainFood> cardList = new ArrayList<MainFood>();
+		try {
+			// JDBCドライバを読み込む  Javaによるデータベース接続
+			Class.forName("org.h2.Driver");
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+
+			// SQL文を準備する  （検索するSQL文）検索する項目増やせる
+			String sql_lf = "select users.u_id, users.password, user_likefoods.lf_id user_dislikefoods.df_id, foods.f_name "
+					+ "from users "
+					+ "left join user_likefoods on users.u_id = user_likefoods.u_id "
+					+ "left join user_dislikefoods on users.u_id = user_dislikefoods.u_id "
+					+ "left join foods on foods.f_id = user_likefoods.lf_id "
+					+ "where user_likefoods.lf_id = ? or user_dislikefoods.df_id = ?";
+
+			PreparedStatement pStmt = conn.prepareStatement(sql_lf);
+
+			// SQL文を完成させる(?を埋める)
+			if (param.getLf_id() != -1) {
+				pStmt.setString(1, param.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+			} else {
+				pStmt.setString(1, "");
+			}
+			if (param.getU_id() != null) {
+				pStmt.setString(1, param.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+			} else {
+				pStmt.setString(1, "");
+			}
+
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表をコレクションにコピーする （通常のArrayリストに入れている）
+			// 1行目をスキップするかも
+			boolean f = rs.next();
+
+			while (rs.next()) {
+				MainFood card = new MainFood(
+						rs.getInt("foods.f_id"),
+						rs.getString("foods.f_name"),
+						rs.getString("foods.image"),
+						rs.getString("foods.identify"),
+						rs.getString("foods.strage_method"),
+						rs.getString("foods.retention_period"),
+						rs.getString("foods.season"));
+				cardList.add(card);
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			cardList = null;
