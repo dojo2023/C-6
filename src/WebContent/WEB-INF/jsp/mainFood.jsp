@@ -23,6 +23,7 @@
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
 		<c:forEach var="m" items="${ mainFood }" >
+			${ m.f_name }
 			<img src="/NMW/img${ m.image }">
 
 	<p>おいしい食材の見分け方</p>
