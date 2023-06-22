@@ -35,7 +35,7 @@
 			</label>
 		</li>
 		<li>
-			<input id="login" class="btn" type="submit" name="LOGIN" value="ログイン">
+			<input id="login" class="btn btn--orange" type="submit" name="LOGIN" value="ログイン">
 		</li>
 	</ul>
 </form>
