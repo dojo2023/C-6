@@ -7,10 +7,11 @@
 <meta charset="UTF-8">
 <title>食材管理 | れしぴろーくん</title>
 <link rel="stylesheet" href="/NMW/css/common.css">
+<link rel="stylesheet" href="/NMW/css/mainFoodList.css">
 <body>
 	<!-- ヘッダーここから -->
 	<header>
-		<h1 class="logo"><img src = "/NMW/img/logo/logo.png" alt="れしぴろーくん"></h1>
+		<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 		<nav>
 			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
 			<a href="/NMW/RecipeListServlet">レシピ</a>
@@ -28,6 +29,9 @@
 				<img src="/NMW/img/${ mainFood.image }" width="50">
 			</button>
 		</form>
+			<c:if test="${ ((status.index+1)%7)==0 }">
+				<br>
+			</c:if>
 	</c:forEach>
 
 	<img src = "/NMW/img/logo/resipiro-right.png"><p>クリックすると、食材の詳細を閲覧できるピヨ</p>
