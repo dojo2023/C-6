@@ -18,24 +18,30 @@ public class CalendarDAO {
 		try {
 			// JDBCドライバを読み込む
 			Class.forName("org.h2.Driver");
+
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SELECT文を準備する
-			String sql = "select calendars.u_id, calendars.rec_id, calendars.date, calendars.c_count, "
-					+ " recipes.r_name, recipes.cooking_expenses, recipes.eating_out_expenses"
-					+ "from calendars left join recipes"
-					+ "on calendars.rec_id = recipes.rec_id"
-					+ "where calendars.u_id = ? ";
+//			c_count以降にエラー
+			String sql = "select u_id, calendars.rec_id, date, c_count, "
+					+ "r_name, cooking_expenses, eating_out_expenses "
+					+ "from calendars "
+					+ "left join recipes "
+					+ "on calendars.rec_id = recipes.rec_id "
+					+ "where u_id = ? and date = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる(?を埋める)
 			if (calendar.getU_id() != null) {
-				pStmt.setString(1, calendar.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+				pStmt.setString(1, calendar.getU_id());
 			} else {
 				pStmt.setString(1, null);
-
 			}
-
+			if (calendar.getDate() != null) {
+				pStmt.setDate(2, calendar.getDate());
+			} else {
+				pStmt.setDate(2, null);
+			}
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 

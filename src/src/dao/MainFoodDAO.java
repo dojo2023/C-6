@@ -29,7 +29,7 @@ public class MainFoodDAO {
 
 			// SQL文を完成させる
 			if (mainFood.getF_id() != -1) {
-				pStmt.setString(1, "%" + mainFood.getF_id() + "%");
+				pStmt.setInt(1, mainFood.getF_id());
 			} else {
 				pStmt.setString(1, "%");
 			}

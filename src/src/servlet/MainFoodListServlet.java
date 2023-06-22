@@ -49,17 +49,29 @@ public class MainFoodListServlet extends HttpServlet {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 
-		String f_id = (request.getParameter("foods"));
+		int f_id = Integer.parseInt(request.getParameter("foods"));
 
-		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("f_id", f_id);
+//		request.setCharacterEncoding("UTF-8");
+//		request.setAttribute("f_id", f_id);
 //		MainFoodDAO mDAO = new MainFoodDAO();
 //		List<MainFood> mainFood = mDAO.select(new MainFood());
 //		request.setAttribute("mainFood", mainFood);
 
+		// リクエストパラメータを取得する
+
+		MainFoodDAO mDAO = new MainFoodDAO();
+		List<MainFood> mainFood = mDAO.select(new MainFood(f_id));
+
+		// 検索結果をリクエストスコープに格納する
+		request.setAttribute("mainFood", mainFood);
+
 		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/MainFoodServlet");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/mainFood.jsp");
 		dispatcher.forward(request, response);
+
+		// 結果ページにフォワードする
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/MainFoodServlet");
+//		dispatcher.forward(request, response);
 
 
 	}
