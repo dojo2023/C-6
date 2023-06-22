@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.UserDAO;
 import model.LoginUser;
+import model.MainFood;
 import model.User;
 
 /**
@@ -46,6 +47,10 @@ public class MyPageServlet extends HttpServlet {
 		UserDAO uDAO = new UserDAO();
 		LoginUser loginUser = (LoginUser) session.getAttribute("id");
 		List<User> user_inf = uDAO.selectLfDf(new User(loginUser.getId()));
+
+
+
+		List<MainFood> lf = uDAO.selectF_name( user_inf );
 
 		request.setAttribute("user_inf", user_inf);
 
