@@ -34,8 +34,28 @@
 			</c:if>
 	</c:forEach>
 
-	<img src = "/NMW/img/logo/resipiro-right.png"><p>クリックすると、食材の詳細を閲覧できるピヨ</p>
-	<p>これで食材保存も完璧だっピ！</p><img src = "/NMW/img/logo/logo2.png">
+	<div class="balloon">
+	  <div class="icon">
+	    <img src = "/NMW/img/logo/resipiro-right.png">
+	  </div>
+	  <div class="chatting">
+	    <div class="says">
+	      <p>クリックすると、食材の詳細を閲覧できるピヨ</p>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="balloon2">
+	  <div class="icon2">
+	    <img src = "/NMW/img/logo/logo2.png">
+	  </div>
+	  <div class="chatting2">
+	    <div class="says2">
+	      	<p>これで食材保存も完璧だっピ！</p>
+	    </div>
+	  </div>
+	</div>
+
 	<!-- メインここまで -->
 	<!-- フッターここから -->
 	<footer>
