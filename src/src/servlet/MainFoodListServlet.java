@@ -51,11 +51,17 @@ public class MainFoodListServlet extends HttpServlet {
 
 		String f_id = (request.getParameter("foods"));
 
+		request.setCharacterEncoding("UTF-8");
 		request.setAttribute("f_id", f_id);
+//		MainFoodDAO mDAO = new MainFoodDAO();
+//		List<MainFood> mainFood = mDAO.select(new MainFood());
+//		request.setAttribute("mainFood", mainFood);
 
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/MainFoodServlet");
 		dispatcher.forward(request, response);
+
+
 	}
 
 }
