@@ -56,10 +56,10 @@ public class RecipeListServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 
 		// setした値をgetAttributeで取得して、selectで検索する（主要食材）
-		Recipes recipes = (Recipes)request.getAttribute("recipes");
-		// 複数要素によるレシピ検索処理を行う
-				RecipeDAO reDao = new RecipeDAO();
-				List<Recipe> recipesList = reDao.select(recipes);
+//		Recipes recipes = (Recipes)request.getAttribute("recipes");
+//		// 複数要素によるレシピ検索処理を行う
+//				RecipeDAO reDao = new RecipeDAO();
+//				List<Recipe> recipesList = reDao.select(recipes);
 
 		/* 検索の時と、詳細表示の2つのformの識別(valueで)
 		 * <form name = "" value="">を使ってサーブレットのgetAttriで受け取れる
