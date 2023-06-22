@@ -97,31 +97,52 @@ public class UserDAO {
 			boolean f1 = rs_lf.next();
 			boolean f2 = rs_df.next();
 
+			List<Integer> rs_lf_l = new ArrayList<Integer>();
+			List<Integer> rs_df_l = new ArrayList<Integer>();
+
 			while (f1 || f2) {
 				User card = null;
 				if(f1 && f2) {
-					card = new User(
-					rs_lf.getString("users.u_id"),
-					rs_lf.getString("users.password"),
-					rs_lf.getInt("user_likefoods.lf_id"),
-					rs_df.getInt("user_dislikefoods.df_id"));
+					rs_lf_l.add(rs_lf.getInt("user_likefoods.lf_id"));
+					rs_df_l.add(rs_df.getInt("user_likefoods.rs_df"));
 				}else if (f1) {
-					card = new User(
-							rs_lf.getString("users.u_id"),
-							rs_lf.getString("users.password"),
-							rs_lf.getInt("user_likefoods.lf_id"),
-							-1);
+					rs_lf_l.add(rs_lf.getInt("user_likefoods.lf_id"));
 				}else if (f2) {
-					card = new User(
-							rs_lf.getString("users.u_id"),
-							rs_lf.getString("users.password"),
-							-1,
-							rs_df.getInt("user_dislikefoods.df_id"));
+					rs_df_l.add(rs_df.getInt("user_likefoods.rs_df"));
 				}
-				cardList.add(card);
+
 				f1 = rs_lf.next();
 				f2 = rs_df.next();
 			}
+
+			User card = null;
+			if(rs_lf_l != null && rs_df_l != null) {
+				card = new User(
+				rs_lf.getString("users.u_id"),
+				rs_lf.getString("users.password"),
+				rs_lf_l,
+				rs_df_l);
+			} else if (rs_lf_l != null) {
+				card = new User(
+						rs_lf.getString("users.u_id"),
+						rs_lf.getString("users.password"),
+						rs_lf_l,
+						-1);
+			} else if (rs_df_l != null) {
+				card = new User(
+						rs_lf.getString("users.u_id"),
+						rs_lf.getString("users.password"),
+						-1,
+						rs_df_l);
+			} else {
+				card = new User(
+						rs_lf.getString("users.u_id"),
+						rs_lf.getString("users.password"),
+						-1,
+						-1);
+			}
+			cardList.add(card);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			cardList = null;
@@ -158,41 +179,44 @@ public class UserDAO {
 					+ "left join user_likefoods on users.u_id = user_likefoods.u_id "
 					+ "left join user_dislikefoods on users.u_id = user_dislikefoods.u_id "
 					+ "left join foods on foods.f_id = user_likefoods.lf_id "
-					+ "where user_likefoods.lf_id = ? or user_dislikefoods.df_id = ?";
+					+ "where user_likefoods.lf_id = ? and user_dislikefoods.df_id = ?";
 
 			PreparedStatement pStmt = conn.prepareStatement(sql_lf);
 
-			// SQL文を完成させる(?を埋める)
-			if (param.getLf_id() != -1) {
-				pStmt.setString(1, param.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
-			} else {
-				pStmt.setString(1, "");
-			}
-			if (param.getU_id() != null) {
-				pStmt.setString(1, param.getU_id()); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
-			} else {
-				pStmt.setString(1, "");
+			int max_l = param.getLf_id().size();
+			if (max_l < param.getDf_id().size()) {
+				max_l = param.getDf_id().size();
 			}
 
-			// SQL文を実行し、結果表を取得する
-			ResultSet rs = pStmt.executeQuery();
+			for (int i=0; i<max_l; i++) {
+				// SQL文を完成させる(?を埋める)
+				if (param.getLf_id().get(i) != -1) {
+					pStmt.setInt(1, param.getLf_id().get(i)); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+				} else {
+					pStmt.setString(1, "");
+				}
+				if (param.getDf_id().get(i) != null) {
+					pStmt.setInt(2, param.getDf_id().get(i)); // %はSQLのあいまい検索のやつ ?を"%" + param.getNumber() + "%"にしてる
+				} else {
+					pStmt.setString(2, "");
+				}
 
-			// 結果表をコレクションにコピーする （通常のArrayリストに入れている）
-			// 1行目をスキップするかも
-			boolean f = rs.next();
+				// SQL文を実行し、結果表を取得する
+				ResultSet rs = pStmt.executeQuery();
 
-			while (rs.next()) {
-				MainFood card = new MainFood(
-						rs.getInt("foods.f_id"),
-						rs.getString("foods.f_name"),
-						rs.getString("foods.image"),
-						rs.getString("foods.identify"),
-						rs.getString("foods.strage_method"),
-						rs.getString("foods.retention_period"),
-						rs.getString("foods.season"));
-				cardList.add(card);
+				// 結果表をコレクションにコピーする （通常のArrayリストに入れている）
+				while (rs.next()) {
+					MainFood card = new MainFood(
+							rs.getInt("foods.f_id"),
+							rs.getString("foods.f_name"),
+							rs.getString("foods.image"),
+							rs.getString("foods.identify"),
+							rs.getString("foods.strage_method"),
+							rs.getString("foods.retention_period"),
+							rs.getString("foods.season"));
+					cardList.add(card);
+				}
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			cardList = null;
