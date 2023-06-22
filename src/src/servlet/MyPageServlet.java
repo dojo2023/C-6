@@ -45,14 +45,19 @@ public class MyPageServlet extends HttpServlet {
 
 		// user idからユーザー情報(マイページ)をsetしてる
 		UserDAO uDAO = new UserDAO();
-		LoginUser loginUser = (LoginUser) session.getAttribute("id");
-		List<User> user_inf = uDAO.selectLfDf(new User(loginUser.getId()));
+//		LoginUser loginUser = (LoginUser) session.getAttribute("id");
+		String id= (String) session.getAttribute("id");
+		List<User> user_inf = uDAO.selectLfDf(new User(id));
 
+		System.out.println("=============================================================--");
+		System.out.println(user_inf.get(0).getU_id());
 
-
-		List<MainFood> lf = uDAO.selectF_name( user_inf );
+		List<MainFood> lf_name = uDAO.selectF_name( new User(user_inf.get(0).getU_id(), user_inf.get(0).getPassword() , user_inf.get(0).getLf_id(), -1));
+		List<MainFood> df_name = uDAO.selectF_name( new User(user_inf.get(0).getU_id(), user_inf.get(0).getPassword() , null, user_inf.get(0).getDf_id()));
 
 		request.setAttribute("user_inf", user_inf);
+		request.setAttribute("lf_name", lf_name);
+		request.setAttribute("df_name", df_name);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/myPage.jsp");
 		dispatcher.forward(request, response);

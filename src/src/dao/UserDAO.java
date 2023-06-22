@@ -104,11 +104,11 @@ public class UserDAO {
 				User card = null;
 				if(f1 && f2) {
 					rs_lf_l.add(rs_lf.getInt("user_likefoods.lf_id"));
-					rs_df_l.add(rs_df.getInt("user_likefoods.rs_df"));
+					rs_df_l.add(rs_df.getInt("user_dislikefoods.df_id"));
 				}else if (f1) {
 					rs_lf_l.add(rs_lf.getInt("user_likefoods.lf_id"));
 				}else if (f2) {
-					rs_df_l.add(rs_df.getInt("user_likefoods.rs_df"));
+					rs_df_l.add(rs_df.getInt("user_dislikefoods.df_id"));
 				}
 
 				f1 = rs_lf.next();
