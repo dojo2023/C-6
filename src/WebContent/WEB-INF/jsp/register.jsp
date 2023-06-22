@@ -18,7 +18,7 @@
 	<!-- メインここから -->
 	<form id="register" method="POST" action="/NMW/RegisterServlet">
 		<br>ID<br><input type="text" name="ID" value="id">
-		<br>パスワード<br><input type="text" name="PW" value="password">
+		<br>パスワード<br><input type="text" name="PW" value="">
 		<br>パスワードをもう一度入力してください<br>
 		<input type="text" name="c_PW" value="password">
 		<br>好きな食べ物 <br>
