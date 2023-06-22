@@ -27,12 +27,13 @@
 	ID
 	<br>
 	<input type="text" name="ID" value="id">
-	<br> パスワード
+	<br><p id="error_msg" class="font-red"></p>
+	<br><label for="password">新しいパスワード</label>
 	<br>
-	<input type="text" name="PW" value="password">
-	<br> パスワードをもう一度入力してください
+	<input id="password" type="password" name="PW" value="password" placeholder="パスワード" required>
+	<br><label for="confirm_password">パスワードをもう一度入力してください</label>
 	<br>
-	<input type="text" name="c_PW" value="confirm_password">
+	<input id="confirm_password" type="password" name="c_PW" value="confirm_password" placeholder="パスワード" required>
 	<br> 好きな食べ物
 	<br>
 	<input type="text" name="likefood" value=""> 嫌いな食べ物
