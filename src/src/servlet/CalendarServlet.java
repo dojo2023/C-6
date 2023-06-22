@@ -92,7 +92,7 @@ public class CalendarServlet extends HttpServlet {
 				}
 			}
 			cal.add(java.util.Calendar.DATE, 1);
-			System.out.println(cal.get(java.util.Calendar.YEAR)+"/"+(cal.get(java.util.Calendar.MONTH)+1) +"/"+cal.get(java.util.Calendar.DATE));
+//			System.out.println(cal.get(java.util.Calendar.YEAR)+"/"+(cal.get(java.util.Calendar.MONTH)+1) +"/"+cal.get(java.util.Calendar.DATE));
 		}
 
 		for (int i = 0; i < diff_weekSum.length; i++) {
