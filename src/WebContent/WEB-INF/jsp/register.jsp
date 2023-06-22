@@ -11,31 +11,38 @@
 <body>
 	<!-- ヘッダーここから -->
 	<header>
-		<h1 class="logo"><img src = "/NMW/img/logo/logo.png" alt="れしぴろーくん"></h1>
+		<a href ="/NMW/LoginServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 	</header>
 	<!-- ヘッダーここまで -->
 
 	<!-- メインここから -->
 	<form id="register" method="POST" action="/NMW/RegisterServlet">
-		<br>ID<br><input type="text" name="ID" value="id">
-		<br>パスワード<br><input type="text" name="PW" value="password">
+		<br>ID<br><input type="text" name="ID">
+		<br>パスワード<br><input type="text" name="PW">
 		<br>パスワードをもう一度入力してください<br>
-		<input type="text" name="c_PW" value="password">
+		<input type="text" name="c_PW">
 		<br>好きな食べ物 <br>
-		<input type="text" name="likefood" value="">
+		<input type="text" name="likefood">
 		<br>嫌いな食べ物 <br>
-		<input type="text" name="dislikefood" value=""><br>
+		<input type="text" name="dislikefood"><br>
+	</form>
 
+	<input class="btn btn--orange" type="button" name="likefood" value="好きな食べ物">
+	<input class="btn btn--orange" type="button" name="dislikefood" value="嫌いな食べ物">
+	<br>
 	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
-		<form action="/NMW/RegisterServlet" method="post">
-			<button type="submit" name="foods" value="${ mainFood.f_id }">
-				<img src="/NMW/img/${ mainFood.image }" width="50">
-			</button>
-		</form>
+
+		<button type="submit" name="foods" value="${ mainFood.f_id }">
+			<img src="/NMW/img/${ mainFood.image }" width="50">
+		</button>
+		<c:if test="${ ((status.index+1)%7)==0 }">
+			<br>
+		</c:if>
+
 	</c:forEach>
 
-		<input type="submit" name="REGISTER" value="新規登録">
-	</form>
+		<input class="btn btn--orange" type="submit" name="REGISTER" value="新規登録">
+
 	<!-- メインここまで -->
 	<!-- フッターここから -->
 	<footer>
