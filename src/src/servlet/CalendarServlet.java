@@ -57,31 +57,37 @@ public class CalendarServlet extends HttpServlet {
 			eatingOutExpensese[i] = 0;
 		}
 
+		//現在時刻でカレンダーのインスタンスを取得
+		java.util.Calendar c = java.util.Calendar.getInstance();
+
 		// 配列の日付番目に値段データの格納
 		List<Recipe> recipe = caleDAO.selectR_Count(new Calendar(loginUser.getId()));
-		// 配列の日付番目に値段データの格納
+		int day;
+
 		for (int i=0;i<calendar.size();i++) {
 			if(recipe.get(i).getR_count() != -1) {
 				// Date => String => int
-				cookingExpenses[Integer.parseInt(String.valueOf(calendar.get(i).getDate()))] = Integer
+				c.setTime(calendar.get(i).getDate());
+				day = c.get(java.util.Calendar.DAY_OF_MONTH);
+
+				cookingExpenses[day] = Integer
 						.parseInt(String.valueOf(calendar.get(i).getCooking_expenses())) * recipe.get(i).getR_count();
-				eatingOutExpensese[Integer.parseInt(String.valueOf(calendar.get(i).getDate()))] = Integer
+				eatingOutExpensese[day] = Integer
 						.parseInt(String.valueOf(calendar.get(i).getEating_out_expenses())) * recipe.get(i).getR_count();
 			} else {
 				// Date => String => int
-				cookingExpenses[Integer.parseInt(String.valueOf(calendar.get(i).getDate()))] = Integer
+				c.setTime(calendar.get(i).getDate());
+				day = c.get(java.util.Calendar.DAY_OF_MONTH);
+
+				cookingExpenses[day] = Integer
 						.parseInt(String.valueOf(calendar.get(i).getCooking_expenses()));
-				eatingOutExpensese[Integer.parseInt(String.valueOf(calendar.get(i).getDate()))] = Integer
+				eatingOutExpensese[day] = Integer
 						.parseInt(String.valueOf(calendar.get(i).getEating_out_expenses()));
 			}
 
 		}
-
 		//現在時刻でカレンダーのインスタンスを取得
 		java.util.Calendar cal = java.util.Calendar.getInstance();
-//        //SimpleDateFormatで書式を指定
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //Calendarの日付をSimpleDateFormatで指定した書式で文字列に変換
         cal.set(java.util.Calendar.DATE, 1);
 
         int weekMax = cal.getActualMaximum(java.util.Calendar.WEEK_OF_MONTH);
