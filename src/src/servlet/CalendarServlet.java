@@ -61,11 +61,20 @@ public class CalendarServlet extends HttpServlet {
 		List<Recipe> recipe = caleDAO.selectR_Count(new Calendar(loginUser.getId()));
 		// 配列の日付番目に値段データの格納
 		for (int i=0;i<calendar.size();i++) {
-			// Date => String => int
-			cookingExpenses[Integer.parseInt(String.valueOf(calendar.get(i).getDate()))] = Integer
-					.parseInt(String.valueOf(calendar.get(i).getCooking_expenses())) * recipe.get(i).getR_count();
-			eatingOutExpensese[Integer.parseInt(String.valueOf(calendar.get(i).getDate()))] = Integer
-					.parseInt(String.valueOf(calendar.get(i).getEating_out_expenses())) * recipe.get(i).getR_count();
+			if(recipe.get(i).getR_count() != -1) {
+				// Date => String => int
+				cookingExpenses[Integer.parseInt(String.valueOf(calendar.get(i).getDate()))] = Integer
+						.parseInt(String.valueOf(calendar.get(i).getCooking_expenses())) * recipe.get(i).getR_count();
+				eatingOutExpensese[Integer.parseInt(String.valueOf(calendar.get(i).getDate()))] = Integer
+						.parseInt(String.valueOf(calendar.get(i).getEating_out_expenses())) * recipe.get(i).getR_count();
+			} else {
+				// Date => String => int
+				cookingExpenses[Integer.parseInt(String.valueOf(calendar.get(i).getDate()))] = Integer
+						.parseInt(String.valueOf(calendar.get(i).getCooking_expenses()));
+				eatingOutExpensese[Integer.parseInt(String.valueOf(calendar.get(i).getDate()))] = Integer
+						.parseInt(String.valueOf(calendar.get(i).getEating_out_expenses()));
+			}
+
 		}
 
 		//現在時刻でカレンダーのインスタンスを取得
