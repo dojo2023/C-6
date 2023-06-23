@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>レシピ一覧 | れしぴろーくん</title>
+<link rel="stylesheet" href="/NMW/css/common.css">
 </head>
 <body>
 	<!-- ヘッダーここから -->
 	<header>
-		<h1>れしぴろーくん</h1>
+		<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 		<nav>
 			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
 			<a href="/NMW/RecipeListServlet">レシピ</a>
@@ -21,7 +23,8 @@
 	</header>
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
-	<img src="/NMW/img/recipe/kensaku.png">
+	<% List<String> recipeList = (List<String>)request.getAttribute("recipeList"); %>
+	<img src="/NMW/img/recipe/kensaku.png"width="50">
 	<!--
 	<img src="">からあげ丼 所要時間15分t
 	-->
@@ -29,9 +32,7 @@
 		<c:forEach var="r_l" items="${ recipeList }" varStatus="status">
 				<li>
 				<form  action="/NMW/RecipeServlet" method="post">
-
-				<input type="submit" name = "r_select" value="2">
-				${ r_l.image }
+				<a href=http://localhost:8080/NMW/RecipeServlet?search_key=rec_id><img src="/NMW/img${ r_l.image } "width="300"></a>
 				</form>
 				</li>
 				<li>

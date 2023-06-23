@@ -44,9 +44,10 @@ public class RecipeServlet extends HttpServlet {
 
 		// リクエストパラメータを取得する
 		// r_count=0は非表示
+
 		int rec_id = -1;
-		if (request.getAttribute("rec_id") != null) {
-			rec_id = Integer.parseInt(request.getAttribute("rec_id").toString());
+		if (request.getParameter("rec_id") != null) {
+			rec_id = Integer.parseInt(request.getParameter("rec_id").toString());
 		}
 
 		Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
@@ -54,6 +55,11 @@ public class RecipeServlet extends HttpServlet {
 
 		RecipeDAO rDAO = new RecipeDAO();
 		List<Recipe> recipe = rDAO.select(recipes);
+
+		System.out.println("============================");
+		// System.out.println(recipe);
+		System.out.println(recipe.get(0).getImage());
+		System.out.println("============================");
 
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("recipe", recipe);

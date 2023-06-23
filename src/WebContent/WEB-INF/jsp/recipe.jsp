@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>レシピ</title>
+<link rel="stylesheet" href="/NMW/css/common.css">
 </head>
 <body>
 	<!-- ヘッダーここから -->
 	<header>
-		<h1>れしぴろーくん</h1>
+		<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 		<nav>
 			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
 			<a href="/NMW/RecipeListServlet">レシピ</a>
@@ -23,14 +25,14 @@
 	<!-- メインここから -->
 	<!-- servletからレシピ内容のリスト受け取り -->
 	<ul>
-		<c:forEach var="r" items=" ${recipe}">
+		<c:forEach var="r" items="${recipe}" varStatus="status">
 			<li>
-			${ r.image }
-			<h2>${ r.r_name }</h2>
-			${ r.time }
-			${ r.wanpan }
-			${ r.save_time }
-			${ r.microwave_oven }
+			<img src="/NMW/img ${r.image}" width="500">
+			<h2>${r.r_name}</h2>
+			${r.time}
+			${r.wanpan}
+			${r.save_time}
+			${r.microwave_oven}
 			</li>
 		</c:forEach>
 	</ul>

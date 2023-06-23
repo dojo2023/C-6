@@ -54,11 +54,11 @@ public class MyPageServlet extends HttpServlet {
 		System.out.println(user_inf);
 
 		List<MainFood> lf_name = uDAO.selectF_name( new User(user_inf.get(0).getU_id(), user_inf.get(0).getPassword() , user_inf.get(0).getLf_id(), -1));
-		List<MainFood> df_name = uDAO.selectF_name( new User(user_inf.get(0).getU_id(), user_inf.get(0).getPassword() , null, user_inf.get(0).getDf_id()));
+//		List<MainFood> df_name = uDAO.selectF_name( new User(user_inf.get(0).getU_id(), user_inf.get(0).getPassword() , null, user_inf.get(0).getDf_id()));
 
 		request.setAttribute("user_inf", user_inf);
 		request.setAttribute("lf_name", lf_name);
-		request.setAttribute("df_name", df_name);
+//		request.setAttribute("df_name", df_name);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/myPage.jsp");
 		dispatcher.forward(request, response);
