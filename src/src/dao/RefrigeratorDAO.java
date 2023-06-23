@@ -26,11 +26,11 @@ public class RefrigeratorDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "select r.ref_id, r.u_id, r.f_id, r.f_count,"
+			String sql = "select r.ref_id, r.u_id, r.f_id, r.f_count, "
 					+ "r_t.text1, r_t.text2, r_t.text3, r_t.text4, r_t.text5, r_t.text6, r_t.text7, r_t.text8, r_t.text9, "
-					+ "r_t.num1, r_t.num2, r_t.num3, r_t.num4, r_t.num5, r_t.num6, r_t.num7, r_t.num8, r_t.num9"
-					+ "from refrigerators as r"
-					+ "left join refrigerator_texts as r_t on r.ref_id = r_t.ref_id"
+					+ "r_t.num1, r_t.num2, r_t.num3, r_t.num4, r_t.num5, r_t.num6, r_t.num7, r_t.num8, r_t.num9 "
+					+ "from refrigerators as r "
+					+ "left join refrigerator_texts as r_t on r.ref_id = r_t.ref_id "
 					+ "where r.u_id like ? or r.f_id like ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -51,13 +51,29 @@ public class RefrigeratorDAO {
 
 			List<String> c_t = new ArrayList<>();
 			List<Double> c_n = new ArrayList<>();
-			for (int i = 0; i < 9; i++) {
-				c_t.add(rs.getString("refrigerator_texts.text" + i + 1));
-				c_n.add(rs.getDouble("refrigerator_texts.num" + i + 1));
-			}
 
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
+				for (int i = 1; i < 10; i++) {
+					c_t.add(rs.getString("refrigerator_texts.text1"));
+					c_t.add(rs.getString("refrigerator_texts.text2"));
+					c_t.add(rs.getString("refrigerator_texts.text3"));
+					c_t.add(rs.getString("refrigerator_texts.text4"));
+					c_t.add(rs.getString("refrigerator_texts.text5"));
+					c_t.add(rs.getString("refrigerator_texts.text6"));
+					c_t.add(rs.getString("refrigerator_texts.text7"));
+					c_t.add(rs.getString("refrigerator_texts.text8"));
+					c_t.add(rs.getString("refrigerator_texts.text9"));
+					c_n.add(rs.getDouble("refrigerator_texts.num1"));
+					c_n.add(rs.getDouble("refrigerator_texts.num2"));
+					c_n.add(rs.getDouble("refrigerator_texts.num3"));
+					c_n.add(rs.getDouble("refrigerator_texts.num4"));
+					c_n.add(rs.getDouble("refrigerator_texts.num5"));
+					c_n.add(rs.getDouble("refrigerator_texts.num6"));
+					c_n.add(rs.getDouble("refrigerator_texts.num7"));
+					c_n.add(rs.getDouble("refrigerator_texts.num8"));
+					c_n.add(rs.getDouble("refrigerator_texts.num9"));
+				}
 				Refrigerator card = new Refrigerator(
 						rs.getInt("refrigerators.ref_id"),
 						rs.getString("refrigerators.u_id"),
@@ -101,9 +117,9 @@ public class RefrigeratorDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "select m.f_id, m.f_name, m.image, m.identify, m.strage_method, m.retention_period, m.season"
-					+ "from refrigerators as r"
-					+ "left join foods as m on r.f_id = m.f_id"
+			String sql = "select m.f_id, m.f_name, m.image, m.identify, m.strage_method, m.retention_period, m.season "
+					+ "from refrigerators as r "
+					+ "left join foods as m on r.f_id = m.f_id "
 					+ "where r.u_id like ? or r.f_id like ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -167,18 +183,18 @@ public class RefrigeratorDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "select r_i.unit"
-					+ "from refrigerators as r"
-					+ "left join recipe_ingredients as r_i on r.f_id = r_i.f_id"
+			String sql = "select r_i.unit "
+					+ "from refrigerators as r "
+					+ "left join recipe_ingredients as r_i on r.f_id = r_i.f_id "
 					+ "where r.f_id like ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			for (Refrigerator recipe : param) {
 				// SQL文を完成させる
-				if (recipe.getF_id() != -1) {
-					pStmt.setString(1, "%" + recipe.getF_id() + "%");
+				if (recipe != null && recipe.getF_id() != -1) {
+					pStmt.setInt(1, recipe.getF_id());
 				} else {
-					pStmt.setString(1, "%");
+					pStmt.setString(1, "");
 				}
 
 				// SQL文を実行し、結果表を取得する
@@ -187,23 +203,23 @@ public class RefrigeratorDAO {
 				// 結果表をコレクションにコピーする
 				while (rs.next()) {
 					Recipe card = new Recipe(
-							rs.getInt("recipes.rec_id"),
-							rs.getString("recipes.r_name"),
-							rs.getString("recipes.time"),
-							rs.getString("recipes.image"),
-							rs.getBoolean("recipes.wanpan"),
-							rs.getBoolean("recipes.save_time"),
-							rs.getBoolean("recipes.microwave_oven"),
-							rs.getString("recipes.recipe"),
-							rs.getInt("recipes.cooking_expenses"),
-							rs.getInt("recipes.eating_out_expenses"),
-							rs.getString("recipe_counts.u_id"),
-							rs.getDate("recipe_counts.r_date"),
-							rs.getInt("recipe_counts.r_count"),
-							rs.getInt("recipe_ingredients.i_id"),
-							rs.getInt("recipe_ingredients.f_id"),
-							rs.getString("recipe_ingredients.ingredient"),
-							rs.getDouble("recipe_ingredients.r_i_count"),
+							-1,
+							"",
+							"",
+							"",
+							false,
+							false,
+							false,
+							"",
+							-1,
+							-1,
+							"",
+							null,
+							-1,
+							-1,
+							-1,
+							"",
+							-1.0,
 							rs.getInt("recipe_ingredients.unit"));
 					cardList.add(card);
 				}
@@ -371,20 +387,24 @@ public class RefrigeratorDAO {
 
 			int i = 1;
 			for (String text : refrigerator.getText()) {
+				System.out.println(text);
+			}
+			for (String text : refrigerator.getText()) {
 				pStmt_t.setString(i, text);
 				i++;
+				System.out.println(i);
 			}
 
-			i = 2;
 			for (double num : refrigerator.getNum()) {
 				pStmt_t.setDouble(i, num);
 				i++;
+				System.out.println(i);
 			}
 
 			if (refrigerator.getRef_id() != -1) {
-				pStmt_t.setString(19, "%" + refrigerator.getRef_id() + "%");
+				pStmt_t.setInt(19, refrigerator.getRef_id());
 			} else {
-				pStmt_t.setString(19, "%");
+				pStmt_t.setString(19, "");
 			}
 
 			// SQL文を実行する

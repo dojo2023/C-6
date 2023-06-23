@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Calendar;
+import model.Recipe;
 
 public class CalendarDAO {
 	// 引数userで検索項目を指定し、検索結果のリストを返す
@@ -23,7 +24,7 @@ public class CalendarDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SELECT文を準備する
 //			c_count以降にエラー
-			String sql = "select u_id, calendars.rec_id, date, c_count, "
+			String sql = "select u_id, calendars.rec_id, date, "
 					+ "r_name, cooking_expenses, eating_out_expenses "
 					+ "from calendars "
 					+ "left join recipes "
@@ -77,6 +78,77 @@ public class CalendarDAO {
 		}
 		// 結果を返す
 		return CalendarList;
+	}
+
+	public List<Recipe> selectR_Count(Calendar calendar) {
+		Connection conn = null;
+		List<Recipe> cardList = new ArrayList<Recipe>();
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+			// SELECT文を準備する
+//			c_count以降にエラー
+			String sql = "select r_count "
+					+ "from calendars "
+					+ "left join recipe_counts "
+					+ "on calendars.rec_id = recipe_counts.rec_id "
+					+ "where calendars.u_id = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる(?を埋める)
+			if (calendar.getU_id() != null) {
+				pStmt.setString(1, calendar.getU_id());
+			} else {
+				pStmt.setString(1, null);
+			}
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+				Recipe card = new Recipe(
+						-1,
+						"",
+						"",
+						"",
+						false,
+						false,
+						false,
+						"",
+						-1,
+						-1,
+						"",
+						null,
+						rs.getInt("recipe_counts.r_count"),
+						-1,
+						-1,
+						"",
+						-1.0,
+						-1);
+				cardList.add(card);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cardList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			cardList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					cardList = null;
+				}
+			}
+		}
+		// 結果を返す
+		return cardList;
 	}
 
 	public boolean insert(Calendar calendar) {
