@@ -24,7 +24,7 @@ public class CalendarDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SELECT文を準備する
 //			c_count以降にエラー
-			String sql = "select u_id, calendars.rec_id, date, c_count, "
+			String sql = "select u_id, calendars.rec_id, date, "
 					+ "r_name, cooking_expenses, eating_out_expenses "
 					+ "from calendars "
 					+ "left join recipes "
