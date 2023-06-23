@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +44,17 @@
 	<button type="submit" class="btn btn--orange" name="likefood" value="好きな食べ物ボタン"></button>
 	<button type="submit" class="btn btn--orange" name="dislikefood" value="嫌いな食べ物ボタン"></button>
 	<br>
+	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
+		<form action="/NMW/MainFoodListServlet" method="post">
+			<button type="submit" name="foods" value="${ mainFood.f_id }">
+				<img src="/NMW/img/${ mainFood.image }" width="50">
+			</button>
+		</form>
+			<c:if test="${ ((status.index+1)%7)==0 }">
+				<br>
+			</c:if>
+	</c:forEach>
+	<!--
 	<button type="submit" name="food" value="negi"></button>
 	<button type="submit" name="food" value="kyuuri"></button>
 	<button type="submit" name="food" value="pi-man"></button>
@@ -64,7 +76,7 @@
 	<button type="submit" name="food" value="gyuuniku"></button>
 	<button type="submit" name="food" value="butaniku"></button>
 	<button type="submit" name="food" value="toriniku"></button>
-
+ -->
 	<input type="submit" class="btn btn--orange" name="SAVE" value="保存">
 	<input type="submit" class="btn btn--orange" name="DELETE" value="アカウント削除">
 	<!-- メインここまで -->
@@ -73,5 +85,22 @@
 		<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
 	</footer>
 	<!-- フッターここまで -->
+
+<!-- JavaScriptここから -->
+<script>
+function confirmPassword() {
+	  const password = document.getElementById('password').value;
+	  const confirmPassword = document.getElementById('confirm_password').value;
+	            const errorMsg = document.getElementById('error_msg');
+
+	            if (password == confirmPassword) {
+	                errorMsg.innerText = "";
+	                return true;
+	            } else {
+	                errorMsg.innerText = "パスワードが一致しません";
+	                return false;
+	            }
+}
+</script>
 </body>
 </html>
