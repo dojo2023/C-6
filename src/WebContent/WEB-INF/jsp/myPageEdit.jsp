@@ -25,17 +25,19 @@
 	<!-- ヘッダーここまで -->
 
 	<!-- メインここから -->
+
 	ID
 	<br>
 	<input type="text" name="ID" value="id">
-	<br><p id="error_msg" class="font-red"></p>
+	<!-- <br><p id="error_msg" class="font-red"></p> -->
 	<br><label for="password">新しいパスワード</label>
 	<br>
-	<input id="password" type="password" name="PW" value="password" placeholder="パスワード" required>
+	<!-- <input id="password" type="password" name="PW" value="password" placeholder="パスワード" required>
 	<br><label for="confirm_password">パスワードをもう一度入力してください</label>
 	<br>
 	<input id="confirm_password" type="password" name="c_PW" value="confirm_password" placeholder="パスワード" required>
-	<br> 好きな食べ物
+	 -->
+	 <br> 好きな食べ物
 	<br>
 	<input type="text" name="likefood" value=""> 嫌いな食べ物
 	<br>
@@ -54,29 +56,7 @@
 				<br>
 			</c:if>
 	</c:forEach>
-	<!--
-	<button type="submit" name="food" value="negi"></button>
-	<button type="submit" name="food" value="kyuuri"></button>
-	<button type="submit" name="food" value="pi-man"></button>
-	<button type="submit" name="food" value="jagaimo"></button>
-	<button type="submit" name="food" value="tamanegi"></button>
-	<button type="submit" name="food" value="daikonn"></button>
-	<button type="submit" name="food" value="ninnjinn"></button>
-	<button type="submit" name="food" value="kyabetu"></button>
-	<button type="submit" name="food" value="hourennsou"></button>
-	<button type="submit" name="food" value="hakusai"></button>
-	<button type="submit" name="food" value="retasu"></button>
-	<button type="submit" name="food" value="tomato"></button>
-	<button type="submit" name="food" value="nasu"></button>
-	<button type="submit" name="food" value="moyasi"></button>
-	<button type="submit" name="food" value="burokkori-"></button>
-	<button type="submit" name="food" value="simeji"></button>
-	<button type="submit" name="food" value="enoki"></button>
-	<button type="submit" name="food" value="tamago"></button>
-	<button type="submit" name="food" value="gyuuniku"></button>
-	<button type="submit" name="food" value="butaniku"></button>
-	<button type="submit" name="food" value="toriniku"></button>
- -->
+
 	<input type="submit" class="btn btn--orange" name="SAVE" value="保存">
 	<input type="submit" class="btn btn--orange" name="DELETE" value="アカウント削除">
 	<!-- メインここまで -->
@@ -86,7 +66,7 @@
 	</footer>
 	<!-- フッターここまで -->
 
-<!-- JavaScriptここから -->
+<!-- JavaScriptここから
 <script>
 function confirmPassword() {
 	  const password = document.getElementById('password').value;
@@ -102,5 +82,6 @@ function confirmPassword() {
 	            }
 }
 </script>
+-->
 </body>
 </html>
