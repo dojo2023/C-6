@@ -104,6 +104,12 @@ public class UserDAO {
 				System.out.println(rs_df.getString("user_dislikefoods.df_id"));
 			}
 
+			// 再度代入
+			rs_lf = pStmt_lf.executeQuery();
+			rs_df = pStmt_df.executeQuery();
+			rs_lf.next();
+			rs_df.next();
+
 			User card = null;
 			if(rs_lf_l != null && rs_df_l != null) {
 				card = new User(
