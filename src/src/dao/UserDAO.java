@@ -67,11 +67,9 @@ public class UserDAO {
 			// SQL文を準備する  （検索するSQL文）検索する項目増やせる
 			String sql_lf = "select users.u_id, users.password, user_likefoods.lf_id from users "
 					+ "left join user_likefoods on users.u_id = user_likefoods.u_id "
-					+ "left join foods on foods.f_id = user_likefoods.lf_id "
 					+ "where users.u_id = ?";
 			String sql_df = "select users.u_id, user_dislikefoods.df_id from users "
 					+ "left join user_dislikefoods on users.u_id = user_dislikefoods.u_id "
-					+ "left join foods on foods.f_id = user_dislikefoods.df_id "
 					+ "where users.u_id = ?";
 
 			PreparedStatement pStmt_lf = conn.prepareStatement(sql_lf);
