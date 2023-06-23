@@ -57,7 +57,7 @@
 		<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
 	</footer>
 	<!-- フッターここまで -->
-<!-- JavaScriptここから -->
+<!-- JavaScriptここから
 <script>
 function confirmPassword() {
 	  const password = document.getElementById('password').value;
@@ -72,6 +72,6 @@ function confirmPassword() {
 	                return false;
 	            }
 }
-</script>
+</script>-->
 </body>
 </html>

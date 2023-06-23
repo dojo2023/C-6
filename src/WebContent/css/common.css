@@ -180,10 +180,15 @@ input.btn--radius {
 /* mf_btn(メインフードボタン) start*/
 
 .mf_btn{
-	background-color:#fce5cdff
+	background-color:#fce5cdff;
+	border-radius:10px;
+	margin:3px;
 }
 .mf_btn img{
-	background-color:#fce5cdff
+	background-color:#fce5cdff;
+}
+.mf_btn [value="21"]{
+	background-color:#eeeeeeff;
 }
 
 /* mf_btn(メインフードボタン) end*/

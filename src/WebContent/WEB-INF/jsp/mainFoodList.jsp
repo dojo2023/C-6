@@ -25,7 +25,7 @@
 	<!-- メインここから -->
 	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
 		<form action="/NMW/MainFoodListServlet" method="post">
-			<button type="submit" name="foods" value="${ mainFood.f_id }">
+			<button class="mf_btn" type="submit" name="foods" value="${ mainFood.f_id }">
 				<img src="/NMW/img/${ mainFood.image }" width="50">
 			</button>
 		</form>
