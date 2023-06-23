@@ -47,7 +47,7 @@
 
 	<div class="balloon2">
 	  <div class="icon2">
-	    <img src = "/NMW/img/logo/logo2.png">
+	    <img src = "/NMW/img/logo/resipiko2.png">
 	  </div>
 	  <div class="chatting2">
 	    <div class="says2">

@@ -37,20 +37,27 @@
 			 <li>
 			     パスワード<br>
 			     <input type="text" name="PW" value="${m.password}">
+    </c:forEach>
+    <c:forEach var="m" items="${lf_name}" >
 			 </li>
 			     好きな食べ物<br>
 			     <input type="text" name="likefood" value="${m.lf_id}">
+	</c:forEach>
+	<c:forEach var="m" items="${df_name}" >
 			 <li>
 			     嫌いな食べ物<br>
 			     <input type="text" name="dislikefood" value="${m.df_id}">
 		     </li>
+	</c:forEach>
 		     <li>
 			     <br><input type="submit" class="btn" name="edit" value="編集">
 			 </li>
 		  </ul>
 
+
+
 		</form>
-	</c:forEach>
+
 
 	<!-- メインここまで -->
 	<!-- フッターここから -->

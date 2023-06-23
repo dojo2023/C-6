@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,9 +37,62 @@
     <div id="calendar"></div>
 </div>
 
+	<table>
+    	<tr>
+    		<th>週</th>
+    		<th>自炊費</th>
+    		<th>外食費</th>
+    		<th>差額</th>
+    	</tr>
+    	<tr>
+			<td>1</td>
+			<td>${c_e_weekSum}</td>
+			<td>${e_o_weekSum}</td>
+			<td>${diff_weekSum}</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>${c_e_weekSum}</td>
+			<td>${e_o_weekSum}</td>
+			<td>${diff_weekSum}</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>${c_e_weekSum}</td>
+			<td>${e_o_weekSum}</td>
+			<td>${diff_weekSum}</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>${c_e_weekSum}</td>
+			<td>${e_o_weekSum}</td>
+			<td>${diff_weekSum}</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>${c_e_weekSum}</td>
+			<td>${e_o_weekSum}</td>
+			<td>${diff_weekSum}</td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td>${c_e_weekSum}</td>
+			<td>${e_o_weekSum}</td>
+			<td>${diff_weekSum}</td>
+		</tr>
+		<tr>
+			<td>月合計</td>
+			<td>${c_e_Sum}</td>
+			<td>${e_o_Sum}</td>
+			<td>${diff_Sum}</td>
+		</tr>
+	</table>
+
 <!-- メインここまで -->
 <!-- フッターここから -->
+<footer>
 <p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
+</footer>
 <!-- フッターここまで -->
 
 <!-- JavaScriptここから -->

@@ -7,30 +7,30 @@ public class Calendar implements Serializable {
 	private String u_id;
 	private int rec_id;
 	private Date date;
-	private int c_count;
+//	private int c_count;
 	private String r_name;
 	private int cooking_expenses;
 	private int eating_out_expenses;
 
 	// 2種類のコンストラクタの追加
-	public Calendar(String u_id, int rec_id, int c_count, String r_name, int cooking_expenses, int eating_out_expenses) {
+	public Calendar(String u_id, int rec_id,  String r_name, int cooking_expenses, int eating_out_expenses) {
 		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
 		java.util.Date utilDate = sqlNow;
 
 		this.u_id = u_id;
 		this.rec_id = rec_id;
 		this.date = new Date(utilDate.getTime());	// YYYY-MM-DD
-		this.c_count = c_count;
+//		this.c_count = c_count;
 		this.r_name = r_name;
 		this.cooking_expenses = cooking_expenses;
 		this.eating_out_expenses = eating_out_expenses;
 	}
 
-	public Calendar(String u_id, int rec_id, Date date, int c_count, String r_name, int cooking_expenses, int eating_out_expenses) {
+	public Calendar(String u_id, int rec_id, Date date, String r_name, int cooking_expenses, int eating_out_expenses) {
 		this.u_id = u_id;
 		this.rec_id = rec_id;
 		this.date = date;
-		this.c_count = c_count;
+//		this.c_count = c_count;
 		this.r_name = r_name;
 		this.cooking_expenses = cooking_expenses;
 		this.eating_out_expenses = eating_out_expenses;
@@ -40,7 +40,7 @@ public class Calendar implements Serializable {
 		this.u_id = u_id;
 		this.rec_id = -1;
 		this.date = date;
-		this.c_count = -1;
+//		this.c_count = -1;
 		this.r_name = "";
 		this.cooking_expenses = -1;
 		this.eating_out_expenses = -1;
@@ -50,7 +50,7 @@ public class Calendar implements Serializable {
 		this.u_id = u_id;
 		this.rec_id = -1;
 		this.date = null;
-		this.c_count = -1;
+//		this.c_count = -1;
 		this.r_name = "";
 		this.cooking_expenses = -1;
 		this.eating_out_expenses = -1;
@@ -63,17 +63,17 @@ public class Calendar implements Serializable {
 		this.u_id = "";
 		this.rec_id = -1;
 		this.date = new Date(utilDate.getTime());
-		this.c_count = -1;
+//		this.c_count = -1;
 		this.r_name = "";
 		this.cooking_expenses = -1;
 		this.eating_out_expenses = -1;
 	}
 
-	public Calendar(String u_id, int rec_id, Date date, int c_count) {
+	public Calendar(String u_id, int rec_id, Date date) {
 		this.u_id = u_id;
 		this.rec_id = rec_id;
 		this.date = date;
-		this.c_count = c_count;
+//		this.c_count = c_count;
 	}
 
 	// get, setメソッドの追加
@@ -101,13 +101,13 @@ public class Calendar implements Serializable {
 		this.date = date;
 	}
 
-	public int getC_count() {
-		return c_count;
-	}
-
-	public void setC_count(int c_count) {
-		this.c_count = c_count;
-	}
+//	public int getC_count() {
+//		return c_count;
+//	}
+//
+//	public void setC_count(int c_count) {
+//		this.c_count = c_count;
+//	}
 
 	public String getR_name() {
 		return r_name;

@@ -38,7 +38,7 @@ public class RecipeDAO {
 			for (Recipe r : recipes.getRecipes()) {
 				if (r.getIngredient() != null) {
 					// "" で囲う必要ないかも
-					sql = sql + "or r_i.ingredient like \'%" + r.getIngredient() + "%\'";
+					sql = sql + "or r_i.ingredient like \'%" + r.getIngredient() + "%\' ";
 				} else {
 					break;
 				}
@@ -48,7 +48,6 @@ public class RecipeDAO {
 					+ "r.save_time like ? or r.microwave_oven like ? or r.recipe like ? or r.cooking_expenses like ? "
 					+ "or r.eating_out_expenses like ? or r_c.u_id like ? or r_c.r_date like ? or r_c.r_count like ?";
 			// 条件式がu_idとrec_idのみなので、他の検索条件の追加
-			System.out.println(sql);
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

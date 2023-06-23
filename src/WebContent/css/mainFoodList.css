@@ -58,8 +58,8 @@ form{
 
 .balloon2 .icon2 {
   float: right;
-  margin-right: 90px;
-  width: 150px;
+  margin-right: 230px;
+  width: 120px;
 }
 .balloon2 .icon2 img{
   width: 100%;
@@ -85,9 +85,9 @@ form{
   display: inline-block;
   position: absolute;
   top: 18px;
-  left: -24px;
+  right: -24px;
   border: 12px solid transparent;
-  border-right: 12px solid #fff;
+  border-left: 12px solid #fff;
 }
 
 .says2 p {
