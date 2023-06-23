@@ -25,26 +25,19 @@
 	<!-- メインここから -->
 	<!-- servletからレシピ内容のリスト受け取り -->
 	<ul>
-		<c:forEach var="r" items="${recipe}" varStatus="status">
 			<li>
 			<img src="/NMW/img ${r.image}" width="500">
 			<h2>${r.r_name}</h2>
-			${r.time}
+			${requestScope.time}
 			${r.wanpan}
 			${r.save_time}
 			${r.microwave_oven}
 			</li>
-		</c:forEach>
+
 	</ul>
 
-	<h2>からあげ丼</h2>
-	<img src="/NMW/img/zitan.png">10-15分
-	<img src="/NMW/img/zisui.png">\300
-	<img src="/NMW/img/gaisyoku.png">\1200
-
 	<p>材料 (1人前)</p>
-	材料を表示
-
+	${r.ingredient}
 	<p>作り方</p>
 
 
@@ -54,7 +47,7 @@
 		<button type="submit" name="r_recipe" value="3">回数リセット</button>
 
 	<img src="/NMW/img/logo_resipiro-.png">
-	<p>本日${ recipe }回料理したピヨ</p>
+	<p>本日${r.r_count}回料理したピヨ</p>
 
 	<!-- メインここまで -->
 	<!-- フッターここから -->
