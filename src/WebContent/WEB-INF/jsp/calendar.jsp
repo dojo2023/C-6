@@ -46,39 +46,39 @@
     	</tr>
     	<tr>
 			<td>1</td>
-			<td>${c_e_weekSum}</td>
-			<td>${e_o_weekSum}</td>
-			<td>${diff_weekSum}</td>
+			<td>${c_e_weekSum[0]}</td>
+			<td>${e_o_weekSum[0]}</td>
+			<td>${diff_weekSum[0]}</td>
 		</tr>
 		<tr>
 			<td>2</td>
-			<td>${c_e_weekSum}</td>
-			<td>${e_o_weekSum}</td>
-			<td>${diff_weekSum}</td>
+			<td>${c_e_weekSum[1]}</td>
+			<td>${e_o_weekSum[1]}</td>
+			<td>${diff_weekSum[1]}</td>
 		</tr>
 		<tr>
 			<td>3</td>
-			<td>${c_e_weekSum}</td>
-			<td>${e_o_weekSum}</td>
-			<td>${diff_weekSum}</td>
+			<td>${c_e_weekSum[2]}</td>
+			<td>${e_o_weekSum[2]}</td>
+			<td>${diff_weekSum[2]}</td>
 		</tr>
 		<tr>
 			<td>4</td>
-			<td>${c_e_weekSum}</td>
-			<td>${e_o_weekSum}</td>
-			<td>${diff_weekSum}</td>
+			<td>${c_e_weekSum[3]}</td>
+			<td>${e_o_weekSum[3]}</td>
+			<td>${diff_weekSum[3]}</td>
 		</tr>
 		<tr>
 			<td>5</td>
-			<td>${c_e_weekSum}</td>
-			<td>${e_o_weekSum}</td>
-			<td>${diff_weekSum}</td>
+			<td>${c_e_weekSum[4]}</td>
+			<td>${e_o_weekSum[4]}</td>
+			<td>${diff_weekSum[4]}</td>
 		</tr>
 		<tr>
 			<td>6</td>
-			<td>${c_e_weekSum}</td>
-			<td>${e_o_weekSum}</td>
-			<td>${diff_weekSum}</td>
+			<td>${c_e_weekSum[5]}</td>
+			<td>${e_o_weekSum[5]}</td>
+			<td>${diff_weekSum[5]}</td>
 		</tr>
 		<tr>
 			<td>月合計</td>
