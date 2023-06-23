@@ -96,12 +96,10 @@ public class UserDAO {
 
 			while (rs_lf.next()) {
 				rs_lf_l.add(rs_lf.getInt("user_likefoods.lf_id"));
-				System.out.println(rs_lf.getString("user_likefoods.lf_id"));
 			}
 
 			while (rs_df.next()) {
 				rs_df_l.add(rs_df.getInt("user_dislikefoods.df_id"));
-				System.out.println(rs_df.getString("user_dislikefoods.df_id"));
 			}
 
 			// 再度代入
