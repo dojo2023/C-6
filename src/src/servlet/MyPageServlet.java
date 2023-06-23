@@ -45,12 +45,13 @@ public class MyPageServlet extends HttpServlet {
 
 		// user idからユーザー情報(マイページ)をsetしてる
 		UserDAO uDAO = new UserDAO();
-//		LoginUser loginUser = (LoginUser) session.getAttribute("id");
-		String id= (String) session.getAttribute("id");
+		LoginUser loginUser = (LoginUser) session.getAttribute("id");
+//		String id= (String) session.getAttribute("id");
+		String id = loginUser.getId();
 		List<User> user_inf = uDAO.selectLfDf(new User(id));
 
-//		System.out.println("=============================================================--");
-//		System.out.println(user_inf.get(0).getU_id());
+		System.out.println("=============================================================--");
+		System.out.println(user_inf);
 
 		List<MainFood> lf_name = uDAO.selectF_name( new User(user_inf.get(0).getU_id(), user_inf.get(0).getPassword() , user_inf.get(0).getLf_id(), -1));
 		List<MainFood> df_name = uDAO.selectF_name( new User(user_inf.get(0).getU_id(), user_inf.get(0).getPassword() , null, user_inf.get(0).getDf_id()));

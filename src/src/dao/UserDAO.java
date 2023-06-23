@@ -67,11 +67,9 @@ public class UserDAO {
 			// SQL文を準備する  （検索するSQL文）検索する項目増やせる
 			String sql_lf = "select users.u_id, users.password, user_likefoods.lf_id from users "
 					+ "left join user_likefoods on users.u_id = user_likefoods.u_id "
-					+ "left join foods on foods.f_id = user_likefoods.lf_id "
 					+ "where users.u_id = ?";
-			String sql_df = "select users.u_id, user_dislikefoods.df_id from users "
+			String sql_df = "select users.u_id, users.password, user_dislikefoods.df_id from users "
 					+ "left join user_dislikefoods on users.u_id = user_dislikefoods.u_id "
-					+ "left join foods on foods.f_id = user_dislikefoods.df_id "
 					+ "where users.u_id = ?";
 
 			PreparedStatement pStmt_lf = conn.prepareStatement(sql_lf);
@@ -93,27 +91,22 @@ public class UserDAO {
 			ResultSet rs_df = pStmt_df.executeQuery();
 
 			// 結果表をコレクションにコピーする （通常のArrayリストに入れている）
-			// 1行目をスキップするかも
-			boolean f1 = rs_lf.next();
-			boolean f2 = rs_df.next();
-
 			List<Integer> rs_lf_l = new ArrayList<Integer>();
 			List<Integer> rs_df_l = new ArrayList<Integer>();
 
-			while (f1 || f2) {
-				User card = null;
-				if(f1 && f2) {
-					rs_lf_l.add(rs_lf.getInt("user_likefoods.lf_id"));
-					rs_df_l.add(rs_df.getInt("user_dislikefoods.df_id"));
-				}else if (f1) {
-					rs_lf_l.add(rs_lf.getInt("user_likefoods.lf_id"));
-				}else if (f2) {
-					rs_df_l.add(rs_df.getInt("user_dislikefoods.df_id"));
-				}
-
-				f1 = rs_lf.next();
-				f2 = rs_df.next();
+			while (rs_lf.next()) {
+				rs_lf_l.add(rs_lf.getInt("user_likefoods.lf_id"));
 			}
+
+			while (rs_df.next()) {
+				rs_df_l.add(rs_df.getInt("user_dislikefoods.df_id"));
+			}
+
+			// 再度代入
+			rs_lf = pStmt_lf.executeQuery();
+			rs_df = pStmt_df.executeQuery();
+			rs_lf.next();
+			rs_df.next();
 
 			User card = null;
 			if(rs_lf_l != null && rs_df_l != null) {
