@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -42,13 +43,18 @@ public class RefrigeratorServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		RefrigeratorDAO rDAO = new RefrigeratorDAO();
 		MainFoodDAO mDAO = new MainFoodDAO();
+		List<Recipe> mainFoodUnit;
 
 		// user idからその人の冷蔵庫をsetしてる
 		LoginUser loginUser = (LoginUser) session.getAttribute("id");
 		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId()));
 		List<MainFood> mainFood = mDAO.select(new MainFood());
 		List<MainFood> mainFoodImg = rDAO.selectImg(new Refrigerator(loginUser.getId()));	// imgの取得
-		List<Recipe> mainFoodUnit = rDAO.selectUnit(refrigerator);							// Unitの取得
+		if (refrigerator != null) {
+			mainFoodUnit = rDAO.selectUnit(refrigerator);// Unitの取得
+		} else {
+			mainFoodUnit = rDAO.selectUnit(new ArrayList<Refrigerator>());
+		}
 
 		request.setAttribute("refrigerator", refrigerator);
 		request.setAttribute("mainFood", mainFood);
@@ -121,11 +127,10 @@ public class RefrigeratorServlet extends HttpServlet {
 		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
 		List<Refrigerator> pre_refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
 
-		Recipe r = new Recipe(f_id);
 		RecipeDAO recDAO = new RecipeDAO();
 
 		// (r_count)の有無によるinsertとupdateをわけるif文
-		Recipes recipes = new Recipes(r);
+		Recipes recipes = new Recipes(new Recipe(f_id));
 		List<Recipe> recipe = recDAO.select(recipes);
 
 		pre_refrigerator.get(0).setF_count(pre_refrigerator.get(0).getF_count() + 1);
@@ -143,7 +148,84 @@ public class RefrigeratorServlet extends HttpServlet {
 		// updateする
 		rDAO.update(refrigerator.get(0), pre_refrigerator.get(0));
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/RefrigeratorServlet");
+		view(request, response);
+
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/refrigerator.jsp");
+//		dispatcher.forward(request, response);
+	}
+
+	public void view(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+
+		request.setCharacterEncoding("UTF-8");
+
+		RefrigeratorDAO rDAO = new RefrigeratorDAO();
+		MainFoodDAO mDAO = new MainFoodDAO();
+		List<Recipe> mainFoodUnit;
+
+		// user idからその人の冷蔵庫をsetしてる
+		LoginUser loginUser = (LoginUser) session.getAttribute("id");
+		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId()));
+		List<MainFood> mainFood = mDAO.select(new MainFood());
+		List<MainFood> mainFoodImg = rDAO.selectImg(new Refrigerator(loginUser.getId()));	// imgの取得
+		if (refrigerator != null) {
+			mainFoodUnit = rDAO.selectUnit(refrigerator);// Unitの取得
+		} else {
+			mainFoodUnit = rDAO.selectUnit(new ArrayList<Refrigerator>());
+		}
+
+		request.setAttribute("refrigerator", refrigerator);
+		request.setAttribute("mainFood", mainFood);
+		request.setAttribute("mainFoodImg", mainFoodImg);
+		request.setAttribute("mainFoodUnit", mainFoodUnit);
+		if (refrigerator != null) {
+			request.setAttribute("refrigeratorSize", refrigerator.size());
+		} else if (mainFood != null) {
+			request.setAttribute("mainFoodSize", mainFood.size());
+		} else if (mainFoodImg != null) {
+			request.setAttribute("mainFoodImgSize", mainFoodImg.size());
+		}
+
+
+		//冷蔵庫のサーブレットに送る
+		//レシピIDを基にselect文でそのレシピに入っている複数の食材ID(f_id)とその食材の個数(r_i_count)を算出する（差分）
+		if (request.getAttribute("rec_id") != null) {
+			int rec_id = (Integer) (request.getAttribute("rec_id"));
+			Recipe r = new Recipe(rec_id);
+			Recipes recipes = new Recipes(r);
+
+			RecipeDAO rIDAO = new RecipeDAO();
+			List<Recipe> recipe = rIDAO.selectRecipeIngredient(recipes);
+
+			//冷蔵庫のデータを算出する
+			LoginUser loginUser_f = (LoginUser) session.getAttribute("id");
+			RefrigeratorDAO rfDAO = new RefrigeratorDAO();
+			List<Refrigerator> refrigerator_f = rfDAO.select(new Refrigerator(loginUser_f.getId()));
+			List<Refrigerator> pre_refrigerator_f = rfDAO.select(new Refrigerator(loginUser_f.getId()));
+
+			//冷蔵庫の食材の個数からレシピの食材の個数を引く
+			for (Refrigerator refrigerator_f_list : refrigerator_f) {
+				for (Recipe recipe_list : recipe) {
+					//レシピの食材IDと冷蔵庫の食材IDが同じだったら
+					if (recipe_list.getF_id() == refrigerator_f_list.getF_id()) {
+						if (refrigerator_f_list.getF_count() - recipe_list.getR_i_count() < 0) {
+							refrigerator_f_list.setF_count(0);	// 0以下の時は0に
+						} else {
+							refrigerator_f_list.setF_count(refrigerator_f_list.getF_count() - recipe_list.getR_i_count());
+						}
+						break;
+					}
+				}
+			}
+
+			//変更があった食材一覧から一つずつ取り出して、冷蔵庫の中身を更新した
+			for (int i = 0; i < refrigerator_f.size(); i++) {
+				rfDAO.update(refrigerator_f.get(i), pre_refrigerator_f.get(i));
+			}
+		}
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/refrigerator.jsp");
 		dispatcher.forward(request, response);
 	}
+
 }
