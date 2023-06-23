@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class CalendarDAO {
 					+ "from calendars "
 					+ "left join recipes "
 					+ "on calendars.rec_id = recipes.rec_id "
-					+ "where u_id = ? and date = ?";
+					+ "where u_id = ? and date like ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる(?を埋める)
@@ -39,9 +40,11 @@ public class CalendarDAO {
 				pStmt.setString(1, null);
 			}
 			if (calendar.getDate() != null) {
-				pStmt.setDate(2, calendar.getDate());
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+				String now = sdf.format(calendar.getDate());	// 年-月のフォーマットに変換
+				pStmt.setString(2, now+"%");
 			} else {
-				pStmt.setDate(2, null);
+				pStmt.setString(2, "%");
 			}
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();

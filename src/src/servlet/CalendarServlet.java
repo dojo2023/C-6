@@ -46,8 +46,7 @@ public class CalendarServlet extends HttpServlet {
 
 		// その月のカレンダーを取得
 		List<Calendar> calendar = caleDAO.select(new Calendar(loginUser.getId(), new Date(utilDate.getTime())));
-//		System.out.println(calendar);
-
+		System.out.println(calendar.get(0).getCooking_expenses());
 		int cookingExpenses[] = new int[31];
 		int eatingOutExpensese[] = new int[31];
 
@@ -72,6 +71,8 @@ public class CalendarServlet extends HttpServlet {
 
 				cookingExpenses[day] = Integer
 						.parseInt(String.valueOf(calendar.get(i).getCooking_expenses())) * recipe.get(i).getR_count();
+//				System.out.println(i+"回目"+":"+calendar.get(i).getCooking_expenses()+"*"+recipe.get(i).getR_count()+"="+Integer
+//						.parseInt(String.valueOf(calendar.get(i).getCooking_expenses())) * recipe.get(i).getR_count());
 				eatingOutExpensese[day] = Integer
 						.parseInt(String.valueOf(calendar.get(i).getEating_out_expenses())) * recipe.get(i).getR_count();
 			} else {
@@ -84,12 +85,12 @@ public class CalendarServlet extends HttpServlet {
 				eatingOutExpensese[day] = Integer
 						.parseInt(String.valueOf(calendar.get(i).getEating_out_expenses()));
 			}
-
 		}
 		//現在時刻でカレンダーのインスタンスを取得
 		java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.set(java.util.Calendar.DATE, 1);
 
+        // 月の週の数の取得
         int weekMax = cal.getActualMaximum(java.util.Calendar.WEEK_OF_MONTH);
 		int c_e_weekSum[] = new int[weekMax];
 		int e_o_weekSum[] = new int[weekMax];
@@ -103,13 +104,14 @@ public class CalendarServlet extends HttpServlet {
 		}
 
 		for (int i = cal.get(java.util.Calendar.MONTH)+1; i == cal.get(java.util.Calendar.MONTH)+1; i += 0) {
-			for (int j = 0; j < 5; j++) {
+			for (int j = 0; j < weekMax; j++) {
 				if (j == cal.get(java.util.Calendar.WEEK_OF_MONTH)) {
-					c_e_weekSum[j] += cookingExpenses[java.util.Calendar.DATE];
-					e_o_weekSum[j] += eatingOutExpensese[java.util.Calendar.DATE];
+					c_e_weekSum[j] += cookingExpenses[cal.get(java.util.Calendar.DATE)];
+					e_o_weekSum[j] += eatingOutExpensese[cal.get(java.util.Calendar.DATE)];
 					break;
 				}
 			}
+			System.out.println(cal.get(java.util.Calendar.DATE));
 			cal.add(java.util.Calendar.DATE, 1);
 //			System.out.println(cal.get(java.util.Calendar.YEAR)+"/"+(cal.get(java.util.Calendar.MONTH)+1) +"/"+cal.get(java.util.Calendar.DATE));
 		}
