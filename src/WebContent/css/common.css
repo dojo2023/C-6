@@ -176,3 +176,14 @@ input.btn--radius {
     border-radius: 100vh;
 }
 /* btn end */
+
+/* mf_btn(メインフードボタン) start*/
+
+.mf_btn{
+	background-color:#fce5cdff
+}
+.mf_btn img{
+	background-color:#fce5cdff
+}
+
+/* mf_btn(メインフードボタン) end*/
