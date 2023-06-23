@@ -50,7 +50,7 @@ public class CalendarDAO {
 						rs.getString("calendars.u_id"),
 						rs.getInt("calendars.rec_id"),
 						rs.getDate("calendars.date"),
-						rs.getInt("calendars.c_count"),
+//						rs.getInt("calendars.c_count"),
 						rs.getString("recipes.r_name"),
 						rs.getInt("recipes.cooking_expenses"),
 						rs.getInt("recipes.eating_out_expenses"));
@@ -91,8 +91,8 @@ public class CalendarDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "insert into calendars (u_id, rec_id, date, c_count)"
-					   + " values (?, ?, ?, ?)";
+			String sql = "insert into calendars (u_id, rec_id, date)"
+					   + " values (?, ?, ?)";
 
 
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -114,11 +114,11 @@ public class CalendarDAO {
 			} else {
 				pStmt.setString(3, null);
 			}
-			if (calendar.getC_count() != -1) {
-				pStmt.setInt(4, calendar.getC_count());
-			} else {
-				pStmt.setInt(4, -1);
-			}
+//			if (calendar.getC_count() != -1) {
+//				pStmt.setInt(4, calendar.getC_count());
+//			} else {
+//				pStmt.setInt(4, -1);
+//			}
 
 
 			// SQL文を実行する
@@ -146,65 +146,64 @@ public class CalendarDAO {
 	}
 
 	// 引数calenderで指定されたレコードを更新し、成功したらtrueを返す
-	public boolean update(Calendar calendar) {
-		Connection conn = null;
-		boolean calendarResult = false;
-
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("org.h2.Driver");
-
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
-
-			// SQL文を準備する
-			String sql = "update calendars set c_count=? where u_id like ? and rec_id like ? and date like ?";
-
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-
-
-			// SQL文を完成させる
-			if (calendar.getC_count() != -1) {
-				pStmt.setInt(1, calendar.getC_count());
-			} else {
-				pStmt.setInt(1, -1);
-			}
-			if (calendar.getU_id() != null && !calendar.getU_id().equals("")) {
-				pStmt.setString(2, "%" + calendar.getU_id() + "%");
-			} else {
-				pStmt.setString(2, "%");
-			}
-			if (calendar.getRec_id() != -1) {
-				pStmt.setString(3, "%" + calendar.getRec_id() + "%");
-			} else {
-				pStmt.setString(3, "%");
-			}
-			if (calendar.getDate() != null) {
-				pStmt.setString(4, "%" + calendar.getDate() + "%");
-			} else {
-				pStmt.setString(4, "%");
-			}
-
-			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1 ) {
-				calendarResult = true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-		// 結果を返す
-		return calendarResult;
-	}
+//	public boolean update(Calendar calendar) {
+//		Connection conn = null;
+//		boolean calendarResult = false;
+//
+//		try {
+//			// JDBCドライバを読み込む
+//			Class.forName("org.h2.Driver");
+//
+//			// データベースに接続する
+//			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+//
+//			// SQL文を準備する
+//			String sql = "update calendars set c_count=? where u_id like ? and rec_id like ? and date like ?";
+//
+//			PreparedStatement pStmt = conn.prepareStatement(sql);
+//
+//
+//			// SQL文を完成させる
+//			if (calendar.getC_count() != -1) {
+//				pStmt.setInt(1, calendar.getC_count());
+//			} else {
+//				pStmt.setInt(1, -1);
+//			}
+//			if (calendar.getU_id() != null && !calendar.getU_id().equals("")) {
+//				pStmt.setString(2, "%" + calendar.getU_id() + "%");
+//			} else {
+//				pStmt.setString(2, "%");
+//			}
+//			if (calendar.getRec_id() != -1) {
+//				pStmt.setString(3, "%" + calendar.getRec_id() + "%");
+//			} else {
+//				pStmt.setString(3, "%");
+//			}
+//			if (calendar.getDate() != null) {
+//				pStmt.setString(4, "%" + calendar.getDate() + "%");
+//			} else {
+//				pStmt.setString(4, "%");
+//			}
+//
+//			// SQL文を実行する
+//			if (pStmt.executeUpdate() == 1 ) {
+//				calendarResult = true;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		} finally {
+//			// データベースを切断
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//
+//		// 結果を返す
+//		return calendarResult;
 }
