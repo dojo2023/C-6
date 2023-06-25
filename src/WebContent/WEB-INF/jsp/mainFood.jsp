@@ -31,8 +31,8 @@
 		${ m.f_name }
 		</div>
 		<div class="food">
-			<img src="/NMW/img${ m.image }" width="200">
-			<div>
+			<img class="f_img" src="/NMW/img${ m.image }" width="200">
+			<div class="i">
 			<span class="p">おいしい食材の見分け方</span><br>
 				${ m.identify }
 			</div>

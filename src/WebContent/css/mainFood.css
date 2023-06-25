@@ -10,7 +10,17 @@
 
 .fn{
 	font-weight: bold;
+	font-size:20px;
+	margin-top:50px;
+}
+.i{
+	margin-top:50px;
+	margin-left:70px;
 }
 .p{
 	font-weight: bold;
+}
+.f_img{
+	border: solid 1px #777777;
+	background-color:#fff;
 }
