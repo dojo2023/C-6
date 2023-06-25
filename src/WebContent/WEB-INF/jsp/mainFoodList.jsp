@@ -13,26 +13,30 @@
 	<header>
 		<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 		<nav>
-			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
-			<a href="/NMW/RecipeListServlet">レシピ</a>
-			<a href="/NMW/MainFoodListServlet">食材管理</a>
-			<a href="/NMW/CalendarServlet">カレンダー</a>
-			<a href="/NMW/MyPageServlet">マイページ</a>
+			<ul>
+				<li><a href="/NMW/RefrigeratorServlet">冷蔵庫</a></li>
+				<li><a href="/NMW/RecipeListServlet">レシピ</a></li>
+				<li><a href="/NMW/MainFoodListServlet">食材管理</a></li>
+				<li><a href="/NMW/CalendarServlet">カレンダー</a></li>
+				<li><a href="/NMW/MyPageServlet">マイページ</a></li>
+			</ul>
 		</nav>
 	</header>
 	<!-- ヘッダーここまで -->
 
 	<!-- メインここから -->
-	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
-		<form action="/NMW/MainFoodListServlet" method="post">
-			<button class="mf_btn" type="submit" name="foods" value="${ mainFood.f_id }">
-				<img src="/NMW/img/${ mainFood.image }" width="50">
-			</button>
-		</form>
-			<c:if test="${ ((status.index+1)%7)==0 }">
-				<br>
-			</c:if>
-	</c:forEach>
+	<div class="mainfood">
+		<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
+			<form action="/NMW/MainFoodListServlet" method="post">
+				<button class="mf_btn" type="submit" name="foods" value="${ mainFood.f_id }">
+					<img src="/NMW/img/${ mainFood.image }" width="50">
+				</button>
+			</form>
+				<c:if test="${ ((status.index+1)%7)==0 }">
+					<br>
+				</c:if>
+		</c:forEach>
+	</div>
 
 	<div class="balloon">
 	  <div class="icon">

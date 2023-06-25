@@ -7,34 +7,44 @@
 <meta charset="UTF-8">
 <title>食材詳細 | れしぴろーくん</title>
 <link rel="stylesheet" href="/NMW/css/common.css">
+<link rel="stylesheet" href="/NMW/css/mainFood.css">
 </head>
 <body>
 	<!-- ヘッダーここから -->
 	<header>
 		<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 		<nav>
-			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
-			<a href="/NMW/RecipeListServlet">レシピ</a>
-			<a href="/NMW/MainFoodListServlet">食材管理</a>
-			<a href="/NMW/CalendarServlet">カレンダー</a>
-			<a href="/NMW/MyPageServlet">マイページ</a>
+			<ul>
+				<li><a href="/NMW/RefrigeratorServlet">冷蔵庫</a></li>
+				<li><a href="/NMW/RecipeListServlet">レシピ</a></li>
+				<li><a href="/NMW/MainFoodListServlet">食材管理</a></li>
+				<li><a href="/NMW/CalendarServlet">カレンダー</a></li>
+				<li><a href="/NMW/MyPageServlet">マイページ</a></li>
+			</ul>
 		</nav>
 	</header>
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
-		<c:forEach var="m" items="${ mainFood }" >
-			${ m.f_name }
-			<img src="/NMW/img${ m.image }">
-
-	<p>おいしい食材の見分け方</p>
-			${ m.identify }
-	<p>ーー 保存方法 ーー</p>
+	<div class="Mainfood">
+	<c:forEach var="m" items="${ mainFood }" >
+		<div class="fn">
+		${ m.f_name }
+		</div>
+		<div class="food">
+			<img src="/NMW/img${ m.image }" width="200">
+			<div>
+			<span class="p">おいしい食材の見分け方</span><br>
+				${ m.identify }
+			</div>
+		</div>
+		<p class="p">ーー 保存方法 ーー</p>
 			${ m.strage_method }
-	<p>ーー 保存期間 ーー</p>
+		<p class="p">ーー 保存期間 ーー</p>
 			${ m.retention_period }
-	<p>ーー 旬 ーー</p>
+		<p class="p">ーー 旬 ーー</p>
 			${ m.season }
-		</c:forEach>
+	</c:forEach>
+	</div>
 
 	<!-- フッターここから -->
 	<footer>

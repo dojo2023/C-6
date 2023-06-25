@@ -32,7 +32,7 @@
 		<c:forEach var="r_l" items="${ recipeList }" varStatus="status">
 				<li>
 				<form  action="/NMW/RecipeServlet" method="post">
-				<a href=http://localhost:8080/NMW/RecipeServlet?search_key=rec_id><img src="/NMW/img${ r_l.image } "width="300"></a>
+				<a href="http://localhost:8080/NMW/RecipeServlet?search_key=${r_l.rec_id}"><img src="/NMW/img${ r_l.image } "width="300"></a>
 				</form>
 				</li>
 				<li>

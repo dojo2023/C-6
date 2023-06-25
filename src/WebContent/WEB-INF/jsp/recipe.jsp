@@ -25,15 +25,16 @@
 	<!-- メインここから -->
 	<!-- servletからレシピ内容のリスト受け取り -->
 	<ul>
+		<c:forEach var="r" items="${ recipe }" varStatus="status">
 			<li>
-			<img src="/NMW/img ${r.image}" width="500">
+			<img src="/NMW/img${r.image}"width="500">
 			<h2>${r.r_name}</h2>
-			${requestScope.time}
+			${r.time}
 			${r.wanpan}
 			${r.save_time}
 			${r.microwave_oven}
 			</li>
-
+		</c:forEach>
 	</ul>
 
 	<p>材料 (1人前)</p>

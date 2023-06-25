@@ -7,6 +7,7 @@ form{
 .balloon {
   width: 100%;
   margin: 2em 0;
+  margin-left: 80px;
   overflow: hidden;
 }
 
@@ -53,6 +54,7 @@ form{
 .balloon2 {
   width: 100%;
   margin: 2em 0;
+  margin-left: 100px;
   overflow: hidden;
 }
 
