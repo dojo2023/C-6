@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.MainFoodDAO;
 import dao.UserDAO;
 import model.LoginUser;
+import model.MainFood;
 import model.User;
 
 /**
@@ -33,22 +35,34 @@ public class MyPageEditServlet extends HttpServlet {
 			response.sendRedirect("/NMW/LoginServlet");
 			return;
 		}
+		request.setCharacterEncoding("UTF-8");
 
 		UserDAO uDAO = new UserDAO();
 
 		//MyPageからユーザー情報の受け取り
-//		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
-		LoginUser loginUser = (LoginUser)request.getAttribute("loginUser");
+		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
 		String id = loginUser.getId();
 
 
 		List<User> user_inf = uDAO.selectLfDf(new User(id));
-        //結果を表示
+//        ユーザー情報の結果を表示
+
+
+		MainFoodDAO mDAO = new MainFoodDAO();
+		List<MainFood> mainFood = mDAO.select(new MainFood());
+
 		request.setAttribute("user_inf", user_inf);
+		request.setAttribute("mainFood", mainFood);
+		System.out.println(mainFood.get(0).getF_name());
+
 
 //		マイページ（ユーザー編集）にフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/myPageEdit.jsp");
 		dispatcher.forward(request, response);
+
+
+
+
 
 	}
 
@@ -63,11 +77,11 @@ public class MyPageEditServlet extends HttpServlet {
 			return;
 		}
 		//編集ボタン
-<<<<<<< Updated upstream
+
 		if ((request.getParameter("edit")) == "保存") {
-=======
-		if ((request.getParameter("edit")) == "編集") {
->>>>>>> Stashed changes
+
+
+
 
 			LoginUser loginUser = (LoginUser)session.getAttribute("id");
 			UserDAO uDAO = new UserDAO();
