@@ -1,1 +1,15 @@
 @charset "UTF-8";
+form{
+	display: inline;
+}
+.ref{
+	background-color:#d0e0e3ff;
+}
+.text{
+	display:flex;
+	text-align: center;
+	background-color:#d0e0e3ff;
+}
+.mainfood{
+	margin-top:50px;
+}

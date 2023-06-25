@@ -24,10 +24,18 @@
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
 	<% List<String> recipeList = (List<String>)request.getAttribute("recipeList"); %>
-	<img src="/NMW/img/recipe/kensaku.png"width="50">
-	<!--
-	<img src="">からあげ丼 所要時間15分t
-	-->
+	<!-- 検索条件 -->
+	<form name="r_select" method="POST" action="/NMW/RecipeListServlet" value="1">
+	<c:forEach var="search" items="${ mainFood }" varStatus="status">
+
+		<button class="search_btn" type="submit" name="foods" value="${ mainFood.f_id }">
+			<img src="/NMW/img/${mainFood.image}" width="50">
+		</button>
+	</c:forEach>
+	<input type="image" src="/NMW/img/recipe/kensaku.png"width="50" alt="検索">
+	</form>
+
+
 	<ul>
 		<c:forEach var="r_l" items="${ recipeList }" varStatus="status">
 				<li>
