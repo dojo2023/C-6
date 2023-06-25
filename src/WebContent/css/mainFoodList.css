@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+.mainfood{
+	margin-top:50px;
+}
 form{
 	display: inline;
 }
