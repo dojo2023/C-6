@@ -8,17 +8,21 @@
 <title>カレンダー | れしぴろーくん</title>
 <!-- スタイルシートの挿入 -->
 <link rel= "stylesheet" href="/NMW/css/common.css">
+<link rel= "stylesheet" href="/NMW/css/calendar.css">
 </head>
 <body>
 <!-- ヘッダーここから -->
 <header>
 <a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
-
-	<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
-	<a href="/NMW/RecipeListServlet">レシピ</a>
-	<a href="/NMW/MainFoodListServlet">食材管理</a>
-	<a href="/NMW/CalendarServlet">カレンダー</a>
-	<a href="/NMW/MyPageServlet">マイページ</a>
+	<nav>
+			<ul>
+				<li><a href="/NMW/RefrigeratorServlet">冷蔵庫</a></li>
+				<li><a href="/NMW/RecipeListServlet">レシピ</a></li>
+				<li><a href="/NMW/MainFoodListServlet">食材管理</a></li>
+				<li><a href="/NMW/CalendarServlet">カレンダー</a></li>
+				<li><a href="/NMW/MyPageServlet">マイページ</a></li>
+			</ul>
+		</nav>
 </header>
 <!-- ヘッダーここまで -->
 
@@ -37,7 +41,7 @@
     <div id="calendar"></div>
 </div>
 
-	<table>
+	<table class="calculator">
     	<tr>
     		<th>週</th>
     		<th>自炊費</th>
