@@ -24,7 +24,6 @@ public class Recipe implements Serializable {
 	private List<String> ingredient = new ArrayList<>();
 	private Double r_i_count;
 	private int unit;	// 0：個、1：g、2：枚、3：少々、4：本
-;
 
 
 	// 2種類のコンストラクタの追加
@@ -55,6 +54,33 @@ public class Recipe implements Serializable {
 		this.unit = unit;
 	}
 
+	public Recipe(int rec_id, String r_name, String time, String image,
+			boolean wanpan, boolean save_time, boolean microwave_oven,
+			String recipe, int cooking_expenses, int eating_out_expenses,
+			String u_id, Date r_date, int r_count, int i_id, int f_id, List<String> ingredient, Double r_i_count, int unit) {
+		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
+		java.util.Date utilDate = sqlNow;
+
+		this.rec_id = rec_id;
+		this.r_name = r_name;
+		this.time = time;
+		this.image = image;
+		this.wanpan = wanpan;
+		this.save_time = save_time;
+		this.microwave_oven = microwave_oven;
+		this.recipe = recipe;
+		this.cooking_expenses = cooking_expenses;
+		this.eating_out_expenses = eating_out_expenses;
+		this.u_id = u_id;
+		this.r_date = new Date(utilDate.getTime());
+		this.r_count = r_count;
+		this.i_id = i_id;
+		this.f_id = f_id;
+		this.ingredient = ingredient;
+		this.r_i_count = r_i_count;
+		this.unit = unit;
+	}
+
 	public Recipe(String r_name, boolean wanpan, boolean save_time, boolean microwave_oven) {
 		this.rec_id = -1;
 		this.r_name = r_name;
@@ -67,7 +93,6 @@ public class Recipe implements Serializable {
 		this.cooking_expenses = -1;
 		this.eating_out_expenses = -1;
 		this.u_id = "";
-		this.r_date = null;
 		this.r_count = -1;
 		this.i_id = -1;
 		this.f_id = -1;
@@ -133,7 +158,6 @@ public class Recipe implements Serializable {
 		this.cooking_expenses = -1;
 		this.eating_out_expenses = -1;
 		this.u_id = "";
-		this.r_date = null;
 		this.r_count = -1;
 		this.i_id = -1;
 		this.f_id = -1;
