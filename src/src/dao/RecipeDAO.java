@@ -291,50 +291,59 @@ public class RecipeDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "select * from recipe_ingredients where i_id like ? and rec_id like ?";
+			String sql = "select * from recipe_ingredients where i_id like ? and rec_id like ? and f_id like ?";
 
 
 					// 条件式がu_idとrec_idのみなので、他の検索条件の追加
 			PreparedStatement pStmt = conn.prepareStatement(sql);
+			for (Recipe recipe : recipes.getRecipes()) {
+				System.out.println("F_id:"+recipe.getF_id());
+			}
 
 			// SQL文を完成させる
+			for (Recipe recipe : recipes.getRecipes()) {
+				if (recipe.getI_id() != -1) {
+					pStmt.setString(1, "%" + recipe.getI_id() + "%");
+				} else {
+					pStmt.setString(1, "%");
+				}
+				if (recipe.getRec_id() != -1) {
+					pStmt.setString(2, "%" + recipe.getRec_id() + "%");
+				} else {
+					pStmt.setString(2, "%");
+				}
+				if (recipe.getF_id() != -1) {
+					pStmt.setInt(3, recipe.getF_id());
+				} else {
+					pStmt.setString(3, "%");
+				}
 
-			if (param.getI_id() != -1) {
-				pStmt.setString(1, "%" + param.getI_id() + "%");
-			} else {
-				pStmt.setString(1, "%");
-			}
-			if (param.getRec_id() != -1) {
-				pStmt.setString(2, "%" + param.getRec_id() + "%");
-			} else {
-				pStmt.setString(2, "%");
-			}
+				// SQL文を実行し、結果表を取得する
+				ResultSet rs = pStmt.executeQuery();
 
-			// SQL文を実行し、結果表を取得する
-			ResultSet rs = pStmt.executeQuery();
-
-			// 結果表をコレクションにコピーする
-			while (rs.next()) {
-				Recipe card = new Recipe(
-						rs.getInt("recipes.rec_id"),
-						rs.getString("recipes.r_name"),
-						rs.getString("recipes.time"),
-						rs.getString("recipes.image"),
-						rs.getBoolean("recipes.wanpan"),
-						rs.getBoolean("recipes.save_time"),
-						rs.getBoolean("recipes.microwave_oven"),
-						rs.getString("recipes.recipe"),
-						rs.getInt("recipes.cooking_expenses"),
-						rs.getInt("recipes.eating_out_expenses"),
-						rs.getString("recipe_counts.u_id"),
-						rs.getDate("recipe_counts.r_date"),
-						rs.getInt("recipe_counts.r_count"),
-						rs.getInt("recipe_ingredients.i_id"),
-						rs.getInt("recipe_ingredients.f_id"),
-						rs.getString("recipe_ingredients.ingredient"),
-						rs.getDouble("recipe_ingredients.r_i_count"),
-						rs.getInt("recipe_ingredients.unit"));
-				cardList.add(card);
+				// 結果表をコレクションにコピーする
+				while (rs.next()) {
+					Recipe card = new Recipe(
+							rs.getInt("recipe_ingredients.rec_id"),
+							"",
+							"",
+							"",
+							false,
+							false,
+							false,
+							"",
+							-1,
+							-1,
+							"",
+							null,
+							-1,
+							rs.getInt("recipe_ingredients.i_id"),
+							rs.getInt("recipe_ingredients.f_id"),
+							rs.getString("recipe_ingredients.ingredient"),
+							rs.getDouble("recipe_ingredients.r_i_count"),
+							rs.getInt("recipe_ingredients.unit"));
+					cardList.add(card);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
