@@ -48,12 +48,12 @@ public class MyPageEditServlet extends HttpServlet {
 //        ユーザー情報の結果を表示
 
 
+		//mainfoodにデータが入っていない
 		MainFoodDAO mDAO = new MainFoodDAO();
 		List<MainFood> mainFood = mDAO.select(new MainFood());
 
 		request.setAttribute("user_inf", user_inf);
 		request.setAttribute("mainFood", mainFood);
-		System.out.println(mainFood.get(0).getF_name());
 
 
 //		マイページ（ユーザー編集）にフォワード
