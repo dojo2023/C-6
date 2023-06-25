@@ -37,15 +37,17 @@ public class MyPageEditServlet extends HttpServlet {
 		UserDAO uDAO = new UserDAO();
 
 		//MyPageからユーザー情報の受け取り
-		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
+//		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
+		LoginUser loginUser = (LoginUser)request.getAttribute("loginUser");
+		String id = loginUser.getId();
 
 
-		List<User> user_inf = uDAO.selectLfDf(new User(loginUser.getId()));
+		List<User> user_inf = uDAO.selectLfDf(new User(id));
         //結果を表示
 		request.setAttribute("user_inf", user_inf);
 
-		//マイページ（ユーザー編集）にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/myPage.jsp");
+//		マイページ（ユーザー編集）にフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/myPageEdit.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -61,7 +63,11 @@ public class MyPageEditServlet extends HttpServlet {
 			return;
 		}
 		//編集ボタン
-		if ((request.getParameter("edit")) == "1") {
+<<<<<<< Updated upstream
+		if ((request.getParameter("edit")) == "保存") {
+=======
+		if ((request.getParameter("edit")) == "編集") {
+>>>>>>> Stashed changes
 
 			LoginUser loginUser = (LoginUser)session.getAttribute("id");
 			UserDAO uDAO = new UserDAO();
