@@ -25,6 +25,12 @@ public class Refrigerator implements Serializable{
 		this.num = num;
 	}
 
+	public Refrigerator( String u_id, int f_id, double f_count) {
+		this.u_id = u_id;
+		this.f_id = f_id;
+		this.f_count = f_count;
+	}
+
 	public Refrigerator() {
 		this.ref_id = -1;
 		this.u_id = "";

@@ -28,7 +28,7 @@
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
 	<c:forEach var="m" items="${user_inf}" >
-		<form method="POST" action="/NMW/MyPageEdit">
+		<form method="POST" action="/NMW/MyPageServlet">:
 	       <ul>
 	         <li>
 			      ID<br>
@@ -37,18 +37,18 @@
 			 <li>
 			     パスワード<br>
 			     <input type="text" name="PW" value="${m.password}">
-    </c:forEach>
-    <c:forEach var="m" items="${lf_name}" >
-			 </li>
+   			 </li>
+   	    </c:forEach>
+   	         <li>
 			     好きな食べ物<br>
-			     <input type="text" name="likefood" value="${m.lf_id}">
-	</c:forEach>
-	<c:forEach var="m" items="${df_name}" >
+			     <input type="text" name="likefood" value="じゃがいも">
+
+             </li>
 			 <li>
 			     嫌いな食べ物<br>
-			     <input type="text" name="dislikefood" value="${m.df_id}">
+			     <input type="text" name="dislikefood" value="にんじん">
 		     </li>
-	</c:forEach>
+
 		     <li>
 			     <br><input type="submit" class="btn" name="edit" value="編集">
 			 </li>

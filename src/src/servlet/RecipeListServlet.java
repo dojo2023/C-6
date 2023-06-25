@@ -59,7 +59,7 @@ public class RecipeListServlet extends HttpServlet {
 		Recipes recipes = (Recipes)request.getAttribute("recipes");
 		// 複数要素によるレシピ検索処理を行う
 				RecipeDAO reDao = new RecipeDAO();
-				List<Recipe> recipesList = reDao.select(recipes);
+//				List<Recipe> recipesList = reDao.select(recipes);//	これなに？？？？？？？？？？？？？？？？？？？？？
 //		Recipes recipes = (Recipes)request.getAttribute("recipes");
 //		// 複数要素によるレシピ検索処理を行う
 //				RecipeDAO reDao = new RecipeDAO();

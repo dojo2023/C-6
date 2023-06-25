@@ -26,6 +26,16 @@
 
 	<!-- メインここから -->
 
+<<<<<<< Updated upstream
+	<br><label for="id">ID</label>
+	<br>
+	<input type="text" name="ID" value="">
+	<!-- <br><p id="error_msg" class="font-red"></p> -->
+	<br><label for="password">新しいパスワード</label>
+	<br>
+	<input type="text" name="ID" value="">
+	<br>
+=======
 	ID
 	<br>
 	<input type="text" name="ID" value="id">
@@ -38,14 +48,21 @@
 	<input id="confirm_password" type="password" name="c_PW" value="confirm_password" placeholder="パスワード" required>
 	 -->
 	 <br> 好きな食べ物
+>>>>>>> Stashed changes
 	<br>
-	<input type="text" name="likefood" value=""> 嫌いな食べ物
+	好きな食べ物
+	<br>
+	<input type="text" name="likefood" value="">
+	<br>
+	嫌いな食べ物
 	<br>
 	<input type="text" name="dislikefood" value="">
-
+<!--
 	<button type="submit" class="btn btn--orange" name="likefood" value="好きな食べ物ボタン"></button>
+	<br>
 	<button type="submit" class="btn btn--orange" name="dislikefood" value="嫌いな食べ物ボタン"></button>
 	<br>
+-->
 	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
 		<form action="/NMW/MainFoodListServlet" method="post">
 			<button type="submit" name="foods" value="${ mainFood.f_id }">
@@ -56,7 +73,11 @@
 				<br>
 			</c:if>
 	</c:forEach>
+<<<<<<< Updated upstream
+    <br>
+=======
 
+>>>>>>> Stashed changes
 	<input type="submit" class="btn btn--orange" name="SAVE" value="保存">
 	<input type="submit" class="btn btn--orange" name="DELETE" value="アカウント削除">
 	<!-- メインここまで -->
