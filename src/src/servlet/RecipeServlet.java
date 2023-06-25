@@ -46,20 +46,27 @@ public class RecipeServlet extends HttpServlet {
 		// r_count=0は非表示
 
 		int rec_id = -1;
-		if (request.getParameter("rec_id") != null) {
-			rec_id = Integer.parseInt(request.getParameter("rec_id").toString());
+		if (request.getParameter("search_key") != null) {
+			rec_id = Integer.parseInt(request.getParameter("search_key").toString());
 		}
 
-		Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
+//		Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
+//		Recipes recipes = new Recipes(r);
+
+		Recipe r = new Recipe(rec_id);
 		Recipes recipes = new Recipes(r);
 
 		RecipeDAO rDAO = new RecipeDAO();
 		List<Recipe> recipe = rDAO.select(recipes);
+		for (Recipe recipe2 : recipe) {
+			System.out.println("R_name:" + recipe2.getR_name());
 
-		System.out.println("============================");
-		// System.out.println(recipe);
-		System.out.println(recipe.get(0).getImage());
-		System.out.println("============================");
+		}
+
+//		System.out.println("============================");
+//		System.out.println(recipe);
+//		System.out.println(recipe.get(0).getImage());
+//		System.out.println("============================");
 
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("recipe", recipe);

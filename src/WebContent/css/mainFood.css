@@ -1,1 +1,16 @@
 @charset "UTF-8";
+
+.food{
+	display:flex;
+}
+
+.Mainfood{
+	text-align: center;
+}
+
+.fn{
+	font-weight: bold;
+}
+.p{
+	font-weight: bold;
+}

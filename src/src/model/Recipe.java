@@ -63,12 +63,14 @@ public class Recipe implements Serializable {
 		this.wanpan = wanpan;
 		this.save_time = save_time;
 		this.microwave_oven = microwave_oven;
+		this.recipe = "";
 		this.cooking_expenses = -1;
 		this.eating_out_expenses = -1;
 		this.u_id = "";
 		this.r_date = null;
 		this.r_count = -1;
 		this.i_id = -1;
+		this.f_id = -1;
 		this.ingredient.add("");
 		this.r_i_count = -1.0;
 		this.unit = 0;
@@ -89,6 +91,7 @@ public class Recipe implements Serializable {
 		this.r_date = r_date;
 		this.r_count = -1;
 		this.i_id = -1;
+		this.f_id = -1;
 		this.ingredient.add("");
 		this.r_i_count = -1.0;
 		this.unit = 0;
@@ -111,6 +114,7 @@ public class Recipe implements Serializable {
 		this.r_date = new Date(utilDate.getTime());
 		this.r_count = -1;
 		this.i_id = -1;
+		this.f_id = -1;
 		this.ingredient.add("");
 		this.r_i_count = -1.0;
 		this.unit = 0;
@@ -132,6 +136,7 @@ public class Recipe implements Serializable {
 		this.r_date = null;
 		this.r_count = -1;
 		this.i_id = -1;
+		this.f_id = -1;
 		this.ingredient.add("");
 		this.r_i_count = -1.0;
 		this.unit = 0;
