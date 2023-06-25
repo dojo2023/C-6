@@ -26,62 +26,74 @@
 
 	<!-- メインここから -->
 
-<<<<<<< Updated upstream
-	<br><label for="id">ID</label>
-	<br>
-	<input type="text" name="ID" value="">
-	<!-- <br><p id="error_msg" class="font-red"></p> -->
-	<br><label for="password">新しいパスワード</label>
-	<br>
-	<input type="text" name="ID" value="">
-	<br>
-=======
-	ID
-	<br>
-	<input type="text" name="ID" value="id">
-	<!-- <br><p id="error_msg" class="font-red"></p> -->
-	<br><label for="password">新しいパスワード</label>
-	<br>
+    <form method="POST" action="/NMW/MyPageServlet">
+        <c:forEach var="m" items="${user_inf}" >
+		<ul>
+			<br>
+			<li>
+			ID
+			<br>
+			<input type="text" name="ID" value="${m.u_id}">
+			</li>
+			<br>
+			<li>
+			パスワード
+			<br>
+			<input type="text" name="ID" value="${m.password}">
+			</li>
+	    </c:forEach>
+			<br>
+			<li>
+			新しいパスワード
+			<br>
+			<input type="password" name="PW">
+			</li>
+			<br>
+			<li>
+			パスワードをもう一度入力してください<br>
+			<input type="password" name="c_PW">
+			</li>
+
+
+
+
 	<!-- <input id="password" type="password" name="PW" value="password" placeholder="パスワード" required>
 	<br><label for="confirm_password">パスワードをもう一度入力してください</label>
 	<br>
 	<input id="confirm_password" type="password" name="c_PW" value="confirm_password" placeholder="パスワード" required>
 	 -->
-	 <br> 好きな食べ物
->>>>>>> Stashed changes
-	<br>
-	好きな食べ物
-	<br>
-	<input type="text" name="likefood" value="">
-	<br>
-	嫌いな食べ物
-	<br>
-	<input type="text" name="dislikefood" value="">
-<!--
-	<button type="submit" class="btn btn--orange" name="likefood" value="好きな食べ物ボタン"></button>
-	<br>
-	<button type="submit" class="btn btn--orange" name="dislikefood" value="嫌いな食べ物ボタン"></button>
-	<br>
--->
-	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
-		<form action="/NMW/MainFoodListServlet" method="post">
-			<button type="submit" name="foods" value="${ mainFood.f_id }">
-				<img src="/NMW/img/${ mainFood.image }" width="50">
-			</button>
-		</form>
-			<c:if test="${ ((status.index+1)%7)==0 }">
-				<br>
-			</c:if>
-	</c:forEach>
-<<<<<<< Updated upstream
-    <br>
-=======
+			<br>
+			好きな食べ物
+			<br>
+			<input type="text" name="likefood" value="じゃがいも">
+			<br>
+			嫌いな食べ物
+			<br>
+			<input type="text" name="dislikefood" value="にんじん">
 
->>>>>>> Stashed changes
+	    </ul>
+
+	     <input class="btn btn--orange" type="button" name="likefood" value="好きな食べ物">
+		 <input class="btn btn--orange" type="button" name="dislikefood" value="嫌いな食べ物">
+	     <br>
+	     <c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
+
+		 <button class="mf_btn" type="submit" name="foods" value="${ mainFood.f_id }">
+			<img src="/NMW/img/${ mainFood.image }" width="50">
+		 </button>
+
+		<c:if test="${ ((status.index+1)%7)==0 }">
+			<br>
+		</c:if>
+
+	   </c:forEach>
+
+
 	<input type="submit" class="btn btn--orange" name="SAVE" value="保存">
 	<input type="submit" class="btn btn--orange" name="DELETE" value="アカウント削除">
 	<!-- メインここまで -->
 	<!-- フッターここから -->
+    </form>
 	<footer>
 		<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
 	</footer>
