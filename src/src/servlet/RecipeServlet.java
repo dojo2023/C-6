@@ -50,23 +50,22 @@ public class RecipeServlet extends HttpServlet {
 			rec_id = Integer.parseInt(request.getParameter("search_key").toString());
 		}
 
-//		Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
-//		Recipes recipes = new Recipes(r);
+		//		Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
+		//		Recipes recipes = new Recipes(r);
 
 		Recipe r = new Recipe(rec_id);
 		Recipes recipes = new Recipes(r);
 
 		RecipeDAO rDAO = new RecipeDAO();
 		List<Recipe> recipe = rDAO.select(recipes);
-		for (Recipe recipe2 : recipe) {
-			System.out.println("R_name:" + recipe2.getRecipe());
+//		for (Recipe recipe2 : recipe) {
+//			System.out.println("R_name:" + recipe2.getRecipe());
+//		}
 
-		}
-
-//		System.out.println("============================");
-//		System.out.println(recipe);
-//		System.out.println(recipe.get(0).getImage());
-//		System.out.println("============================");
+		//		System.out.println("============================");
+		//		System.out.println(recipe);
+		//		System.out.println(recipe.get(0).getImage());
+		//		System.out.println("============================");
 
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("recipe", recipe);
@@ -84,16 +83,14 @@ public class RecipeServlet extends HttpServlet {
 
 		// レシピ詳細(Recipe)DoPost→主要食材(MainFood?)DoGet
 		// レシピ詳細→主要食材のDoPostを使用する為のif文
-		if ((request.getParameter("r_recipe")) == "1") {
+		if ((request.getParameter("r_recipe")).equals("1")) {
 			request.setAttribute("foods", request.getParameter("ingredient"));
 			// 結果ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/MainFoodServlet");
 			dispatcher.forward(request, response);
-		}
-
-		// レシピ回数カウント処理
-		// レシピ詳細にレシピ使用回数を送るDoPostを使用する為のif文
-		else if ((request.getParameter("r_recipe")) == "2") {
+			// レシピ回数カウント処理
+			// レシピ詳細にレシピ使用回数を送るDoPostを使用する為のif文
+		} else if ((request.getParameter("r_recipe")).equals("2")) {
 			HttpSession session = request.getSession();
 			LoginUser loginUser = (LoginUser) session.getAttribute("id");
 
@@ -102,41 +99,47 @@ public class RecipeServlet extends HttpServlet {
 
 			// リクエストパラメータを取得する
 			int rec_id = -1;
-			if (request.getAttribute("rec_id") != null) {
-				rec_id = Integer.parseInt(request.getAttribute("rec_id").toString());
+			if (request.getParameter("rec_id") != null) {
+				rec_id = Integer.parseInt(request.getParameter("rec_id").toString());
 			}
 
-			Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
-			RecipeDAO rDAO = new RecipeDAO();
-
 			// (r_count)の有無によるinsertとupdateをわけるif文
+			RecipeDAO rDAO = new RecipeDAO();
+			Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
 			Recipes recipes = new Recipes(r);
 			List<Recipe> recipe = rDAO.select(recipes);
 
-			if (recipe.get(0).getR_count() == -1.0) {
+			// ない場合は追加
+			if (recipe==null || recipe.size() == 0) {
 				rDAO.insert(r);
-			} else {
-				recipe.get(0).setR_count(recipe.get(0).getR_count() + 1);
-				rDAO.update(recipe.get(0), recipe.get(0));
+				recipe = rDAO.select(new Recipes(r));
+				recipe.get(0).setR_count(0);
+				recipe.get(0).setR_count(0);
 			}
+
+			// 回数の増加
+			recipe.get(0).setR_count(recipe.get(0).getR_count() + 1);
+			rDAO.updateCount(recipe.get(0), recipe.get(0));
+
 			// レシピ使用回数をリクエストスコープに格納する
 			request.setAttribute("recipe", recipe.get(0).getR_count());
+
+			r = new Recipe(rec_id);
+			recipes = new Recipes(r);
+
+			rDAO = new RecipeDAO();
+			recipe = rDAO.select(recipes);
+
+			// 検索結果をリクエストスコープに格納する
+			request.setAttribute("rec_id", rec_id);
+			request.setAttribute("recipe", recipe);
+
 			// レシピ詳細.jspにフォワードする
 			RequestDispatcher dispatcher1 = request.getRequestDispatcher("/WEB-INF/jsp/recipe.jsp");
 			dispatcher1.forward(request, response);
 
-
-			//食材の増減
-			//レシピID(rec_id)を受け取る
-			// レシピID(rec_id)をリクエストスコープに格納する
-			request.setAttribute("rec_id",rec_id );
-			// 冷蔵庫サーブレットにフォワードする
-			RequestDispatcher dispatcher2 = request.getRequestDispatcher("/NMW/RefrigeratorServlet");
-			dispatcher2.forward(request, response);
-
-
 			// レシピ使用回数リセット時の処理
-		} else if ((request.getParameter("r_recipe")) == "3") {
+		} else if ((request.getParameter("r_recipe")).equals("3")) {
 			HttpSession session = request.getSession();
 			LoginUser loginUser = (LoginUser) session.getAttribute("id");
 
@@ -145,14 +148,46 @@ public class RecipeServlet extends HttpServlet {
 
 			// リクエストパラメータを取得する
 			int rec_id = -1;
-			if (request.getAttribute("rec_id") != null) {
-				rec_id = Integer.parseInt(request.getAttribute("rec_id").toString());
+			if (request.getParameter("rec_id") != null) {
+				rec_id = Integer.parseInt(request.getParameter("rec_id").toString());
 			}
 
-			Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
+			// (r_count)の有無によるinsertとupdateをわけるif文
 			RecipeDAO rDAO = new RecipeDAO();
-			r.setR_count(r.getR_count() - 1);
-			rDAO.update(r, r);
+			Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
+			Recipes recipes = new Recipes(r);
+			List<Recipe> recipe = rDAO.select(recipes);
+
+			// ない場合は追加
+			if (recipe==null || recipe.size() == 0) {
+				rDAO.insert(r);
+				recipe = rDAO.select(new Recipes(r));
+				recipe.get(0).setR_count(0);
+				recipe.get(0).setR_count(0);
+			}
+
+			// 回数の減少
+			if (recipe.get(0).getR_count() > 0) {
+				recipe.get(0).setR_count(recipe.get(0).getR_count() - 1);
+			}
+			rDAO.updateCount(recipe.get(0), recipe.get(0));
+
+			// レシピ使用回数をリクエストスコープに格納する
+			request.setAttribute("recipe", recipe.get(0).getR_count());
+
+			r = new Recipe(rec_id);
+			recipes = new Recipes(r);
+
+			rDAO = new RecipeDAO();
+			recipe = rDAO.select(recipes);
+
+			// 検索結果をリクエストスコープに格納する
+			request.setAttribute("rec_id", rec_id);
+			request.setAttribute("recipe", recipe);
+
+			// レシピ詳細.jspにフォワードする
+			RequestDispatcher dispatcher1 = request.getRequestDispatcher("/WEB-INF/jsp/recipe.jsp");
+			dispatcher1.forward(request, response);
 		}
 	}
 }

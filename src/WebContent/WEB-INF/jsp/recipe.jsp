@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +24,6 @@
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
 	<!-- RecipeServletからレシピ内容のリスト受け取り -->
-	<%
-		List<String> list = (List<String>) request.getAttribute("recipe");
-	%>
 	<c:forEach var="r" items="${ recipe }" varStatus="status">
 		<ul>
 			<li>
@@ -68,13 +64,15 @@
 
 	<!-- レシピ使用ボタンクリック時 -->
 		<form name="r_recipe" method="POST" action="/NMW/RecipeServlet">
-			<input type="hidden" name="r_select" value="2"> <input
-				type="submit" name="r_recipe" value="レシピを使用"><br>
+			<input type="hidden" name="rec_id" value="${ r.rec_id }">
+			<input type="hidden" name="r_recipe" value="2">
+			<input type="submit" name="r_recipe" value="レシピを使用"><br>
 		</form>
 
 		<!-- レシピ使用回数リセットボタンクリック時 -->
 		<form name="r_recipe" method="POST" action="/NMW/RecipeServlet">
-			<input type="hidden" name="r_select" value="3">
+			<input type="hidden" name="rec_id" value="${ r.rec_id }">
+			<input type="hidden" name="r_recipe" value="3">
 			<button type="submit" name="r_recipe" value="回数リセット"></button>
 		</form>
 		<c:if test="${ r.r_count!=0 }">

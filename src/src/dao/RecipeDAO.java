@@ -1007,6 +1007,85 @@ public class RecipeDAO {
 		return result;
 	}
 
+	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+		public boolean updateCount(Recipe recipe, Recipe pre_recipe) {
+			Connection conn = null;
+			boolean result = false;
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("org.h2.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+
+				// SQL文を準備する
+				String sql_c = "update recipe_counts set u_id=?, rec_id=?, r_date=?, r_count=? where u_id like ? and rec_id like ? and r_date like ?";
+
+				PreparedStatement pStmt_c = conn.prepareStatement(sql_c);
+
+				// SQL文を完成させる
+
+				if (recipe.getU_id() != null && !recipe.getU_id().equals("")) {
+					pStmt_c.setString(1, recipe.getU_id());
+				} else {
+					pStmt_c.setString(1, null);
+				}
+				if (recipe.getRec_id() != -1) {
+					pStmt_c.setInt(2, recipe.getRec_id());
+				} else {
+					pStmt_c.setInt(2, -1);
+				}
+				if (recipe.getR_date() != null) {
+					pStmt_c.setDate(3, recipe.getR_date());
+				} else {
+					pStmt_c.setDate(3, null);
+				}
+				if (recipe.getR_count() != -1) {
+					pStmt_c.setInt(4, recipe.getR_count());
+				} else {
+					pStmt_c.setInt(4, -1);
+				}
+				if (pre_recipe.getU_id() != null && !pre_recipe.getU_id().equals("")) {
+					pStmt_c.setString(5, "%" + pre_recipe.getU_id() + "%");
+				} else {
+					pStmt_c.setString(5, "%");
+				}
+				if (pre_recipe.getRec_id() != -1) {
+					pStmt_c.setString(6, "%" + pre_recipe.getRec_id() + "%");
+				} else {
+					pStmt_c.setString(6, "%");
+				}
+				if (pre_recipe.getR_date() != null) {
+					pStmt_c.setString(7, "%" + pre_recipe.getR_date() + "%");
+				} else {
+					pStmt_c.setString(7, "%");
+				}
+
+
+				// SQL文を実行する
+				if (pStmt_c.executeUpdate() == 1) {
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			// 結果を返す
+			return result;
+		}
+
 	// 引数numberで指定されたレコードを削除し、成功したらtrueを返す
 	public boolean delete(int number) {
 		Connection conn = null;
