@@ -56,49 +56,61 @@ public class RefrigeratorServlet extends HttpServlet {
 
 		// user idからその人の冷蔵庫をsetしてる
 		LoginUser loginUser = (LoginUser) session.getAttribute("id");
-		int f_id = Integer.parseInt(request.getParameter("food"));
 
-		RecipeDAO recDAO = new RecipeDAO();
+		// 主要食材ボタンをクリックしたときの処理
+		if (request.getParameter("food") != null) {
+			int f_id = Integer.parseInt(request.getParameter("food"));
 
-		// f_idでRecipe検索
-		Recipe r = new Recipe();
-		r.setF_id(f_id);
-		Recipes recipes = new Recipes(r);
-		List<Recipe> recipe = recDAO.selectRecipeIngredient(recipes);
+			RecipeDAO recDAO = new RecipeDAO();
+
+			// f_idでRecipe検索
+			Recipe r = new Recipe();
+			r.setF_id(f_id);
+			Recipes recipes = new Recipes(r);
+			List<Recipe> recipe = recDAO.selectRecipeIngredient(recipes);
 //		for (Recipe recipe2 : recipe) {
 //			System.out.println("unit:"+recipe2.getUnit());
 //		}
 
-		// データが登録されていない時、insertする
+			// データが登録されていない時、insertする
 //		System.out.println(recipe.get(0).getUnit());
-		if (rDAO.select(new Refrigerator(loginUser.getId(), f_id)) == null || rDAO.select(new Refrigerator(loginUser.getId(), f_id)).size() == 0){
-			rDAO.insert(new Refrigerator(loginUser.getId(), f_id, recipe.get(0).getUnit()));
-		}
+			if (rDAO.select(new Refrigerator(loginUser.getId(), f_id)) == null || rDAO.select(new Refrigerator(loginUser.getId(), f_id)).size() == 0){
+				rDAO.insert(new Refrigerator(loginUser.getId(), f_id, recipe.get(0).getUnit()));
+			}
 
-		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
-		List<Refrigerator> pre_refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
+			List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
+			List<Refrigerator> pre_refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
 
 //		System.out.println("====================");
-		for (Refrigerator refrigerator2 : pre_refrigerator) {
-			System.out.println(refrigerator2.getF_id()+":"+refrigerator2.getF_count());
-		}
+			for (Refrigerator refrigerator2 : pre_refrigerator) {
+				System.out.println(refrigerator2.getF_id()+":"+refrigerator2.getF_count());
+			}
 
 
-		// (r_count)の有無によるinsertとupdateをわけるif文
-		switch(recipe.get(0).getUnit()) {
-			case 1:
-				refrigerator.get(0).setF_count(refrigerator.get(0).getF_count() + 100);
-			case 2:
-			case 3:
-			case 4:
-			default:
+			// (r_count)の有無によるinsertとupdateをわけるif文
+			// Recipe似ない場合は1つずつ増やす
+			if (recipe != null && recipe.size() != 0){
+				switch(recipe.get(0).getUnit()) {
+				case 1:
+					refrigerator.get(0).setF_count(refrigerator.get(0).getF_count() + 100);
+				case 2:
+				case 3:
+				case 4:
+				default:
+					refrigerator.get(0).setF_count(refrigerator.get(0).getF_count() + 1);
+				}
+			} else {
 				refrigerator.get(0).setF_count(refrigerator.get(0).getF_count() + 1);
+			}
+
+			// updateする
+			rDAO.update(refrigerator.get(0), pre_refrigerator.get(0));
+
+			view(request, response);
+		} else {
+			int f_id = Integer.parseInt(request.getParameter("submit_jsp_f_id"));
+			int num = Integer.parseInt(request.getParameter("submit_jsp_num"));
 		}
-
-		// updateする
-		rDAO.update(refrigerator.get(0), pre_refrigerator.get(0));
-
-		view(request, response);
 
 //		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/refrigerator.jsp");
 //		dispatcher.forward(request, response);
