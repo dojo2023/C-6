@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.MainFoodDAO;
 import dao.UserDAO;
 import model.LoginUser;
-import model.MainFood;
 import model.User;
 
 /**
@@ -30,7 +28,7 @@ public class MyPageEditServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("=========================");
+
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
@@ -38,35 +36,6 @@ public class MyPageEditServlet extends HttpServlet {
 			return;
 		}
 		request.setCharacterEncoding("UTF-8");
-
-		UserDAO uDAO = new UserDAO();
-
-		//MyPageからユーザー情報の受け取り
-		LoginUser loginUser = (LoginUser)session.getAttribute("loginUser");
-		String id = loginUser.getId();
-
-
-		List<User> user_inf = uDAO.selectLfDf(new User(id));
-//        ユーザー情報の結果を表示
-
-
-		//mainfoodにデータが入っていない
-		MainFoodDAO mDAO = new MainFoodDAO();
-		List<MainFood> mainFood = mDAO.select(new MainFood());
-
-		System.out.println(mainFood);
-
-		request.setAttribute("user_inf", user_inf);
-		request.setAttribute("mainFood", mainFood);
-
-
-//		マイページ（ユーザー編集）にフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/myPageEdit.jsp");
-		dispatcher.forward(request, response);
-
-
-
-
 
 	}
 
