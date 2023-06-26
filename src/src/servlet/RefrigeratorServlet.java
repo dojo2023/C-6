@@ -60,23 +60,25 @@ public class RefrigeratorServlet extends HttpServlet {
 
 		RecipeDAO recDAO = new RecipeDAO();
 
+		// f_idでRecipe検索
 		Recipe r = new Recipe();
 		r.setF_id(f_id);
 		Recipes recipes = new Recipes(r);
 		List<Recipe> recipe = recDAO.selectRecipeIngredient(recipes);
-		for (Recipe recipe2 : recipe) {
-			System.out.println("unit:"+recipe2.getUnit());
-		}
+//		for (Recipe recipe2 : recipe) {
+//			System.out.println("unit:"+recipe2.getUnit());
+//		}
 
 		// データが登録されていない時、insertする
-		if (rDAO.select(new Refrigerator(loginUser.getId(), f_id)) == null) {
+//		System.out.println(recipe.get(0).getUnit());
+		if (rDAO.select(new Refrigerator(loginUser.getId(), f_id)) == null || rDAO.select(new Refrigerator(loginUser.getId(), f_id)).size() == 0){
 			rDAO.insert(new Refrigerator(loginUser.getId(), f_id, recipe.get(0).getUnit()));
 		}
 
 		List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
 		List<Refrigerator> pre_refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
 
-		System.out.println("====================");
+//		System.out.println("====================");
 		for (Refrigerator refrigerator2 : pre_refrigerator) {
 			System.out.println(refrigerator2.getF_id()+":"+refrigerator2.getF_count());
 		}

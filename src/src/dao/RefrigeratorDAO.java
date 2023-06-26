@@ -31,7 +31,7 @@ public class RefrigeratorDAO {
 					+ "r_t.num1, r_t.num2, r_t.num3, r_t.num4, r_t.num5, r_t.num6, r_t.num7, r_t.num8, r_t.num9 "
 					+ "from refrigerators as r "
 					+ "left join refrigerator_texts as r_t on r.ref_id = r_t.ref_id "
-					+ "where r.u_id like ? and r.f_id like ?";
+					+ "where r.u_id like ? and r.f_id like ? order by r.f_id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -125,7 +125,7 @@ public class RefrigeratorDAO {
 			String sql = "select m.f_id, m.f_name, m.image, m.identify, m.strage_method, m.retention_period, m.season "
 					+ "from refrigerators as r "
 					+ "left join foods as m on r.f_id = m.f_id "
-					+ "where r.u_id like ? or r.f_id like ?";
+					+ "where r.u_id like ? or r.f_id like ? order by r.f_id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -191,7 +191,7 @@ public class RefrigeratorDAO {
 			String sql = "select r_i.unit "
 					+ "from refrigerators as r "
 					+ "left join recipe_ingredients as r_i on r.f_id = r_i.f_id "
-					+ "where r.f_id like ?";
+					+ "where r.f_id like ? order by r.f_id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			for (Refrigerator recipe : param) {
