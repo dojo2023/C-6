@@ -35,6 +35,11 @@
 		<button class="search_btn" type="submit" name="f_id" value="${ search.f_id }">
 			<img src="/NMW/img/${search.image}" width="50">
 		</button>
+		<button class="c_search_btn" type="submit" name="c_id" value="c_id">
+			<img src="/NMW/img/wanpan.png" width="50">
+			<img src="/NMW/img/renzi.png" width="50">
+			<img src="/NMW/img/zitan.png" width="50">
+		</button>
 	</c:forEach>
 
 	</form>
@@ -86,9 +91,6 @@
 				<li>
 				${ r_l.microwave_oven }
 				</li>
-
-
-
 		</c:forEach>
 	</ul>
 
