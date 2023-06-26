@@ -1,1 +1,23 @@
 @charset "UTF-8";
+
+.menuName{
+	font-size: 35px;
+	text-align: center;
+}
+.L_custom_1{
+	display: flex;
+	text-align:right;
+	height:60px;
+	line-height:60px;
+	font-size: 25px;
+	background-position: right 15px;
+}
+.L_custom_2{
+	display: flex;
+}
+.make_title{
+	font-size: 20px;
+}
+.make{
+	font-size: 14px;
+}
