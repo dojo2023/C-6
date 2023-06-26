@@ -11,18 +11,16 @@
 </head>
 <body>
 <!-- ヘッダーここから -->
-<header>
-	<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
-</header>
-<!-- ヘッダーここまで -->
-	<header>
-
-		<nav>
-			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
-			<a href="/NMW/RecipeListServlet">レシピ</a>
-			<a href="/NMW/MainFoodListServlet">食材管理</a>
-			<a href="/NMW/CalendarServlet">カレンダー</a>
-			<a href="/NMW/MyPageServlet">マイページ</a>
+    <header>
+	     <a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
+		 <nav>
+		   <ul>
+				<li><a href="/NMW/RefrigeratorServlet">冷蔵庫</a></li>
+				<li><a href="/NMW/RecipeListServlet">レシピ</a></li>
+				<li><a href="/NMW/MainFoodListServlet">食材管理</a></li>
+				<li><a href="/NMW/CalendarServlet">カレンダー</a></li>
+				<li><a href="/NMW/MyPageServlet">マイページ</a></li>
+		  </ul>
 		</nav>
 	</header>
 	<!-- ヘッダーここまで -->
@@ -50,7 +48,7 @@
 		     </li>
 
 		     <li>
-			     <br><input type="submit" class="btn" name="edit" value="編集">
+			     <br><input type="submit" class="btn btn--orange" name="edit" value="編集">
 			 </li>
 		  </ul>
 

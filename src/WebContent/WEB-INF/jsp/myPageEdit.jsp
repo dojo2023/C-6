@@ -15,11 +15,11 @@
 	<header>
 		<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
 		<nav>
-			<a href="/NMW/RefrigeratorServlet">冷蔵庫</a>
-			<a href="/NMW/RecipeListServlet">レシピ</a>
-			<a href="/NMW/MainFoodListServlet">食材管理</a>
-			<a href="/NMW/CalendarServlet">カレンダー</a>
-			<a href="/NMW/MyPageServlet">マイページ</a>
+			<li><a href="/NMW/RefrigeratorServlet">冷蔵庫</a></li>
+			<li><a href="/NMW/RecipeListServlet">レシピ</a></li>
+			<li><a href="/NMW/MainFoodListServlet">食材管理</a></li>
+			<li><a href="/NMW/CalendarServlet">カレンダー</a></li>
+			<li><a href="/NMW/MyPageServlet">マイページ</a></li>
 		</nav>
 	</header>
 	<!-- ヘッダーここまで -->
@@ -27,46 +27,23 @@
 	<!-- メインここから -->
 
     <form id="register" method="POST" action="/NMW/MyPageServlet">
+	<ul>
         <c:forEach var="m" items="${user_inf}" >
-		<ul>
 			<li>ID<br><input type="text" name="ID" value="${m.u_id}"></li>
-			<br>
-			<li>
-			パスワード
-			<br>
-			<input type="text" name="ID" value="${m.password}">
-			</li>
+			<li>パスワード<br>
+			<input type="text" name="ID" value="${m.password}"></li>
 	    </c:forEach>
-			<br>
-			<li>
-			新しいパスワード
-			<br>
-			<input type="password" name="PW">
-			</li>
-			<br>
+			<li>新しいパスワード<br>
+			<input type="password" name="PW"></li>
 			<li>
 			パスワードをもう一度入力してください<br>
-			<input type="password" name="c_PW">
-			</li>
-
-
-
-
-	<!-- <input id="password" type="password" name="PW" value="password" placeholder="パスワード" required>
-	<br><label for="confirm_password">パスワードをもう一度入力してください</label>
-	<br>
-	<input id="confirm_password" type="password" name="c_PW" value="confirm_password" placeholder="パスワード" required>
-	 -->
-			<br>
-			好きな食べ物
-			<br>
-			<input type="text" name="likefood" value="じゃがいも">
-			<br>
-			嫌いな食べ物
-			<br>
-			<input type="text" name="dislikefood" value="にんじん">
-
-	    </ul>
+			<input type="password" name="c_PW"></li>
+			好きな食べ物<br>
+			<input type="text" name="likefood" value="じゃがいも"></li>
+			<li>
+			嫌いな食べ物<br>
+			<input type="text" name="dislikefood" value="にんじん"></li>
+	</ul>
 
 	     <input class="btn btn--orange" type="button" name="likefood" value="好きな食べ物">
 		 <input class="btn btn--orange" type="button" name="dislikefood" value="嫌いな食べ物">
