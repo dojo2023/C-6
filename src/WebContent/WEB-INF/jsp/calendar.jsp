@@ -179,9 +179,9 @@ function createProcess(year, month) {
                 if(year == today.getFullYear()
                   && month == (today.getMonth())
                   && count == today.getDate()){
-                    calendar += "<td class='today'>" + count + "</td>";
+                    calendar += "<td class='today'>" + count +'<br>'+${c_e_weekSum[4]}+ "</td>";
                 } else {
-                    calendar += "<td>" + count + "</td>";
+                    calendar += "<td>" + count +'<br>'+${c_e_weekSum[4]}+ "</td>";
                 }
             }
         }
