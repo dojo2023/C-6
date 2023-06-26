@@ -83,6 +83,8 @@
 					<% } %>
 					<% if(((c_br) % 5) == 0){ %>
 						<br>
+						<div></div>
+						<br>
 					<% } %>
 				<% } %>
 			<% } %>
@@ -96,7 +98,7 @@
 					<% text[j] = refrigerator.get(0).getText().get((i*3)+j);%>
 				<% } %>
 			<% } %>
-			<div>
+			<div class="other">
 				<input type="text" size="10" value="<%= text[0] %>">
 				<select name=”item”>
 				  <option value=”item1”>1.0</option>

@@ -4,12 +4,35 @@ form{
 }
 .ref{
 	background-color:#d0e0e3ff;
+	border-radius:10px;
+}
+img{
+	background-color:#d0e0e3ff;
+	margin:5px;
+}
+.ref form{
+	background-color:#d0e0e3ff;
+}
+.unit{
+	background-color:#d0e0e3ff;
+}
+select{
+	background-color:#d0e0e3ff;
+}
+.other{
+	background-color:#d0e0e3ff;
+	margin:30px;
+
 }
 .text{
 	display:flex;
 	text-align: center;
 	background-color:#d0e0e3ff;
+	border-radius:10px;
 }
 .mainfood{
 	margin-top:50px;
+}
+.other input{
+	margin:5px;
 }
