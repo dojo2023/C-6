@@ -8,6 +8,7 @@
 <title>ログイン | れしぴろーくん</title>
 <!-- スタイルシートの挿入 -->
 <link rel= "stylesheet" href="/NMW/css/common.css">
+<link rel= "stylesheet" href="/NMW/css/login.css">
 <style>
 </style>
 </head>
