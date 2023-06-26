@@ -80,3 +80,49 @@ td.today {
 
 }
 
+/*れしぴろー吹き出し*/
+.balloon2 {
+  width: 100%;
+  margin: 2em 0;
+  margin-left: 100px;
+  overflow: hidden;
+}
+
+.balloon2 .icon2 {
+  float: right;
+  width: 320px;
+}
+.balloon2 .icon2 img{
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.balloon2 .chatting2 {
+  width: 100%;
+}
+
+.says2 {
+  display: inline-block;
+  position: relative;
+  margin: 60px 0 0 105px;
+  padding: 17px 13px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.says2:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 18px;
+  right: -24px;
+  border: 12px solid transparent;
+  border-left: 12px solid #fff;
+}
+
+.says2 p {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
