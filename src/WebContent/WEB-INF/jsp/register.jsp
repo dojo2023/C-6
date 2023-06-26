@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>新規登録 | れしぴろーくん</title>
 <link rel="stylesheet" href="/NMW/css/common.css">
+<link rel="stylesheet" href="/NMW/css/register.css">
 </head>
 <body>
 	<!-- ヘッダーここから -->
@@ -27,16 +28,22 @@
 			<li>パスワード<br><input type="password" name="PW"></li>
 			<li>パスワードをもう一度入力してください<br>
 			<input type="password" name="c_PW"></li>
+			<div class="lfdf">
 			<li>好きな食べ物 <br>
-			<input type="text" name="Lf_id"></li>
+			<input type="text" name="Lf_id" ></li>
+			<span class="df">
 			<li>嫌いな食べ物 <br>
 			<input type="text" name="Df_id"></li>
+			</span>
+			</div>
 		</ul>
 
-
+	<div class="lfdf_btn">
 	<input class="btn btn--orange" type="button" name="likefood" value="好きな食べ物">
 	<input class="btn btn--orange" type="button" name="dislikefood" value="嫌いな食べ物">
+	</div>
 	<br>
+	<div class="mainfood">
 	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
 
 		<button class="mf_btn" type="submit" name="foods" value="${ mainFood.f_id }">
@@ -48,8 +55,10 @@
 		</c:if>
 
 	</c:forEach>
-
+	</div>
+	<div class="reg_btn">
 		<input class="btn btn--orange" type="submit" name="REGISTER" value="新規登録">
+	</div>
 	</form>
 	<!-- メインここまで -->
 	<!-- フッターここから -->
