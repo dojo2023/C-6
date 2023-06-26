@@ -59,7 +59,7 @@ public class RecipeServlet extends HttpServlet {
 		RecipeDAO rDAO = new RecipeDAO();
 		List<Recipe> recipe = rDAO.select(recipes);
 		for (Recipe recipe2 : recipe) {
-			System.out.println("R_name:" + recipe2.getR_name());
+			System.out.println("R_name:" + recipe2.getRecipe());
 
 		}
 

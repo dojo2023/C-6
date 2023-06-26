@@ -28,30 +28,60 @@
 	<%
 		List<String> list = (List<String>) request.getAttribute("recipe");
 	%>
-	<ul>
-		<c:forEach var="r" items="${ recipe }" varStatus="status">
-			<li><img src="/NMW/img${r.image}" width="500">
-				<h2>${r.r_name}</h2> ${r.time} ${r.wanpan} ${r.save_time}
-				${r.microwave_oven}</li>
-	</ul>
+	<c:forEach var="r" items="${ recipe }" varStatus="status">
+		<ul>
+			<li>
+				<img src="/NMW/img${r.image}" width="500">
+				<h2>${r.r_name}</h2>
+			</li>
+			<li>
+				<c:if test="${ (r.wanpan == true) }">
+					<button class="c_search_btn" type="submit" name="wanpan"
+						value="false">
+						<img src="/NMW/img/recipe/wanpan.png" width="50">
+					</button>
+				</c:if>
+			</li>
+			<li>
+				<c:if test="${ (r.microwave_oven == true) }">
+					<button class="c_search_btn" type="submit" name="renzi"
+						value="false">
+						<img src="/NMW/img/recipe/renzi.png" width="50">
+					</button>
+				</c:if>
+			</li>
+			<li>
+				<c:if test="${ (r.save_time == true) }">
+					<button class="c_search_btn" type="submit" name="zitan"
+						value="false">
+						<img src="/NMW/img/recipe/zitan.png" width="50">
+					</button>
+				</c:if>
+			</li>
+		</ul>
 
-	<p>材料 (1人前)</p>
+		<p>材料 (1人前)</p>
 	${r.ingredient}
 	<p>作り方</p>
+	${ r.recipe }
 
 
 	<!-- レシピ使用ボタンクリック時 -->
-	<form name="r_recipe" method="POST" action="/NMW/RecipeServlet" value="2">
-		<input type="submit" name="r_recipe" value="レシピを使用"><br>
-	</form>
+		<form name="r_recipe" method="POST" action="/NMW/RecipeServlet">
+			<input type="hidden" name="r_select" value="2"> <input
+				type="submit" name="r_recipe" value="レシピを使用"><br>
+		</form>
 
-	<!-- レシピ使用回数リセットボタンクリック時 -->
-	<form name="r_recipe" method="POST" action="/NMW/RecipeServlet" value="3">
-		<button type="submit" name="r_recipe" value="回数リセット"></button>
-	</form>
+		<!-- レシピ使用回数リセットボタンクリック時 -->
+		<form name="r_recipe" method="POST" action="/NMW/RecipeServlet">
+			<input type="hidden" name="r_select" value="3">
+			<button type="submit" name="r_recipe" value="回数リセット"></button>
+		</form>
+		<c:if test="${ r.r_count!=0 }">
+			<img src="/NMW/img/logo/logo_resipiro-.png">
+			<p>本日${r.r_count}回料理したピヨ</p>
+		</c:if>
 
-	<img src="/NMW/img/logo_resipiro-.png">
-	<p>本日${r.r_count}回料理したピヨ</p>
 	</c:forEach>
 	<!-- メインここまで -->
 	<!-- フッターここから -->
