@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>レシピ一覧 | れしぴろーくん</title>
 <link rel="stylesheet" href="/NMW/css/common.css">
+<link rel="stylesheet" href="/NMW/css/recipeList.css">
 </head>
 <body>
 	<!-- ヘッダーここから -->
@@ -34,6 +35,7 @@
 	%>
 
 	<!-- 検索条件 -->
+	<div class="RecipeList">
 	<form method="POST" action="/NMW/RecipeListServlet">
 		<button class="c_search_btn" type="submit" name="wanpan" value="false">
 			<img src="/NMW/img/recipe/wanpan.png" width="50">
@@ -66,27 +68,30 @@
 							href="http://localhost:8080/NMW/RecipeServlet?search_key=${r_s.rec_id}"><img
 							src="/NMW/img${ r_s.image } " width="300"></a>
 					</form>
-			</li>
-				<li>${ r_s.r_name }</li>
-				<li>${ r_s.time }</li>
-				<li><c:if test="${ (r_s.wanpan == true) }">
+				</li>
+
+				${ r_s.r_name }
+				${ r_s.time }
+			<div class="custom">
+				<c:if test="${ (r_s.wanpan == true) }">
 						<button class="c_search_btn" type="submit" name="wanpan"
 							value="false">
 							<img src="/NMW/img/recipe/wanpan.png" width="50">
 						</button>
-					</c:if></li>
-				<li><c:if test="${ (r_s.microwave_oven == true) }">
+					</c:if>
+				<c:if test="${ (r_s.microwave_oven == true) }">
 						<button class="c_search_btn" type="submit" name="renzi"
 							value="false">
 							<img src="/NMW/img/recipe/renzi.png" width="50">
 						</button>
-					</c:if></li>
-				<li><c:if test="${ (r_s.save_time == true) }">
+					</c:if>
+				<c:if test="${ (r_s.save_time == true) }">
 						<button class="c_search_btn" type="submit" name="zitan"
 							value="false">
 							<img src="/NMW/img/recipe/zitan.png" width="50">
 						</button>
-					</c:if></li>
+					</c:if>
+				</div>
 			</span>
 		</c:forEach>
 	</ul>
@@ -102,6 +107,7 @@
 			</li>
 				<li>${ r_l.r_name }</li>
 				<li>${ r_l.time }</li>
+				<div class="custom">
 				<li><c:if test="${ (r_l.wanpan == true) }">
 						<button class="c_search_btn" type="submit" name="wanpan"
 							value="false">
@@ -120,10 +126,11 @@
 							<img src="/NMW/img/recipe/zitan.png" width="50">
 						</button>
 					</c:if></li>
+			</div>
 			</label>
 		</c:forEach>
 	</ul>
-
+</div>
 
 
 	<!-- メインここまで -->
