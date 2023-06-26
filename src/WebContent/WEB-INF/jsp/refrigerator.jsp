@@ -39,11 +39,11 @@
 	<!-- メインここから -->
 	<!-- 	冷蔵庫の一覧表示 -->
 <div class="ref">
-	<form action="/NMW/RefrigeratorServlet" method="post">
+	<form action="/NMW/RefrigeratorServlet" method="post" name="form_num">
 		<% double count; %>
 		<% int c_br = 0; %>
-		<input type="hidden" class="submit_jsp_f_id" name="f_id">
-		<input type="hidden" class="submit_jsp_num" name="num">
+		<input type="hidden" id="submit_jsp_f_id" name="f_id" value="-1">
+		<input type="hidden" id="submit_jsp_num" name="num" value="0">
 		<% if(refrigerator != null){ %>
 			<% for(int i=0; i<refrigerator.size();i++){ %>
 				<% count = refrigerator.get(i).getF_count(); %>
