@@ -104,12 +104,14 @@ public class RecipeListServlet extends HttpServlet {
 		// RecipeListServletに送る
 
 		// レシピ検索から検索結果に行くほうのform文をif文で作成
-		if ((request.getParameter("r_select")) == "1") {
+		if (request.getParameter("r_select").equals("1")) {
 
 			// jspから検索条件をgetParameterで抽出する（主要食材）
 			int f_id = Integer.parseInt(request.getParameter("f_id"));
-
-			Recipe r = new Recipe(f_id);
+			System.out.println(Integer.parseInt(request.getParameter("f_id")));
+			Recipe r = new Recipe();
+			r.setF_id(f_id);
+			System.out.println(r.getF_id());
 			Recipes f_id_s = new Recipes(r);
 			// jspから検索条件をgetParameterで抽出する（ワンパン等）
 //			String[] c_id_list = request.getParameterValues("c_id");
@@ -136,9 +138,14 @@ public class RecipeListServlet extends HttpServlet {
 			// setした値をgetAttributeで取得して、selectで検索する（主要食材）
 //			Recipes recipes = (Recipes)request.getAttribute("f_name");
 			RecipeDAO reDao = new RecipeDAO();
-			List<Recipe> recipesList = reDao.select(f_id_s);
+			List<Recipe> recipesList = reDao.selectF_id(f_id_s);
+
+			// レシピ検索時のボタン作成
+			MainFoodDAO mDAO = new MainFoodDAO();
+			List<MainFood> mainFood = mDAO.select(new MainFood());
+
 			request.setAttribute("recipesList", recipesList);
-			System.out.println("aaaa");
+			request.setAttribute("mainFood", mainFood);
 			RequestDispatcher dispatcher4 = request.getRequestDispatcher("/WEB-INF/jsp/recipeList.jsp");
 			dispatcher4.forward(request, response);
 		}

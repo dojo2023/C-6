@@ -18,7 +18,7 @@ public class RecipeDAO {
 		List<Recipe> cardList = new ArrayList<Recipe>();
 		Recipe param = new Recipe();
 //		System.out.println("Rec_id:"+recipes.getRecipes().get(0).getR_date()==null);
-		if (recipes.getRecipes().get(0).getRec_id() != -1) {
+		if (recipes.getRecipes().size() > 0) {
 			param = recipes.getRecipes().get(0);
 		}
 
@@ -33,7 +33,7 @@ public class RecipeDAO {
 			String sql = "select r.rec_id, r.r_name, r.time, r.image, r.wanpan, r.save_time, r.microwave_oven, "
 					+ "r.recipe, r.cooking_expenses, r.eating_out_expenses, r_c.u_id, r_c.r_date, r_c.r_count, "
 					+ "r_i.i_id, r_i.f_id, r_i.ingredient, r_i.r_i_count, r_i.unit "
-					+ " from recipes as r "
+					+ "from recipes as r "
 					+ "left join recipe_ingredients as r_i on r.rec_id = r_i.rec_id "
 					+ "left join recipe_counts as r_c on r.rec_id = r_c.rec_id "
 					+ "where r.rec_id like ? and r.r_name like ? and r_i.i_id like ? and r_i.f_id like ? ";
@@ -70,10 +70,178 @@ public class RecipeDAO {
 			} else {
 				pStmt.setString(3, "%");
 			}
+			System.out.println("F_id:"+param.getF_id());
 			if (param.getF_id() != -1) {
 				pStmt.setString(4, "%" + param.getF_id() + "%");
 			} else {
 				pStmt.setString(4, "%");
+			}
+			if (param.getR_i_count() != null && param.getR_i_count() != -1.0) {
+				pStmt.setString(5, "%" + param.getR_i_count() + "%");
+			} else {
+				pStmt.setString(5, "%");
+			}
+			if (param.getUnit() != -1) {
+				pStmt.setString(6, "%");
+			} else {
+				pStmt.setString(6, "%");
+			}
+			if (param.getTime() != null && !param.getTime().equals("")) {
+				pStmt.setString(7, "%" + param.getTime() + "%");
+			} else {
+				pStmt.setString(7, "%");
+			}
+//			pStmt.setBoolean(8, param.getWanpan());
+//			pStmt.setBoolean(9, param.getSave_time());
+//			pStmt.setBoolean(10, param.getMicrowave_oven());
+			pStmt.setString(8, "%");
+			pStmt.setString(9, "%");
+			pStmt.setString(10, "%");
+			if (param.getRecipe() != null && !param.getRecipe().equals("")) {
+				pStmt.setString(11, "%" + param.getRecipe() + "%");
+			} else {
+				pStmt.setString(11, "%");
+			}
+			if (param.getCooking_expenses() != -1) {
+				pStmt.setString(12, "%" + param.getCooking_expenses() + "%");
+			} else {
+				pStmt.setString(12, "%");
+			}
+			if (param.getEating_out_expenses() != -1) {
+				pStmt.setString(13, "%" + param.getEating_out_expenses() + "%");
+			} else {
+				pStmt.setString(13, "%");
+			}
+			if (param.getU_id() != null && !param.getU_id().equals("")) {
+				pStmt.setString(14, "%" + param.getU_id() + "%");
+			} else {
+				pStmt.setString(14, "%");
+			}
+			if (param.getR_count() != -1.0) {
+				pStmt.setString(15, "%" + param.getR_count() + "%");
+			} else {
+				pStmt.setString(15, "%");
+			}
+
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表をコレクションにコピーする
+			int rec_id =-111;
+			int num = 0;
+			while (rs.next()) {
+				if (rec_id != rs.getInt("recipes.rec_id")) {
+					rec_id = rs.getInt("recipes.rec_id");
+					Recipe card = new Recipe(
+							rs.getInt("recipes.rec_id"),
+							rs.getString("recipes.r_name"),
+							rs.getString("recipes.time"),
+							rs.getString("recipes.image"),
+							rs.getBoolean("recipes.wanpan"),
+							rs.getBoolean("recipes.save_time"),
+							rs.getBoolean("recipes.microwave_oven"),
+							rs.getString("recipes.recipe"),
+							rs.getInt("recipes.cooking_expenses"),
+							rs.getInt("recipes.eating_out_expenses"),
+							rs.getString("recipe_counts.u_id"),
+							rs.getDate("recipe_counts.r_date"),
+							rs.getInt("recipe_counts.r_count"),
+							rs.getInt("recipe_ingredients.i_id"),
+							rs.getInt("recipe_ingredients.f_id"),
+							rs.getString("recipe_ingredients.ingredient"),
+							rs.getDouble("recipe_ingredients.r_i_count"),
+							rs.getInt("recipe_ingredients.unit"));
+					cardList.add(card);
+				} else {
+					List<String> ing = cardList.get(num).getIngredient();
+					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					cardList.get(num).setIngredient(ing);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cardList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			cardList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					cardList = null;
+				}
+			}
+		}
+
+		// 結果を返す
+		return cardList;
+	}
+
+	public List<Recipe> selectF_id(Recipes recipes) {
+		Connection conn = null;
+		List<Recipe> cardList = new ArrayList<Recipe>();
+		Recipe param = new Recipe();
+//		System.out.println("Rec_id:"+recipes.getRecipes().get(0).getR_date()==null);
+		if (recipes.getRecipes().size() > 0) {
+			param = recipes.getRecipes().get(0);
+		}
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+
+			// SQL文を準備する
+			String sql = "select r.rec_id, r.r_name, r.time, r.image, r.wanpan, r.save_time, r.microwave_oven, "
+					+ "r.recipe, r.cooking_expenses, r.eating_out_expenses, r_c.u_id, r_c.r_date, r_c.r_count, "
+					+ "r_i.i_id, r_i.f_id, r_i.ingredient, r_i.r_i_count, r_i.unit "
+					+ "from recipes as r "
+					+ "left join recipe_ingredients as r_i on r.rec_id = r_i.rec_id "
+					+ "left join recipe_counts as r_c on r.rec_id = r_c.rec_id "
+					+ "where r.rec_id like ? and r.r_name like ? and r_i.i_id like ? and r_i.f_id = ? ";
+
+			// f_name ver.を作る
+			for (String i : param.getIngredient()) {
+				if (i != null || i != "") {
+					// "" で囲う必要ないかも
+					sql = sql + "and r_i.ingredient like \'%" + i + "%\' ";
+				} else {
+					break;
+				}
+			}
+
+					sql += "and r_i.r_i_count like ? and r_i.unit like ? and r.time like ? and r.wanpan like ? and "
+					+ "r.save_time like ? and r.microwave_oven like ? and r.recipe like ? and r.cooking_expenses like ? "
+					+ "and r.eating_out_expenses like ? and (CASE WHEN r_c.u_id IS NULL THEN '' ELSE r_c.u_id END) like ? and (CASE WHEN r_c.r_count IS NULL THEN -1 ELSE r_c.r_count END) like ?";
+			// 条件式がu_idとrec_idのみなので、他の検索条件の追加
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+			if (param.getRec_id() != -1) {
+				pStmt.setInt(1, param.getRec_id());
+			} else {
+				pStmt.setString(1, "%");
+			}
+			if (param.getR_name() != null && !param.getR_name().equals("")) {
+				pStmt.setString(2, "%" + param.getR_name() + "%");
+			} else {
+				pStmt.setString(2, "%");
+			}
+			if (param.getI_id() != -1) {
+				pStmt.setString(3, "%" + param.getI_id() + "%");
+			} else {
+				pStmt.setString(3, "%");
+			}
+			System.out.println("F_id:"+param.getF_id());
+			if (param.getF_id() != -1) {
+				pStmt.setInt(4, param.getF_id());
+			} else {
+				pStmt.setString(4, "");
 			}
 			if (param.getR_i_count() != null && param.getR_i_count() != -1.0) {
 				pStmt.setString(5, "%" + param.getR_i_count() + "%");
