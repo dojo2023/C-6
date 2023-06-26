@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.MainFoodDAO;
 import dao.UserDAO;
 import model.LoginUser;
+import model.MainFood;
 import model.User;
 
 /**
@@ -86,8 +88,16 @@ public class MyPageServlet extends HttpServlet {
 
 		UserDAO uDAO = new UserDAO();
 		List<User> user_inf = uDAO.selectLfDf(new User(id));
+
+
+		MainFoodDAO mDAO = new MainFoodDAO();
+		List<MainFood> mainFood = mDAO.select(new MainFood());
+
+
         //結果を表示
 		request.setAttribute("user_inf", user_inf);
+		request.setAttribute("mainFood", mainFood);
+
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/myPageEdit.jsp");
 		dispatcher.forward(request, response);

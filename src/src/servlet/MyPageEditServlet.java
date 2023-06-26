@@ -29,6 +29,8 @@ public class MyPageEditServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		System.out.println("=========================");
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
@@ -51,6 +53,8 @@ public class MyPageEditServlet extends HttpServlet {
 		//mainfoodにデータが入っていない
 		MainFoodDAO mDAO = new MainFoodDAO();
 		List<MainFood> mainFood = mDAO.select(new MainFood());
+
+		System.out.println(mainFood);
 
 		request.setAttribute("user_inf", user_inf);
 		request.setAttribute("mainFood", mainFood);
