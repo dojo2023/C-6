@@ -26,15 +26,10 @@
 
 	<!-- メインここから -->
 
-    <form method="POST" action="/NMW/MyPageServlet">
+    <form id="register" method="POST" action="/NMW/MyPageServlet">
         <c:forEach var="m" items="${user_inf}" >
 		<ul>
-			<br>
-			<li>
-			ID
-			<br>
-			<input type="text" name="ID" value="${m.u_id}">
-			</li>
+			<li>ID<br><input type="text" name="ID" value="${m.u_id}"></li>
 			<br>
 			<li>
 			パスワード
