@@ -19,8 +19,6 @@
 <!-- ヘッダーここまで -->
 
 <!-- メインここから -->
-<h2>ログイン</h2>
-
 <form id="login_form" method="POST" action="/NMW/LoginServlet" onSubmit="return check()">
 	<ul>
 		<li>
