@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,10 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.MainFoodDAO;
 import dao.RecipeDAO;
+import model.MainFood;
 import model.Recipe;
 import model.Recipes;
-
 
 /**
  * Servlet implementation class RecipeListServlet
@@ -36,7 +36,7 @@ public class RecipeListServlet extends HttpServlet {
 			return;
 		}
 
-        //レシピ一覧の表示
+		//レシピ一覧の表示
 		int rec_id = -1;
 		if (request.getAttribute("rec_id") != null) {
 			rec_id = Integer.parseInt(request.getAttribute("rec_id").toString());
@@ -48,22 +48,38 @@ public class RecipeListServlet extends HttpServlet {
 		RecipeDAO rDao = new RecipeDAO();
 		List<Recipe> recipeList = rDao.select(rs);
 
+		// レシピ検索時のボタン作成
+		MainFoodDAO mDAO = new MainFoodDAO();
+		List<MainFood> mainFood = mDAO.select(new MainFood());
+
+		request.setCharacterEncoding("UTF-8");
+
 		// 検索結果をリクエストスコープに格納する
 		request.setAttribute("recipeList", recipeList);
+		request.setAttribute("mainFood", mainFood);
 
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/recipeList.jsp");
 		dispatcher.forward(request, response);
 
-		// setした値をgetAttributeで取得して、selectで検索する（主要食材）
-		Recipes recipes = (Recipes)request.getAttribute("recipes");
-		// 複数要素によるレシピ検索処理を行う
-				RecipeDAO reDao = new RecipeDAO();
-//				List<Recipe> recipesList = reDao.select(recipes);//	これなに？？？？？？？？？？？？？？？？？？？？？
+//		// setした値をgetAttributeで取得して、selectで検索する（主要食材）
 //		Recipes recipes = (Recipes)request.getAttribute("recipes");
 //		// 複数要素によるレシピ検索処理を行う
-//				RecipeDAO reDao = new RecipeDAO();
-//				List<Recipe> recipesList = reDao.select(recipes);
+//		RecipeDAO reDao = new RecipeDAO();
+//		List<Recipe> recipesList = reDao.select(recipes);//	これなに？？？？？？？？？？？？？？？？？？？？？
+//		Recipes recipes = (Recipes)request.getAttribute("recipes");
+//		// 複数要素によるレシピ検索処理を行う
+//		RecipeDAO reDao = new RecipeDAO();
+//		List<Recipe> recipesList = reDao.select(recipes);
+
+//		// setした値をgetAttributeで取得して、selectで検索する（主要食材）
+//		Recipes recipes = (Recipes)request.getAttribute("f_name");
+//		RecipeDAO reDao = new RecipeDAO();
+//		List<Recipe> recipesList = reDao.select(recipes);
+//		request.setAttribute("recipesList", recipesList);
+//		RequestDispatcher dispatcher4 = request.getRequestDispatcher("/WEB-INF/jsp/recipeList.jsp");
+//		dispatcher4.forward(request, response);
+
 
 		/* 検索の時と、詳細表示の2つのformの識別(valueで)
 		 * <form name = "" value="">を使ってサーブレットのgetAttriで受け取れる
@@ -75,6 +91,7 @@ public class RecipeListServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
@@ -89,43 +106,54 @@ public class RecipeListServlet extends HttpServlet {
 		// レシピ検索から検索結果に行くほうのform文をif文で作成
 		if ((request.getParameter("r_select")) == "1") {
 
-		// jspから検索条件をgetParameterで抽出する（主要食材）
-		String[] f_name = request.getParameterValues("f_name");
+			// jspから検索条件をgetParameterで抽出する（主要食材）
+			int f_id = Integer.parseInt(request.getParameter("f_id"));
 
-		// jspから検索条件をgetParameterで抽出する（ワンパン等）
-		String[] c_id_list = request.getParameterValues("c_id");
-		List<Boolean> c_id = new ArrayList<Boolean>();
-		for(String c_list: c_id_list) {
-			c_id.add(Boolean.parseBoolean(c_list));
-		}
+			Recipe r = new Recipe(f_id);
+			Recipes f_id_s = new Recipes(r);
+			// jspから検索条件をgetParameterで抽出する（ワンパン等）
+//			String[] c_id_list = request.getParameterValues("c_id");
+//			List<Boolean> c_id = new ArrayList<Boolean>();
+//			for (String c_list : c_id_list) {
+//				c_id.add(Boolean.parseBoolean(c_list));
+//			}
+//
+//			Recipes recipes = new Recipes();
+//			List<Recipe> recipe_list = new ArrayList<Recipe>();
+//
+//			for (int i = 0; i < f_name.length; i++) {
+//				recipe_list.add(new Recipe(f_name[i], c_id.get(0), c_id.get(1), c_id.get(2)));
+//			}
+//			recipes.setRecipes(recipe_list);
 
-		Recipes recipes = new Recipes();
-		List<Recipe> recipe_list = new ArrayList<Recipe>();
-
-		for(int i=0; i<f_name.length; i++) {
-			recipe_list.add(new Recipe(f_name[i], c_id.get(0), c_id.get(1), c_id.get(2)));
-		}
-		recipes.setRecipes(recipe_list);
-
-		// setAttribute()で設定する
-		request.setAttribute("recipes", recipes);
-
-		//  同サーブレット内にフォワードする
-		RequestDispatcher dispatcherC = request.getRequestDispatcher("/NMW/RecipeListServlet");
-		dispatcherC.forward(request, response);
+			// setAttribute()で設定する
+//			request.setAttribute("recipes", recipes);
+//			request.setAttribute("f_name", f_name);
+			// System.out.println("aaaa");
+//			//  同サーブレット内にフォワードする
+//			RequestDispatcher dispatcherC = request.getRequestDispatcher("/NMW/RecipeListServlet");
+//			dispatcherC.forward(request, response);
+			// setした値をgetAttributeで取得して、selectで検索する（主要食材）
+//			Recipes recipes = (Recipes)request.getAttribute("f_name");
+			RecipeDAO reDao = new RecipeDAO();
+			List<Recipe> recipesList = reDao.select(f_id_s);
+			request.setAttribute("recipesList", recipesList);
+			System.out.println("aaaa");
+			RequestDispatcher dispatcher4 = request.getRequestDispatcher("/WEB-INF/jsp/recipeList.jsp");
+			dispatcher4.forward(request, response);
 		}
 		// レシピ一覧からレシピ詳細へフォワード処理
 		// リクエストパラメータを取得する
 
 		// レシピ検索から検索結果に行くほうのform文をif文で作成
 		if ((request.getParameter("r_select")) == "2") {
-		String rec_id = (request.getParameter("rec_id"));
+			String rec_id = (request.getParameter("rec_id"));
 
-		request.setAttribute("rec_id", rec_id);
+			request.setAttribute("rec_id", rec_id);
 
-		// レシピ詳細ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/RecipeServlet");
-		dispatcher.forward(request, response);
+			// レシピ詳細ページにフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/NMW/RecipeServlet");
+			dispatcher.forward(request, response);
 		}
 	}
 
