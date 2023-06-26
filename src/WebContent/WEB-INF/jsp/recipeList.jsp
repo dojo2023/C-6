@@ -24,18 +24,46 @@
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
 	<% List<String> recipeList = (List<String>)request.getAttribute("recipeList"); %>
+	<% List<String> recipesList = (List<String>)request.getAttribute("recipesList"); %>
+	<% List<String> mainFood = (List<String>)request.getAttribute("mainFood"); %>
+
 	<!-- 検索条件 -->
-	<form name="r_select" method="POST" action="/NMW/RecipeListServlet" value="1">
+	<form method="POST" action="/NMW/RecipeListServlet">
+		<input type="hidden" name="r_select" value="1">
 	<c:forEach var="search" items="${ mainFood }" varStatus="status">
 
-		<button class="search_btn" type="submit" name="foods" value="${ mainFood.f_id }">
-			<img src="/NMW/img/${mainFood.image}" width="50">
+		<button class="search_btn" type="submit" name="f_id" value="${ search.f_id }">
+			<img src="/NMW/img/${search.image}" width="50">
 		</button>
 	</c:forEach>
-	<input type="image" src="/NMW/img/recipe/kensaku.png"width="50" alt="検索">
+
 	</form>
 
-
+	<!-- 食材から検索したときの結果表示 -->
+		<ul>
+		<c:forEach var="r_s" items="${ recipesList }" varStatus="status">
+				<li>
+				<form  action="/NMW/RecipeServlet" method="post">
+				<a href="http://localhost:8080/NMW/RecipeServlet?search_key=${r_s.rec_id}"><img src="/NMW/img${ r_s.image } "width="300"></a>
+				</form>
+				</li>
+				<li>
+				${ r_s.r_name }
+				</li>
+				<li>
+				${ r_s.time }
+				</li>
+				<li>
+				${ r_s.wanpan }
+				</li>
+				<li>
+				${ r_s.save_time }
+				</li>
+				<li>
+				${ r_s.microwave_oven }
+				</li>
+		</c:forEach>
+	</ul>
 	<ul>
 		<c:forEach var="r_l" items="${ recipeList }" varStatus="status">
 				<li>
@@ -63,6 +91,8 @@
 
 		</c:forEach>
 	</ul>
+
+
 
 	<!-- メインここまで -->
 	<!-- フッターここから -->
