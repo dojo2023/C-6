@@ -191,3 +191,9 @@ input.btn--radius {
 }
 
 /* mf_btn(メインフードボタン) end*/
+
+/* logout(ログアウトボタン) start*/
+.logout {
+	text-align: right;
+}
+/* logout(ログアウトボタン) end*/

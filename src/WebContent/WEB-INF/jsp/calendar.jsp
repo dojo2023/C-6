@@ -14,6 +14,10 @@
 <!-- ヘッダーここから -->
 <header>
 <a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
+<div class="logout">
+<input class="btn btn--orange" type="submit" name="LOOUT" value="ログアウト"
+onclick="location.href='/NMW/LogoutServlet'">
+</div>
 	<nav>
 			<ul>
 				<li><a href="/NMW/RefrigeratorServlet">冷蔵庫</a></li>
