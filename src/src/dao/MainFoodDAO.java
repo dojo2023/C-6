@@ -24,7 +24,7 @@ public class MainFoodDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "select * from foods where f_id like ?";
+			String sql = "select * from foods where f_id like ?  order by f_id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる

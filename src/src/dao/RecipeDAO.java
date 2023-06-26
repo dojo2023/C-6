@@ -20,7 +20,6 @@ public class RecipeDAO {
 //		System.out.println("Rec_id:"+recipes.getRecipes().get(0).getR_date()==null);
 		if (recipes.getRecipes().get(0).getRec_id() != -1) {
 			param = recipes.getRecipes().get(0);
-			System.out.println("Rec_id:"+recipes.getRecipes().get(0).getRec_id());
 		}
 
 		try {

@@ -1,3 +1,4 @@
+<%@page import="java.lang.reflect.Array"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -39,114 +40,86 @@
 	<!-- 	冷蔵庫の一覧表示 -->
 <div class="ref">
 	<% double count; %>
+	<% int c_br = 0; %>
 	<% if(refrigerator != null){ %>
 		<% for(int i=0; i<refrigerator.size();i++){ %>
-			<img src="/NMW/img<%= mainFoodImg.get(i).getImage() %>" width="50">
 			<% count = refrigerator.get(i).getF_count(); %>
-			<% if(mainFoodUnit.get(i).getUnit() != 1) {%>
-				<select>
-				<% for (double j=2.0; j>=-2.0;j-=0.25) {%>
-					<% if(count+j >= 0) {%>
-						<% if(j != 0.0) {%>
-							<option><%= count+j %></option>
-						<% } else {%>
-							<option selected><%= count+j %></option>
-						<% } %>
-
-					<% } else {%>
-						<% j = -3.0; %>
-					<% } %>
-				<% } %>
-				</select><span class="unit">個</span>
-			<% } else {%>
-				<select>
-					<% for (int j=200; j>=-200;j-=25) {%>
+			<% if(count != 0) {%>
+				<img src="/NMW/img<%= mainFoodImg.get(i).getImage() %>" width="50">
+				<% c_br++; %>
+				<% if(mainFoodUnit.get(i).getUnit() != 1) {%>
+					<select onchange="this.form.submit()" class="select">
+					<% for (double j=2.0; j>=-2.0;j-=0.25) {%>
 						<% if(count+j >= 0) {%>
-							<% if(j != 0) {%>
+							<% if(j != 0.0) {%>
 								<option><%= count+j %></option>
 							<% } else {%>
 								<option selected><%= count+j %></option>
 							<% } %>
 
 						<% } else {%>
-							<% j = -300; %>
+							<% j = -3.0; %>
 						<% } %>
+					<% } %>
+					</select><span class="unit">個</span>
+				<% } else {%>
+					<select>
+						<% for (int j=200; j>=-200;j-=25) {%>
+							<% if(count+j >= 0) {%>
+								<% if(j != 0) {%>
+									<option><%= count+j %></option>
+								<% } else {%>
+									<option selected><%= count+j %></option>
+								<% } %>
+
+							<% } else {%>
+								<% j = -300; %>
+							<% } %>
+					<% } %>
+					</select><span class="unit">g</span>
 				<% } %>
-				</select><span class="unit">g</span>
-			<% } %>
-			<% if(((i+1) % 4) == 0){ %>
-				<br>
+				<% if(((c_br) % 5) == 0){ %>
+					<br>
+				<% } %>
 			<% } %>
 		<% } %>
 	<% } %>
 
 	<div class="text">
-	<div>
-		<input type="text" size="10">
-		<select name=”item”>
-		  <option value=”item1”>1.0</option>
-		  <option value=”item2”>2.0</option>
-		  <option value=”item3”>3.0</option>
-		</select>
-		<input type="text" size="10">
-		<select name=”item”>
-		  <option value=”item1”>1.0</option>
-		  <option value=”item2”>2.0</option>
-		  <option value=”item3”>3.0</option>
-		</select>
-		<input type="text" size="10">
-		<select name=”item”>
-		  <option value=”item1”>1.0</option>
-		  <option value=”item2”>2.0</option>
-		  <option value=”item3”>3.0</option>
-		</select>
-	</div>
-	<div>
-		<input type="text" size="10">
-		<select name=”item”>
-		  <option value=”item1”>1.0</option>
-		  <option value=”item2”>2.0</option>
-		  <option value=”item3”>3.0</option>
-		</select>
-		<input type="text" size="10">
-		<select name=”item”>
-		  <option value=”item1”>1.0</option>
-		  <option value=”item2”>2.0</option>
-		  <option value=”item3”>3.0</option>
-		</select>
-		<input type="text" size="10">
-		<select name=”item”>
-		  <option value=”item1”>1.0</option>
-		  <option value=”item2”>2.0</option>
-		  <option value=”item3”>3.0</option>
-		</select>
-	</div>
-<div>
-		<input type="text" size="10">
-		<select name=”item”>
-		  <option value=”item1”>1.0</option>
-		  <option value=”item2”>2.0</option>
-		  <option value=”item3”>3.0</option>
-		</select>
-		<input type="text" size="10">
-		<select name=”item”>
-		  <option value=”item1”>1.0</option>
-		  <option value=”item2”>2.0</option>
-		  <option value=”item3”>3.0</option>
-		</select>
-		<input type="text" size="10">
-		<select name=”item”>
-		  <option value=”item1”>1.0</option>
-		  <option value=”item2”>2.0</option>
-		  <option value=”item3”>3.0</option>
-		</select>
-	</div>
+	<% for(int i=0; i<3;i++) { %>
+		<% String text[] = {"", "", ""}; %>
+		<% for(int j=0; j<3;j++) { %>
+			<% if(refrigerator.get(0).getText().get((i*3)+j) != null) { %>
+				<% text[j] = refrigerator.get(0).getText().get((i*3)+j);%>
+			<% } %>
+		<% } %>
+		<div>
+			<input type="text" size="10" value="<%= text[0] %>">
+			<select name=”item”>
+			  <option value=”item1”>1.0</option>
+			  <option value=”item2”>2.0</option>
+			  <option value=”item3”>3.0</option>
+			</select>
+			<input type="text" size="10" value="<%= text[1] %>">
+			<select name=”item”>
+			  <option value=”item1”>1.0</option>
+			  <option value=”item2”>2.0</option>
+			  <option value=”item3”>3.0</option>
+			</select>
+			<input type="text" size="10" value="<%= text[2] %>">
+			<select name=”item”>
+			  <option value=”item1”>1.0</option>
+			  <option value=”item2”>2.0</option>
+			  <option value=”item3”>3.0</option>
+			</select>
+		</div>
+	<% } %>
 	</div>
 </div>
 <!-- 	一覧表示 -->
 	<div class="mainfood">
 	<c:forEach var="mainFood" items="${ mainFood }" varStatus="status">
-		<form action="/NMW/RefrigeratorServlet" method="post">
+		<form action="/NMW/RefrigeratorServlet" method="post" onSubmit="return click_form()">
 			<button class="mf_btn" type="submit" name="food" value="${ mainFood.f_id }">
 				<img src="/NMW/img/${ mainFood.image }" width="50">
 			</button>
@@ -162,5 +135,6 @@
 		<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
 	</footer>
 	<!-- フッターここまで -->
+	<script type="text/javascript" src="js/refrigerator.js"></script>
 </body>
 </html>
