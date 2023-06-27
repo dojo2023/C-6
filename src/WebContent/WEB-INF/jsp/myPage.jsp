@@ -50,7 +50,9 @@
                  </span>
 			     </div>
 		     <li>
+		         <div class="reg_btn">
 			     <br><input type="submit" class="btn btn--orange" name="edit" value="編集">
+			     </div>
 			 </li>
 
 		  </ul>
