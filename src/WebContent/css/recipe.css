@@ -6,18 +6,27 @@
 }
 .L_custom_1{
 	display: flex;
-	text-align:right;
+	/* text-align:right; */
 	height:60px;
 	line-height:60px;
 	font-size: 25px;
 	background-position: right 15px;
+	margin-left:130px;
 }
 .L_custom_2{
 	display: flex;
+
+}
+.ingredient{
+	margin-left:100px;
+	writing-mode: horizontal-tb;
 }
 .make_title{
-	font-size: 20px;
+	font-size: 25px;
 }
 .make{
-	font-size: 14px;
+	font-size: 20px;
+}
+hr{
+	margin-bottom: 0;
 }

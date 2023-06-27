@@ -15,10 +15,10 @@
 	<header>
 		<a href="/NMW/RefrigeratorServlet"><img class="logo"
 			src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
-			<div class="logout">
-<input class="btn btn--orange" type="submit" name="LOOUT" value="ログアウト"
-onclick="location.href='/NMW/LogoutServlet'">
-</div>
+		<div class="logout">
+			<input class="btn btn--orange" type="submit" name="LOOUT"
+				value="ログアウト" onclick="location.href='/NMW/LogoutServlet'">
+		</div>
 		<nav>
 			<ul>
 				<li><a href="/NMW/RefrigeratorServlet">冷蔵庫</a></li>
@@ -67,10 +67,11 @@ onclick="location.href='/NMW/LogoutServlet'">
 	</form>
 
 	<!-- 食材から検索したときの結果表示 -->
-	<div class="RecipeList">
-		<ul>
-			<c:forEach var="r_s" items="${ recipesList }" varStatus="status">
-			<hr>
+
+	<ul>
+		<div class="RecipeList">
+<c:forEach var="r_s" items="${ recipesList }" varStatus="status">
+				<hr>
 				<label>
 					<div class="custom">
 						<li>
@@ -82,35 +83,35 @@ onclick="location.href='/NMW/LogoutServlet'">
 						</li>
 						<p class="text">${ r_s.r_name }<br>${ r_s.time }</p>
 						<div class="c_image">
-						<li><c:if test="${ (r_s.wanpan == true) }">
+							<li><c:if test="${ (r_s.wanpan == true) }">
 									<button class="c_search_btn" type="submit" name="wanpan"
 										value="false">
 										<img src="/NMW/img/recipe/wanpan.png" width="50">
 									</button>
-							</c:if></li>
-						<li><c:if test="${ (r_s.microwave_oven == true) }">
-								<button class="c_search_btn" type="submit" name="renzi"
-									value="false">
-									<img src="/NMW/img/recipe/renzi.png" width="50">
-								</button>
-							</c:if></li>
-						<li><c:if test="${ (r_s.save_time == true) }">
-								<button class="c_search_btn" type="submit" name="zitan"
-									value="false">
-									<img src="/NMW/img/recipe/zitan.png" width="50">
-								</button>
-							</c:if></li>
-							</div>
+								</c:if></li>
+							<li><c:if test="${ (r_s.microwave_oven == true) }">
+									<button class="c_search_btn" type="submit" name="renzi"
+										value="false">
+										<img src="/NMW/img/recipe/renzi.png" width="50">
+									</button>
+								</c:if></li>
+							<li><c:if test="${ (r_s.save_time == true) }">
+									<button class="c_search_btn" type="submit" name="zitan"
+										value="false">
+										<img src="/NMW/img/recipe/zitan.png" width="50">
+									</button>
+								</c:if></li>
+						</div>
 
 					</div>
-	</div>
-	</label>
 
-	</c:forEach>
+		</label>
+
+		</c:forEach>
 	</ul>
 	<ul>
 		<c:forEach var="r_l" items="${ recipeList }" varStatus="status">
-		<hr>
+			<hr>
 			<label>
 				<div class="custom">
 					<li>
@@ -121,7 +122,7 @@ onclick="location.href='/NMW/LogoutServlet'">
 						</form>
 					</li>
 					<p class="text">${ r_l.r_name }<br>${ r_l.time }</p>
-
+					<div class="c_image">
 					<li><c:if test="${ (r_l.wanpan == true) }">
 							<button class="c_search_btn" type="submit" name="wanpan"
 								value="false">
@@ -140,13 +141,16 @@ onclick="location.href='/NMW/LogoutServlet'">
 								<img src="/NMW/img/recipe/zitan.png" width="50">
 							</button>
 						</c:if></li>
+					</div>
 				</div>
 			</label>
 
 		</c:forEach>
 
+		</div>
+
 	</ul>
-	</div>
+
 
 	<!-- メインここまで -->
 	<!-- フッターここから -->

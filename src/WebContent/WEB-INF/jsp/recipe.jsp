@@ -62,21 +62,23 @@ onclick="location.href='/NMW/LogoutServlet'">
 							<img src="/NMW/img/recipe/zitan.png" width="50">
 						</button>
 					</c:if>
-					<img src="/NMW/img/recipe/zitan.png" width="50" height="50" hspace="30">
+					<img src="/NMW/img/recipe/zitan.png" width="50" height="50" >
 					${ r.time }
-					<img src="/NMW/img/recipe/zisui.png" width="70" height="50" hspace="30">
+					<img src="/NMW/img/recipe/zisui.png" width="70" height="50" >
 					\ ${ r.cooking_expenses }
-					<img src="/NMW/img/recipe/gaisyoku.png" width="40" height="40" hspace="30">
+					<img src="/NMW/img/recipe/gaisyoku.png" width="40" height="40" >
 					\ ${ r.eating_out_expenses }
 			</div>
 		</ul>
 		<div class="L_custom_2">
-		<img src="/NMW/img${r.image}" width="500">
-
-		<p>材料 (1人前)</p>
+		<img src="/NMW/img${r.image}" width="400" height="400">
+		<div class="ingredient">
+		<p>材料 (1人前)</p><br>
 		<% for(String ing : ingredient){ %>
-			<p><%= ing %></p>
+			<%= ing %><br><hr>
 		<% } %>
+		</div>
+
 		</div>
 
 
