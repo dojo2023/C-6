@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .menuName{
-	font-size: 35px;
+	font-size: 25px;
 	text-align: center;
 }
 .L_custom_1{
@@ -9,24 +9,35 @@
 	/* text-align:right; */
 	height:60px;
 	line-height:60px;
-	font-size: 25px;
+	font-size: 18px;
 	background-position: right 15px;
 	margin-left:130px;
+}
+.c_search_btn{
+	border:none;
 }
 .L_custom_2{
 	display: flex;
 
+}
+.L_custom_2 img{
+	border-radius:10px;
 }
 .ingredient{
 	margin-left:100px;
 	writing-mode: horizontal-tb;
 }
 .make_title{
-	font-size: 25px;
+	font-size: 20px;
 }
 .make{
-	font-size: 20px;
+	font-size: 18px;
 }
 hr{
 	margin-bottom: 0;
+}
+/*ボタン*/
+.btn{
+	display: flex;
+	margin-left:120px;
 }

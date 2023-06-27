@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>レシピ</title>
+<title>レシピ | れしぴろーくん</title>
 <link rel="stylesheet" href="/NMW/css/common.css">
 <link rel="stylesheet" href="/NMW/css/recipe.css">
 </head>
@@ -67,9 +67,9 @@ onclick="location.href='/NMW/LogoutServlet'">
 					</c:if>
 					<img src="/NMW/img/recipe/zitan.png" width="50" height="50" >
 					${ r.time }
-					<img src="/NMW/img/recipe/zisui.png" width="70" height="50" >
+					<img src="/NMW/img/recipe/zisui.png" width="50" height="45" >
 					\ ${ r.cooking_expenses }
-					<img src="/NMW/img/recipe/gaisyoku.png" width="40" height="40" >
+					<img src="/NMW/img/recipe/gaisyoku.png" width="48" height="43" >
 					\ ${ r.eating_out_expenses }
 			</div>
 		</ul>
@@ -111,9 +111,10 @@ onclick="location.href='/NMW/LogoutServlet'">
 
 
 	<!-- レシピ使用ボタンクリック時 -->
+	<div class="btn">
 		<form name="r_recipe" method="POST" action="/NMW/RecipeServlet">
 			<input type="hidden" name="rec_id" value="${ r.rec_id }"> <input
-				type="hidden" name="r_recipe" value="2"> <input
+				type="hidden" name="r_recipe" value="2"> <input class="btn btn--orange"
 				type="submit" name="r_recipe" value="レシピを使用"><br>
 		</form>
 
@@ -121,12 +122,13 @@ onclick="location.href='/NMW/LogoutServlet'">
 		<form name="r_recipe" method="POST" action="/NMW/RecipeServlet">
 			<input type="hidden" name="rec_id" value="${ r.rec_id }"> <input
 				type="hidden" name="r_recipe" value="3">
-			<input type="submit" name="r_recipe" value="回数リセット"></input>
+			<input class="btn btn--orange" type="submit" name="r_recipe" value="回数リセット"></input>
 		</form>
 		<c:if test="${ r.r_count!=0 }">
 			<img src="/NMW/img/logo/logo_resipiro-.png">
 			<p>本日${r.r_count}回料理したピヨ</p>
 		</c:if>
+	</div>
 
 	</c:forEach>
 	<!-- メインここまで -->
