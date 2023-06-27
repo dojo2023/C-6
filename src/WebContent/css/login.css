@@ -1,1 +1,11 @@
 @charset "UTF-8";
+ul{
+	margin:0;
+	padding:0;
+}
+li{
+	margin:12px;
+}
+.btn btn--orange{
+	margin-top:12px;
+}

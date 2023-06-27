@@ -39,11 +39,11 @@
 	<!-- メインここから -->
 	<!-- 	冷蔵庫の一覧表示 -->
 <div class="ref">
-	<form action="/NMW/RefrigeratorServlet" method="post">
+	<form action="/NMW/RefrigeratorServlet" method="post" name="form_num">
 		<% double count; %>
 		<% int c_br = 0; %>
-		<input type="hidden" class="submit_jsp_f_id" name="f_id">
-		<input type="hidden" class="submit_jsp_num" name="num">
+		<input type="hidden" id="submit_jsp_f_id" name="f_id" value="-1">
+		<input type="hidden" id="submit_jsp_num" name="num" value="0">
 		<% if(refrigerator != null){ %>
 			<% for(int i=0; i<refrigerator.size();i++){ %>
 				<% count = refrigerator.get(i).getF_count(); %>
@@ -83,6 +83,8 @@
 					<% } %>
 					<% if(((c_br) % 5) == 0){ %>
 						<br>
+						<div class="r"></div>
+						<br>
 					<% } %>
 				<% } %>
 			<% } %>
@@ -96,7 +98,7 @@
 					<% text[j] = refrigerator.get(0).getText().get((i*3)+j);%>
 				<% } %>
 			<% } %>
-			<div>
+			<div class="other">
 				<input type="text" size="10" value="<%= text[0] %>">
 				<select name=”item”>
 				  <option value=”item1”>1.0</option>
@@ -133,6 +135,7 @@
 			</c:if>
 	</c:forEach>
 	</div>
+	<p>※肉類は1度クリックすると100g 増えます</p>
 	<!-- メインここまで -->
 	<!-- フッターここから -->
 	<footer>

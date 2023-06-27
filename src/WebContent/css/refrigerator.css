@@ -4,12 +4,45 @@ form{
 }
 .ref{
 	background-color:#d0e0e3ff;
+	border-radius:10px;
+}
+img{
+	background-color:#d0e0e3ff;
+	margin:5px;
+}
+.ref form{
+	background-color:#d0e0e3ff;
+}
+.unit{
+	background-color:#d0e0e3ff;
+}
+select{
+	background-color:#fff;
+}
+.other{
+	background-color:#d0e0e3ff;
+	margin:30px;
+
 }
 .text{
 	display:flex;
 	text-align: center;
 	background-color:#d0e0e3ff;
+	border-radius:0 0 10px 10px;
+	border-top:solid #fff 1px;
 }
 .mainfood{
 	margin-top:50px;
+}
+.other input{
+	margin:5px;
+}
+.r{
+	border:solid #fff 1px;
+}
+.select{
+	margin-bottom:20px;
+}
+p{
+	margin-left:60px;
 }

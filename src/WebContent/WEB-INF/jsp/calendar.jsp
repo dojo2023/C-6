@@ -11,14 +11,14 @@
 <link rel= "stylesheet" href="/NMW/css/calendar.css">
 </head>
 <body>
-<!-- ヘッダーここから -->
-<header>
-<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
-<div class="logout">
-<input class="btn btn--orange" type="submit" name="LOOUT" value="ログアウト"
-onclick="location.href='/NMW/LogoutServlet'">
-</div>
-	<nav>
+	<!-- ヘッダーここから -->
+	<header>
+		<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
+		<div class="logout">
+		<input class="btn btn--orange" type="submit" name="LOOUT" value="ログアウト"
+		onclick="location.href='/NMW/LogoutServlet'">
+		</div>
+		<nav>
 			<ul>
 				<li><a href="/NMW/RefrigeratorServlet">冷蔵庫</a></li>
 				<li><a href="/NMW/RecipeListServlet">レシピ</a></li>
@@ -27,23 +27,23 @@ onclick="location.href='/NMW/LogoutServlet'">
 				<li><a href="/NMW/MyPageServlet">マイページ</a></li>
 			</ul>
 		</nav>
-</header>
-<!-- ヘッダーここまで -->
+	</header>
+	<!-- ヘッダーここまで -->
 
-<!-- メインここから -->
-<div class="wrapper">
-    <!-- 年月表示のヘッダー -->
-    <h2 id="header"></h2>
+	<!-- メインここから -->
+	<div class="wrapper">
+    	<!-- 年月表示のヘッダー -->
+    	<h2 id="header"></h2>
 
-    <!-- ボタンクリックで月移動 -->
-    <div id="next-prev-button">
-        <button id="prev" onclick="prev()">‹</button>
-        <button id="next" onclick="next()">›</button>
-    </div>
+    	<!-- ボタンクリックで月移動 -->
+    	<div id="next-prev-button">
+        	<button id="prev" onclick="prev()">‹</button>
+        	<button id="next" onclick="next()">›</button>
+    	</div>
 
-    <!-- カレンダー -->
-    <div id="calendar"></div>
-</div>
+    	<!-- カレンダー -->
+    	<div id="calendar"></div>
+	</div>
 
 	<table class="calculator">
     	<tr>
@@ -96,12 +96,22 @@ onclick="location.href='/NMW/LogoutServlet'">
 		</tr>
 	</table>
 
-<!-- メインここまで -->
-<!-- フッターここから -->
-<footer>
-<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
-</footer>
-<!-- フッターここまで -->
+	<div class="balloon2">
+	  <div class="icon2">
+	    <img src = "/NMW/img/logo/logo_resipiro-.png">
+	  </div>
+	 	 <div class="chatting2">
+	    <div class="says2">
+	      	<p>${diff_Sum}円お得になってるピヨ！</p>
+	    </div>
+	  </div>
+	</div>
+	<!-- メインここまで -->
+	<!-- フッターここから -->
+	<footer>
+	<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
+	</footer>
+	<!-- フッターここまで -->
 
 <!-- JavaScriptここから -->
 <script>
@@ -169,9 +179,9 @@ function createProcess(year, month) {
                 if(year == today.getFullYear()
                   && month == (today.getMonth())
                   && count == today.getDate()){
-                    calendar += "<td class='today'>" + count + "</td>";
+                    calendar += "<td class='today'>" + count +'<br>'+${c_e_weekSum[4]}+ "</td>";
                 } else {
-                    calendar += "<td>" + count + "</td>";
+                    calendar += "<td>" + count +'<br>'+${c_e_weekSum[4]}+ "</td>";
                 }
             }
         }

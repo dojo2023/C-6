@@ -82,9 +82,9 @@ public class RefrigeratorServlet extends HttpServlet {
 			List<Refrigerator> pre_refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
 
 //		System.out.println("====================");
-			for (Refrigerator refrigerator2 : pre_refrigerator) {
-				System.out.println(refrigerator2.getF_id()+":"+refrigerator2.getF_count());
-			}
+//			for (Refrigerator refrigerator2 : pre_refrigerator) {
+//				System.out.println(refrigerator2.getF_id()+":"+refrigerator2.getF_count());
+//			}
 
 
 			// (r_count)の有無によるinsertとupdateをわけるif文
@@ -105,12 +105,17 @@ public class RefrigeratorServlet extends HttpServlet {
 
 			// updateする
 			rDAO.update(refrigerator.get(0), pre_refrigerator.get(0));
-
-			view(request, response);
 		} else {
-			int f_id = Integer.parseInt(request.getParameter("submit_jsp_f_id"));
-			int num = Integer.parseInt(request.getParameter("submit_jsp_num"));
+			System.out.println("f_id:"+request.getParameter("f_id"));
+			System.out.println("num:"+request.getParameter("num"));
+			int f_id = Integer.parseInt(request.getParameter("f_id"));
+			Double num = Double.parseDouble(request.getParameter("num"));
+
+			rDAO.updateCount(new Refrigerator(loginUser.getId(), f_id, num), new Refrigerator(loginUser.getId(), f_id, num));
 		}
+
+		// 一覧表示
+		view(request, response);
 
 //		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/refrigerator.jsp");
 //		dispatcher.forward(request, response);

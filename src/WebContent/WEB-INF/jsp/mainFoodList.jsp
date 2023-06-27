@@ -9,9 +9,13 @@
 <link rel="stylesheet" href="/NMW/css/common.css">
 <link rel="stylesheet" href="/NMW/css/mainFoodList.css">
 <body>
-	<!-- ヘッダーここから -->
-	<header>
-		<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
+<!-- ヘッダーここから -->
+<header>
+	<a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
+	<div class="logout">
+		<input class="btn btn--orange" type="submit" name="LOOUT" value="ログアウト"
+		onclick="location.href='/NMW/LogoutServlet'">
+	</div>
 		<nav>
 			<ul>
 				<li><a href="/NMW/RefrigeratorServlet">冷蔵庫</a></li>
@@ -21,7 +25,7 @@
 				<li><a href="/NMW/MyPageServlet">マイページ</a></li>
 			</ul>
 		</nav>
-	</header>
+</header>
 	<!-- ヘッダーここまで -->
 
 	<!-- メインここから -->

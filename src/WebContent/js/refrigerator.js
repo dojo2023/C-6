@@ -3,18 +3,20 @@ function inputChange(event){
 }
 
 function click_form(event){
-	let f_id = document.getElementsByClassName("submit_jsp_f_id").value;
-	let num = document.getElementsByClassName("submit_jsp_num").value;
-	f_id = String(event.target.name);			// f_id
-	num = String(event.currentTarget.value);	// num
+	document.getElementById("submit_jsp_f_id").value = String(event.target.name);
+	document.getElementById("submit_jsp_num").value = String(event.currentTarget.value);
 
-    console.log(event.target.name);
+	console.log(document.getElementsByClassName("submit_jsp_f_id").value);
+	console.log(document.getElementsByClassName("submit_jsp_num").value);
+
+//    console.log(event.target.parentNode);
+//    console.log(document.getElementsByClassName("submit_jsp_f_id").value);
 
 //    console.log(f_id);
 //	console.log(num);
 //	console.log(event.currentTarget.value);
 
-	this.form.submit();
+	document.form_num.submit();
 }
 
 let text = document.getElementsByClassName('select');

@@ -395,7 +395,6 @@ public class RefrigeratorDAO {
 				pStmt_t.setString(i, text);
 				i++;
 			}
-
 			for (double num : refrigerator.getNum()) {
 				pStmt_t.setDouble(i, num);
 				i++;
@@ -409,6 +408,73 @@ public class RefrigeratorDAO {
 
 			// SQL文を実行する
 			if (pStmt_r.executeUpdate() == 1 && pStmt_t.executeUpdate() == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
+	}
+
+	public boolean updateCount(Refrigerator refrigerator, Refrigerator pre_refrigerator) {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+
+			// SQL文を準備する
+			String sql_r = "update refrigerators set u_id=?, f_id=?, f_count=? where u_id = ? and f_id = ?";
+
+			PreparedStatement pStmt_r = conn.prepareStatement(sql_r);
+
+			// SQL文を完成させる
+			if (refrigerator.getU_id() != null && !refrigerator.getU_id().equals("")) {
+				pStmt_r.setString(1, refrigerator.getU_id());
+			} else {
+				pStmt_r.setString(1, null);
+			}
+			if (refrigerator.getF_id() != -1) {
+				pStmt_r.setInt(2, refrigerator.getF_id());
+			} else {
+				pStmt_r.setInt(2, -1);
+			}
+			if (refrigerator.getF_count() != -1) {
+				pStmt_r.setDouble(3, refrigerator.getF_count());
+			} else {
+				pStmt_r.setDouble(3, -1);
+			}
+			if (pre_refrigerator.getU_id() != null && !pre_refrigerator.getU_id().equals("")) {
+				pStmt_r.setString(4, pre_refrigerator.getU_id());
+			} else {
+				pStmt_r.setString(4, "");
+			}
+			if (pre_refrigerator.getF_id() != -1) {
+				pStmt_r.setInt(5, pre_refrigerator.getF_id());
+			} else {
+				pStmt_r.setString(5, "");
+			}
+
+
+			// SQL文を実行する
+			if (pStmt_r.executeUpdate() == 1) {
 				result = true;
 			}
 		} catch (SQLException e) {
