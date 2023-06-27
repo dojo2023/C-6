@@ -1,6 +1,11 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="model.Recipe" %>
+<%@ page import="java.util.List" %>
+<% List<Recipe> rec = ((List<Recipe>)request.getAttribute("recipe")); %>
+<% List<String> ingredient = rec.get(0).getIngredient(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,8 +73,10 @@ onclick="location.href='/NMW/LogoutServlet'">
 		<div class="L_custom_2">
 		<img src="/NMW/img${r.image}" width="500">
 
-		<p>材料 (1人前)<br>
-		${r.ingredient}</p>
+		<p>材料 (1人前)</p>
+		<% for(String ing : ingredient){ %>
+			<p><%= ing %></p>
+		<% } %>
 		</div>
 
 
