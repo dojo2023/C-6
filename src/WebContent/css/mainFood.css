@@ -6,21 +6,25 @@
 
 .Mainfood{
 	text-align: center;
+	font-size:18px;
 }
 
 .fn{
 	font-weight: bold;
-	font-size:20px;
+	font-size:25px;
 	margin-top:50px;
 }
 .i{
 	margin-top:50px;
 	margin-left:70px;
+	font-size:18px;
 }
 .p{
-	font-weight: bold;
+	font-weight:bold;
+	font-size:20px;
 }
 .f_img{
 	border: solid 1px #777777;
 	background-color:#fff;
+	border-radius:10px;
 }
