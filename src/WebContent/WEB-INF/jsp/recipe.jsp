@@ -99,7 +99,7 @@ onclick="location.href='/NMW/LogoutServlet'">
 		<form name="r_recipe" method="POST" action="/NMW/RecipeServlet">
 			<input type="hidden" name="rec_id" value="${ r.rec_id }"> <input
 				type="hidden" name="r_recipe" value="3">
-			<button type="submit" name="r_recipe" value="回数リセット"></button>
+			<input type="submit" name="r_recipe" value="回数リセット"></input>
 		</form>
 		<c:if test="${ r.r_count!=0 }">
 			<img src="/NMW/img/logo/logo_resipiro-.png">
