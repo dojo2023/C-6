@@ -7,7 +7,7 @@
 	display: flex;
 }
 .text{
-	font-size: 20px;
+	font-size: 18px;
 	margin-left:30px;
 	margin-right:0px;
 }
@@ -17,3 +17,48 @@
 	margin-right:0px;
 	margin-left:30px;
 }
+.c_search_btn{
+	border:none;
+}
+img{
+	border-radius:10px;
+}
+.search_btn{
+	background-color:#fce5cdff;
+	border-radius:10px;
+	margin:3px;
+}
+.search_btn img{
+	background-color:#fce5cdff;
+}
+.c_btn{
+	text-align:right;
+	margin-right:90px;
+	padding-top:10px;
+	background-color:#fff;
+	border-radius:10px;
+}
+.c_btn p{
+	text-align:center;
+	background-color:#fff;
+	margin:0 0 0 60px;
+}
+.c_btn img{
+	background-color:#fff;
+}
+.mainfood{
+	background-color:#fff;
+	padding-bottom:20px;
+	border-radius:10px;
+}
+.form form{
+	background-color:#fff;
+	border-radius:10px;
+}
+.form .c_search_btn{
+	background-color:#fff;
+}
+ul{
+	padding:0;
+}
+
