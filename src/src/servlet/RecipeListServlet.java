@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -105,15 +106,15 @@ public class RecipeListServlet extends HttpServlet {
 
 		// レシピ検索から検索結果に行くほうのform文をif文で作成
 		if (request.getParameter("r_select").equals("1")) {
-
-			// jspから検索条件をgetParameterで抽出する（主要食材）
-			int f_id = Integer.parseInt(request.getParameter("f_id"));
-			System.out.println(Integer.parseInt(request.getParameter("f_id")));
-			Recipe r = new Recipe();
-			r.setF_id(f_id);
-			System.out.println(r.getF_id());
-			Recipes f_id_s = new Recipes(r);
-			// jspから検索条件をgetParameterで抽出する（ワンパン等）
+			if (request.getParameter("f_id") != null) {
+				// jspから検索条件をgetParameterで抽出する（主要食材）
+				int f_id = Integer.parseInt(request.getParameter("f_id"));
+				System.out.println(Integer.parseInt(request.getParameter("f_id")));
+				Recipe r = new Recipe();
+				r.setF_id(f_id);
+				System.out.println(r.getF_id());
+				Recipes f_id_s = new Recipes(r);
+				// jspから検索条件をgetParameterで抽出する（ワンパン等）
 //			String[] c_id_list = request.getParameterValues("c_id");
 //			List<Boolean> c_id = new ArrayList<Boolean>();
 //			for (String c_list : c_id_list) {
@@ -128,26 +129,75 @@ public class RecipeListServlet extends HttpServlet {
 //			}
 //			recipes.setRecipes(recipe_list);
 
-			// setAttribute()で設定する
+				// setAttribute()で設定する
 //			request.setAttribute("recipes", recipes);
 //			request.setAttribute("f_name", f_name);
-			// System.out.println("aaaa");
+				// System.out.println("aaaa");
 //			//  同サーブレット内にフォワードする
 //			RequestDispatcher dispatcherC = request.getRequestDispatcher("/NMW/RecipeListServlet");
 //			dispatcherC.forward(request, response);
-			// setした値をgetAttributeで取得して、selectで検索する（主要食材）
+				// setした値をgetAttributeで取得して、selectで検索する（主要食材）
 //			Recipes recipes = (Recipes)request.getAttribute("f_name");
-			RecipeDAO reDao = new RecipeDAO();
-			List<Recipe> recipesList = reDao.selectF_id(f_id_s);
+				RecipeDAO reDao = new RecipeDAO();
+				List<Recipe> recipesList = reDao.selectF_id(f_id_s);
 
-			// レシピ検索時のボタン作成
-			MainFoodDAO mDAO = new MainFoodDAO();
-			List<MainFood> mainFood = mDAO.select(new MainFood());
+				// レシピ検索時のボタン作成
+				MainFoodDAO mDAO = new MainFoodDAO();
+				List<MainFood> mainFood = mDAO.select(new MainFood());
 
-			request.setAttribute("recipesList", recipesList);
-			request.setAttribute("mainFood", mainFood);
-			RequestDispatcher dispatcher4 = request.getRequestDispatcher("/WEB-INF/jsp/recipeList.jsp");
-			dispatcher4.forward(request, response);
+				request.setAttribute("recipesList", recipesList);
+				request.setAttribute("mainFood", mainFood);
+				RequestDispatcher dispatcher4 = request.getRequestDispatcher("/WEB-INF/jsp/recipeList.jsp");
+				dispatcher4.forward(request, response);
+
+			// buttonを押したときの処理
+			} else if(request.getParameter("button") != null){
+				// jspから検索条件をgetParameterで抽出する（主要食材）
+				String button = request.getParameter("button");
+				System.out.println("button:"+request.getParameter("button"));
+				RecipeDAO reDao = new RecipeDAO();
+				Recipe r = new Recipe();
+				List<Recipe> recipesList = reDao.select(new Recipes(new Recipe()));
+
+				// 最大値の更新
+				int max = 0;
+				for (Recipe recipe : recipesList) {
+					if (recipe.getRec_id() > max) {
+						max = recipe.getRec_id();
+					}
+				}
+
+				switch(button) {
+					case "wanpan":
+						r.setWanpan(true);
+						recipesList = reDao.selectWanpan(new Recipes(r));
+						break;
+					case "renzi":
+						r.setMicrowave_oven(true);
+						recipesList = reDao.selectMicrowave_oven(new Recipes(r));
+						break;
+					case "zitan":
+						r.setSave_time(true);
+						recipesList = reDao.selectSave_time(new Recipes(r));
+						break;
+					default:
+						Random rand = new Random();
+					    r.setRec_id(rand.nextInt(max)+1);
+					    recipesList = reDao.select(new Recipes(r));
+					    break;
+				}
+
+
+				// レシピ検索時のボタン作成
+				MainFoodDAO mDAO = new MainFoodDAO();
+				List<MainFood> mainFood = mDAO.select(new MainFood());
+
+				request.setAttribute("recipesList", recipesList);
+				request.setAttribute("mainFood", mainFood);
+				RequestDispatcher dispatcher4 = request.getRequestDispatcher("/WEB-INF/jsp/recipeList.jsp");
+				dispatcher4.forward(request, response);
+			}
+
 
 		} if ((request.getParameter("r_select")) == "2") {
 			String rec_id = (request.getParameter("rec_id"));

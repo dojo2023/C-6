@@ -2,6 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.List"%>
+	<%
+		List<String> recipeList = (List<String>) request.getAttribute("recipeList");
+	%>
+	<%
+		List<String> recipesList = (List<String>) request.getAttribute("recipesList");
+	%>
+	<%
+		List<String> mainFood = (List<String>) request.getAttribute("mainFood");
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,38 +40,25 @@
 	</header>
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
-	<%
-		List<String> recipeList = (List<String>) request.getAttribute("recipeList");
-	%>
-	<%
-		List<String> recipesList = (List<String>) request.getAttribute("recipesList");
-	%>
-	<%
-		List<String> mainFood = (List<String>) request.getAttribute("mainFood");
-	%>
-
-	<!-- ランダム機能の処理 -->
-	<form action="/NMW/RecipeListServlet" method="post" name="random">
-		<% double count; %>
-		<% int c_br = 0; %>
-		<input type="image" src="/NMW/img/recipe/randamu.png" width="70" height="60">
-		<input type="hidden" id="submit_jsp_rec_id_ran" name="rec_id_ran" value="-1">
-		<input type="hidden" id="submit_jsp_rec_id_max" name="rec_id_max" value="0">
-	</form>
-
 	<!-- 検索条件 -->
 
 	<form method="POST" action="/NMW/RecipeListServlet">
-		<button class="c_search_btn" type="submit" name="wanpan" value="false">
-			<img src="/NMW/img/recipe/wanpan.png" width="50">
+		<input type="hidden" name="r_select" value="1">
+		<input type="hidden" id="b_select" name="button" value="null">
+		<button class="c_search_btn" type="submit" name="wanpan" value="true">
+			<img src="/NMW/img/recipe/wanpan.png" width="50" name="wanpan">
 		</button>
-		<button class="c_search_btn" type="submit" name="renzi" value="false">
-			<img src="/NMW/img/recipe/renzi.png" width="50">
+		<button class="c_search_btn" type="submit" name="renzi" value="true">
+			<img src="/NMW/img/recipe/renzi.png" width="50" name="renzi">
 		</button>
-		<button class="c_search_btn" type="submit" name="zitan" value="false">
-			<img src="/NMW/img/recipe/zitan.png" width="50">
+		<button class="c_search_btn" type="submit" name="zitan" value="true">
+			<img src="/NMW/img/recipe/zitan.png" width="50"  name="zitan">
 		</button>
-		<br> <input type="hidden" name="r_select" value="1">
+		<button id="random" class="c_search_btn" type="submit" name="random" value="true">
+			<img src="/NMW/img/recipe/randamu.png" width="50" height="50" name="random">
+		</button>
+
+		<br>
 		<c:forEach var="search" items="${ mainFood }" varStatus="status">
 
 			<button class="search_btn" type="submit" name="f_id"
@@ -167,5 +163,6 @@
 		<p>&copy; Copyright recipiro-kun. All rights reserverd.</p>
 	</footer>
 	<!-- フッターここまで -->
+	<script type="text/javascript" src="js/recipeList.js"></script>
 </body>
 </html>

@@ -650,6 +650,266 @@ public class RecipeDAO {
 		return cardList;
 	}
 
+	// 引数paramで検索項目を指定し、検索結果のリストを返す
+	public List<Recipe> selectWanpan(Recipes recipes) {
+		Connection conn = null;
+		List<Recipe> cardList = new ArrayList<Recipe>();
+		Recipe param = new Recipe();
+		if (recipes.getRecipes().size() > 0) {
+			param = recipes.getRecipes().get(0);
+		}
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+
+			// SQL文を準備する
+			String sql = "select r.rec_id, r.r_name, r.time, r.image, r.wanpan, r.save_time, r.microwave_oven, "
+					+ "r.recipe, r.cooking_expenses, r.eating_out_expenses, r_c.u_id, r_c.r_date, r_c.r_count, "
+					+ "r_i.i_id, r_i.f_id, r_i.ingredient, r_i.r_i_count, r_i.unit "
+					+ "from recipes as r "
+					+ "left join recipe_ingredients as r_i on r.rec_id = r_i.rec_id "
+					+ "left join recipe_counts as r_c on r.rec_id = r_c.rec_id "
+					+ "where r.wanpan like ?";
+
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+				pStmt.setBoolean(1, param.getWanpan());
+
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表をコレクションにコピーする
+			int rec_id =-111;
+			int num = 0;
+			while (rs.next()) {
+				if (rec_id != rs.getInt("recipes.rec_id")) {
+					rec_id = rs.getInt("recipes.rec_id");
+					Recipe card = new Recipe(
+							rs.getInt("recipes.rec_id"),
+							rs.getString("recipes.r_name"),
+							rs.getString("recipes.time"),
+							rs.getString("recipes.image"),
+							rs.getBoolean("recipes.wanpan"),
+							rs.getBoolean("recipes.save_time"),
+							rs.getBoolean("recipes.microwave_oven"),
+							rs.getString("recipes.recipe"),
+							rs.getInt("recipes.cooking_expenses"),
+							rs.getInt("recipes.eating_out_expenses"),
+							rs.getString("recipe_counts.u_id"),
+							rs.getDate("recipe_counts.r_date"),
+							rs.getInt("recipe_counts.r_count"),
+							rs.getInt("recipe_ingredients.i_id"),
+							rs.getInt("recipe_ingredients.f_id"),
+							rs.getString("recipe_ingredients.ingredient"),
+							rs.getDouble("recipe_ingredients.r_i_count"),
+							rs.getInt("recipe_ingredients.unit"));
+					cardList.add(card);
+				} else {
+					List<String> ing = cardList.get(num).getIngredient();
+					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					cardList.get(num).setIngredient(ing);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cardList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			cardList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					cardList = null;
+				}
+			}
+		}
+		// 結果を返す
+		return cardList;
+	}
+
+	// 引数paramで検索項目を指定し、検索結果のリストを返す
+	public List<Recipe> selectSave_time(Recipes recipes) {
+		Connection conn = null;
+		List<Recipe> cardList = new ArrayList<Recipe>();
+		Recipe param = new Recipe();
+		if (recipes.getRecipes().size() > 0) {
+			param = recipes.getRecipes().get(0);
+		}
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+
+			// SQL文を準備する
+			String sql = "select r.rec_id, r.r_name, r.time, r.image, r.wanpan, r.save_time, r.microwave_oven, "
+					+ "r.recipe, r.cooking_expenses, r.eating_out_expenses, r_c.u_id, r_c.r_date, r_c.r_count, "
+					+ "r_i.i_id, r_i.f_id, r_i.ingredient, r_i.r_i_count, r_i.unit "
+					+ "from recipes as r "
+					+ "left join recipe_ingredients as r_i on r.rec_id = r_i.rec_id "
+					+ "left join recipe_counts as r_c on r.rec_id = r_c.rec_id "
+					+ "where r.save_time like ?";
+
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+			pStmt.setBoolean(1, param.getSave_time());
+
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表をコレクションにコピーする
+			int rec_id =-111;
+			int num = 0;
+			while (rs.next()) {
+				if (rec_id != rs.getInt("recipes.rec_id")) {
+					rec_id = rs.getInt("recipes.rec_id");
+					Recipe card = new Recipe(
+							rs.getInt("recipes.rec_id"),
+							rs.getString("recipes.r_name"),
+							rs.getString("recipes.time"),
+							rs.getString("recipes.image"),
+							rs.getBoolean("recipes.wanpan"),
+							rs.getBoolean("recipes.save_time"),
+							rs.getBoolean("recipes.microwave_oven"),
+							rs.getString("recipes.recipe"),
+							rs.getInt("recipes.cooking_expenses"),
+							rs.getInt("recipes.eating_out_expenses"),
+							rs.getString("recipe_counts.u_id"),
+							rs.getDate("recipe_counts.r_date"),
+							rs.getInt("recipe_counts.r_count"),
+							rs.getInt("recipe_ingredients.i_id"),
+							rs.getInt("recipe_ingredients.f_id"),
+							rs.getString("recipe_ingredients.ingredient"),
+							rs.getDouble("recipe_ingredients.r_i_count"),
+							rs.getInt("recipe_ingredients.unit"));
+					cardList.add(card);
+				} else {
+					List<String> ing = cardList.get(num).getIngredient();
+					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					cardList.get(num).setIngredient(ing);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cardList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			cardList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					cardList = null;
+				}
+			}
+		}
+		// 結果を返す
+		return cardList;
+	}
+
+	// 引数paramで検索項目を指定し、検索結果のリストを返す
+	public List<Recipe> selectMicrowave_oven(Recipes recipes) {
+		Connection conn = null;
+		List<Recipe> cardList = new ArrayList<Recipe>();
+		Recipe param = new Recipe();
+		if (recipes.getRecipes().size() > 0) {
+			param = recipes.getRecipes().get(0);
+		}
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+
+			// SQL文を準備する
+			String sql = "select r.rec_id, r.r_name, r.time, r.image, r.wanpan, r.save_time, r.microwave_oven, "
+					+ "r.recipe, r.cooking_expenses, r.eating_out_expenses, r_c.u_id, r_c.r_date, r_c.r_count, "
+					+ "r_i.i_id, r_i.f_id, r_i.ingredient, r_i.r_i_count, r_i.unit "
+					+ "from recipes as r "
+					+ "left join recipe_ingredients as r_i on r.rec_id = r_i.rec_id "
+					+ "left join recipe_counts as r_c on r.rec_id = r_c.rec_id "
+					+ "where r.microwave_oven like ?";
+
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+			pStmt.setBoolean(1, param.getMicrowave_oven());
+
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			// 結果表をコレクションにコピーする
+			int rec_id =-111;
+			int num = 0;
+			while (rs.next()) {
+				if (rec_id != rs.getInt("recipes.rec_id")) {
+					rec_id = rs.getInt("recipes.rec_id");
+					Recipe card = new Recipe(
+							rs.getInt("recipes.rec_id"),
+							rs.getString("recipes.r_name"),
+							rs.getString("recipes.time"),
+							rs.getString("recipes.image"),
+							rs.getBoolean("recipes.wanpan"),
+							rs.getBoolean("recipes.save_time"),
+							rs.getBoolean("recipes.microwave_oven"),
+							rs.getString("recipes.recipe"),
+							rs.getInt("recipes.cooking_expenses"),
+							rs.getInt("recipes.eating_out_expenses"),
+							rs.getString("recipe_counts.u_id"),
+							rs.getDate("recipe_counts.r_date"),
+							rs.getInt("recipe_counts.r_count"),
+							rs.getInt("recipe_ingredients.i_id"),
+							rs.getInt("recipe_ingredients.f_id"),
+							rs.getString("recipe_ingredients.ingredient"),
+							rs.getDouble("recipe_ingredients.r_i_count"),
+							rs.getInt("recipe_ingredients.unit"));
+					cardList.add(card);
+				} else {
+					List<String> ing = cardList.get(num).getIngredient();
+					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					cardList.get(num).setIngredient(ing);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			cardList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			cardList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					cardList = null;
+				}
+			}
+		}
+		// 結果を返す
+		return cardList;
+	}
+
+
+
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(Recipe recipe) {
 		Connection conn = null;
