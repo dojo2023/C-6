@@ -75,7 +75,7 @@ public class RefrigeratorServlet extends HttpServlet {
 			// データが登録されていない時、insertする
 //		System.out.println(recipe.get(0).getUnit());
 			if (rDAO.select(new Refrigerator(loginUser.getId(), f_id)) == null || rDAO.select(new Refrigerator(loginUser.getId(), f_id)).size() == 0){
-				rDAO.insert(new Refrigerator(loginUser.getId(), f_id, recipe.get(0).getUnit()));
+				rDAO.insert(new Refrigerator(loginUser.getId(), f_id, recipe.get(0).getUnit().get(0)));
 			}
 
 			List<Refrigerator> refrigerator = rDAO.select(new Refrigerator(loginUser.getId(), f_id));
@@ -90,7 +90,7 @@ public class RefrigeratorServlet extends HttpServlet {
 			// (r_count)の有無によるinsertとupdateをわけるif文
 			// Recipe似ない場合は1つずつ増やす
 			if (recipe != null && recipe.size() != 0){
-				switch(recipe.get(0).getUnit()) {
+				switch(recipe.get(0).getUnit().get(0)) {
 				case 1:
 					refrigerator.get(0).setF_count(refrigerator.get(0).getF_count() + 100);
 				case 2:
@@ -173,16 +173,17 @@ public class RefrigeratorServlet extends HttpServlet {
 
 			//冷蔵庫の食材の個数からレシピの食材の個数を引く
 			for (Refrigerator refrigerator_f_list : refrigerator_f) {
-				for (Recipe recipe_list : recipe) {
+				for (int i = 0; i < recipe.size(); i++) {
 					//レシピの食材IDと冷蔵庫の食材IDが同じだったら
-					if (recipe_list.getF_id() == refrigerator_f_list.getF_id()) {
-						if (refrigerator_f_list.getF_count() - recipe_list.getR_i_count() < 0) {
+					if (recipe.get(i).getF_id() == refrigerator_f_list.getF_id()) {
+						if (refrigerator_f_list.getF_count() - recipe.get(i).getR_i_count().get(i) < 0) {
 							refrigerator_f_list.setF_count(0);	// 0以下の時は0に
 						} else {
-							refrigerator_f_list.setF_count(refrigerator_f_list.getF_count() - recipe_list.getR_i_count());
+							refrigerator_f_list.setF_count(refrigerator_f_list.getF_count() - recipe.get(i).getR_i_count().get(i));
 						}
 						break;
 					}
+
 				}
 			}
 

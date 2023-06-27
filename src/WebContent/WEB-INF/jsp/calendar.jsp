@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="servlet.CalendarServlet" %>
+<% int c_e_weekSum = Integer.parseInt(String.valueOf(request.getAttribute("c_e_weekSum"))); %>
 <!DOCTYPE html>
 <html>
 <head>

@@ -22,8 +22,8 @@ public class Recipe implements Serializable {
 	private int i_id;
 	private int f_id;
 	private List<String> ingredient = new ArrayList<>();
-	private Double r_i_count;
-	private int unit;	// 0：個、1：g、2：枚、3：少々、4：本
+	private List<Double> r_i_count = new ArrayList<>();
+	private List<Integer> unit = new ArrayList<>();	// 0：個、1：g、2：枚、3：少々、4：本
 
 
 	// 2種類のコンストラクタの追加
@@ -50,14 +50,14 @@ public class Recipe implements Serializable {
 		this.i_id = i_id;
 		this.f_id = f_id;
 		this.ingredient.add(ingredient);
-		this.r_i_count = r_i_count;
-		this.unit = unit;
+		this.r_i_count.add(r_i_count);
+		this.unit.add(unit);
 	}
 
 	public Recipe(int rec_id, String r_name, String time, String image,
 			boolean wanpan, boolean save_time, boolean microwave_oven,
 			String recipe, int cooking_expenses, int eating_out_expenses,
-			String u_id, Date r_date, int r_count, int i_id, int f_id, List<String> ingredient, Double r_i_count, int unit) {
+			String u_id, Date r_date, int r_count, int i_id, int f_id, List<String> ingredient, List<Double> r_i_count, List<Integer> unit) {
 		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
 		java.util.Date utilDate = sqlNow;
 
@@ -98,8 +98,8 @@ public class Recipe implements Serializable {
 		this.i_id = -1;
 		this.f_id = -1;
 		this.ingredient.add("");
-		this.r_i_count = -1.0;
-		this.unit = 0;
+		this.r_i_count.add(-1.0);
+		this.unit.add(-1);
 	}
 	public Recipe(int rec_id, String u_id, Date r_date) {
 
@@ -119,8 +119,8 @@ public class Recipe implements Serializable {
 		this.i_id = -1;
 		this.f_id = -1;
 		this.ingredient.add("");
-		this.r_i_count = -1.0;
-		this.unit = 0;
+		this.r_i_count.add(-1.0);
+		this.unit.add(-1);
 	}
 	//レシピ一覧表示時の空検索用コンストラクタの追加
 	public Recipe(int rec_id) {
@@ -141,8 +141,8 @@ public class Recipe implements Serializable {
 		this.i_id = -1;
 		this.f_id = -1;
 		this.ingredient.add("");
-		this.r_i_count = -1.0;
-		this.unit = 0;
+		this.r_i_count.add(-1.0);
+		this.unit.add(-1);
 	}
 	public Recipe() {
 		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
@@ -164,8 +164,8 @@ public class Recipe implements Serializable {
 		this.i_id = -1;
 		this.f_id = -1;
 		this.ingredient.add("");
-		this.r_i_count = -1.0;
-		this.unit = 0;
+		this.r_i_count.add(-1.0);
+		this.unit.add(-1);
 	}
 	// get, setメソッドの追加
 	public int getRec_id() {
@@ -288,11 +288,11 @@ public class Recipe implements Serializable {
 		this.ingredient = ingredient;
 	}
 
-	public Double getR_i_count() {
+	public List<Double> getR_i_count() {
 		return r_i_count;
 	}
 
-	public void setR_i_count(Double r_i_count) {
+	public void setR_i_count(List<Double> r_i_count) {
 		this.r_i_count = r_i_count;
 	}
 
@@ -304,11 +304,11 @@ public class Recipe implements Serializable {
 		this.f_id = f_id;
 	}
 
-	public int getUnit() {
+	public List<Integer> getUnit() {
 		return unit;
 	}
 
-	public void setUnit(int unit) {
+	public void setUnit(List<Integer> unit) {
 		this.unit = unit;
 	}
 

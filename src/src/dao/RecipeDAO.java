@@ -77,12 +77,12 @@ public class RecipeDAO {
 			} else {
 				pStmt.setString(4, "%");
 			}
-			if (param.getR_i_count() != null && param.getR_i_count() != -1.0) {
+			if (param.getR_i_count() != null && param.getR_i_count().get(0) != -1.0) {
 				pStmt.setString(5, "%" + param.getR_i_count() + "%");
 			} else {
 				pStmt.setString(5, "%");
 			}
-			if (param.getUnit() != -1) {
+			if (param.getUnit() != null && param.getUnit().get(0) != -1) {
 				pStmt.setString(6, "%");
 			} else {
 				pStmt.setString(6, "%");
@@ -129,7 +129,7 @@ public class RecipeDAO {
 
 			// 結果表をコレクションにコピーする
 			int rec_id =-111;
-			int num = 0;
+			int num = -1;
 			while (rs.next()) {
 				if (rec_id != rs.getInt("recipes.rec_id")) {
 					rec_id = rs.getInt("recipes.rec_id");
@@ -152,11 +152,18 @@ public class RecipeDAO {
 							rs.getString("recipe_ingredients.ingredient"),
 							rs.getDouble("recipe_ingredients.r_i_count"),
 							rs.getInt("recipe_ingredients.unit"));
+					num++;
 					cardList.add(card);
 				} else {
 					List<String> ing = cardList.get(num).getIngredient();
+					List<Double> r_i_count = cardList.get(num).getR_i_count();
+					List<Integer> unit = cardList.get(num).getUnit();
 					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					r_i_count.add(rs.getDouble("recipe_ingredients.r_i_count"));
+					unit.add(rs.getInt("recipe_ingredients.unit"));
 					cardList.get(num).setIngredient(ing);
+					cardList.get(num).setR_i_count(r_i_count);
+					cardList.get(num).setUnit(unit);
 				}
 			}
 		} catch (SQLException e) {
@@ -244,12 +251,12 @@ public class RecipeDAO {
 			} else {
 				pStmt.setString(4, "");
 			}
-			if (param.getR_i_count() != null && param.getR_i_count() != -1.0) {
+			if (param.getR_i_count() != null && param.getR_i_count().get(0) != -1.0) {
 				pStmt.setString(5, "%" + param.getR_i_count() + "%");
 			} else {
 				pStmt.setString(5, "%");
 			}
-			if (param.getUnit() != -1) {
+			if (param.getUnit() != null && param.getUnit().get(0) != -1) {
 				pStmt.setString(6, "%");
 			} else {
 				pStmt.setString(6, "%");
@@ -322,8 +329,14 @@ public class RecipeDAO {
 					cardList.add(card);
 				} else {
 					List<String> ing = cardList.get(num).getIngredient();
+					List<Double> r_i_count = cardList.get(num).getR_i_count();
+					List<Integer> unit = cardList.get(num).getUnit();
 					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					r_i_count.add(rs.getDouble("recipe_ingredients.r_i_count"));
+					unit.add(rs.getInt("recipe_ingredients.unit"));
 					cardList.get(num).setIngredient(ing);
+					cardList.get(num).setR_i_count(r_i_count);
+					cardList.get(num).setUnit(unit);
 				}
 			}
 		} catch (SQLException e) {
@@ -428,8 +441,14 @@ public class RecipeDAO {
 					cardList.add(card);
 				} else {
 					List<String> ing = cardList.get(num).getIngredient();
+					List<Double> r_i_count = cardList.get(num).getR_i_count();
+					List<Integer> unit = cardList.get(num).getUnit();
 					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					r_i_count.add(rs.getDouble("recipe_ingredients.r_i_count"));
+					unit.add(rs.getInt("recipe_ingredients.unit"));
 					cardList.get(num).setIngredient(ing);
+					cardList.get(num).setR_i_count(r_i_count);
+					cardList.get(num).setUnit(unit);
 				}
 			}
 		} catch (SQLException e) {
@@ -711,8 +730,14 @@ public class RecipeDAO {
 					cardList.add(card);
 				} else {
 					List<String> ing = cardList.get(num).getIngredient();
+					List<Double> r_i_count = cardList.get(num).getR_i_count();
+					List<Integer> unit = cardList.get(num).getUnit();
 					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					r_i_count.add(rs.getDouble("recipe_ingredients.r_i_count"));
+					unit.add(rs.getInt("recipe_ingredients.unit"));
 					cardList.get(num).setIngredient(ing);
+					cardList.get(num).setR_i_count(r_i_count);
+					cardList.get(num).setUnit(unit);
 				}
 			}
 		} catch (SQLException e) {
@@ -797,8 +822,14 @@ public class RecipeDAO {
 					cardList.add(card);
 				} else {
 					List<String> ing = cardList.get(num).getIngredient();
+					List<Double> r_i_count = cardList.get(num).getR_i_count();
+					List<Integer> unit = cardList.get(num).getUnit();
 					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					r_i_count.add(rs.getDouble("recipe_ingredients.r_i_count"));
+					unit.add(rs.getInt("recipe_ingredients.unit"));
 					cardList.get(num).setIngredient(ing);
+					cardList.get(num).setR_i_count(r_i_count);
+					cardList.get(num).setUnit(unit);
 				}
 			}
 		} catch (SQLException e) {
@@ -883,8 +914,14 @@ public class RecipeDAO {
 					cardList.add(card);
 				} else {
 					List<String> ing = cardList.get(num).getIngredient();
+					List<Double> r_i_count = cardList.get(num).getR_i_count();
+					List<Integer> unit = cardList.get(num).getUnit();
 					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					r_i_count.add(rs.getDouble("recipe_ingredients.r_i_count"));
+					unit.add(rs.getInt("recipe_ingredients.unit"));
 					cardList.get(num).setIngredient(ing);
+					cardList.get(num).setR_i_count(r_i_count);
+					cardList.get(num).setUnit(unit);
 				}
 			}
 		} catch (SQLException e) {
@@ -1006,16 +1043,17 @@ public class RecipeDAO {
 				} else {
 					pStmt_i.setString(3, null);
 				}
-				if (recipe.getR_i_count() != -1) {
-					pStmt_i.setDouble(4, recipe.getR_i_count());
+				if (recipe.getR_i_count() != null && recipe.getR_i_count().get(0) != -1.0) {
+					pStmt_i.setString(4, "%" + recipe.getR_i_count() + "%");
 				} else {
-					pStmt_i.setDouble(4, -1.0);
+					pStmt_i.setString(4, "%");
 				}
-				if (recipe.getUnit() != -1) {
-					pStmt_i.setInt(5, recipe.getUnit());
+				if (recipe.getUnit() != null && recipe.getUnit().get(0) != -1) {
+					pStmt_i.setString(5, "%");
 				} else {
-					pStmt_i.setInt(5, -1);
+					pStmt_i.setString(5, "%");
 				}
+
 				flag = pStmt_i.executeUpdate();
 			}
 
@@ -1234,15 +1272,15 @@ public class RecipeDAO {
 				} else {
 					pStmt_i.setString(4, null);
 				}
-				if (pre_recipe.getR_i_count() != -1) {
-					pStmt_i.setString(5, "%" + pre_recipe.getR_i_count() + "%");
+				if (pre_recipe.getR_i_count() != null && pre_recipe.getR_i_count().get(0) != -1.0) {
+					pStmt_i.setString(4, "%" + pre_recipe.getR_i_count() + "%");
+				} else {
+					pStmt_i.setString(4, "%");
+				}
+				if (recipe.getUnit() != null && recipe.getUnit().get(0) != -1) {
+					pStmt_i.setString(5, "%");
 				} else {
 					pStmt_i.setString(5, "%");
-				}
-				if (recipe.getUnit() != -1) {
-					pStmt_i.setInt(6, recipe.getUnit());
-				} else {
-					pStmt_i.setInt(6, -1);
 				}
 				if (pre_recipe.getI_id() != -1) {
 					pStmt_i.setString(7, "%" + pre_recipe.getI_id() + "%");

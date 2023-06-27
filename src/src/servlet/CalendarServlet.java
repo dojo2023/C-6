@@ -102,6 +102,9 @@ public class CalendarServlet extends HttpServlet {
 			e_o_weekSum[i] = 0;
 			diff_weekSum[i] = 0;
 		}
+		
+		// 日別の金額
+		
 
 		for (int i = cal.get(java.util.Calendar.MONTH)+1; i == cal.get(java.util.Calendar.MONTH)+1; i += 0) {
 			for (int j = 0; j < weekMax; j++) {

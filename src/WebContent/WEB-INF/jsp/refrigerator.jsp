@@ -50,7 +50,7 @@
 				<% if(count != 0) {%>
 					<img src="/NMW/img<%= mainFoodImg.get(i).getImage() %>" width="50">
 					<% c_br++; %>
-					<% if(mainFoodUnit.get(i).getUnit() != 1) {%>
+					<% if(mainFoodUnit.get(i).getUnit().get(0) != 1 && mainFoodUnit.get(i).getUnit().get(0) != 4) {%>
 						<select class="select" name="<%= mainFood.get(i).getF_id() %>">
 						<% for (double j=2.0; j>=-2.0;j-=0.25) {%>
 							<% if(count+j >= 0) {%>
@@ -65,6 +65,21 @@
 							<% } %>
 						<% } %>
 						</select><span class="unit">個</span>
+					<%} else if(mainFoodUnit.get(i).getUnit().get(0) != 1) {%>
+						<select class="select" name="<%= mainFood.get(i).getF_id() %>">
+						<% for (double j=2.0; j>=-2.0;j-=0.25) {%>
+							<% if(count+j >= 0) {%>
+								<% if(j != 0.0) {%>
+									<option><%= count+j %></option>
+								<% } else {%>
+									<option selected><%= count+j %></option>
+								<% } %>
+
+							<% } else {%>
+								<% j = -3.0; %>
+							<% } %>
+						<% } %>
+						</select><span class="unit">本</span>
 					<% } else {%>
 						<select>
 							<% for (int j=200; j>=-200;j-=25) {%>

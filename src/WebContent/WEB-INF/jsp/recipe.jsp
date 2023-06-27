@@ -6,6 +6,8 @@
 <%@ page import="java.util.List" %>
 <% List<Recipe> rec = ((List<Recipe>)request.getAttribute("recipe")); %>
 <% List<String> ingredient = rec.get(0).getIngredient(); %>
+<% List<Double> r_i_count = rec.get(0).getR_i_count(); %>
+<% List<Integer> unit = rec.get(0).getUnit(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,8 +77,28 @@ onclick="location.href='/NMW/LogoutServlet'">
 		<img src="/NMW/img${r.image}" width="400" height="400">
 		<div class="ingredient">
 		<p>材料 (1人前)</p><br>
-		<% for(String ing : ingredient){ %>
-			<%= ing %><br><hr>
+		<% for(int i=0; i<ingredient.size(); i++){ %>
+			<div style="display: inline-block;"><%= ingredient.get(i) %></div>
+
+
+			<!-- 量の表示　-->
+			<% if(r_i_count.get(i) > 0) {%>
+				<div style="display: inline-block;"><%= r_i_count.get(i) %></div>
+			<% } %>
+
+			<!-- 単位の表示 -->
+			<% if(unit.get(i) == 0) {%>
+				<div style="display: inline-block;">個</div>
+			<% } else if(unit.get(i) == 1) {%>
+				<div style="display: inline-block;">g</div>
+			<% } else if(unit.get(i) == 2) {%>
+				<div style="display: inline-block;">枚</div>
+			<% } else if(unit.get(i) == 4) {%>
+				<div style="display: inline-block;">本</div>
+			<% } else {%>
+				<div style="display: inline-block;">少々</div>
+			<% } %>
+			<hr>
 		<% } %>
 		</div>
 

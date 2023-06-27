@@ -52,7 +52,7 @@ public class RefrigeratorDAO {
 			List<String> c_t = new ArrayList<>();
 			List<Double> c_n = new ArrayList<>();
 			// 結果表をコレクションにコピーする
-			String u_id="";
+			String u_id = "";
 			while (rs.next()) {
 				// u_idが違うときに初期化
 				if (u_id != rs.getString("refrigerators.u_id")) {
@@ -188,7 +188,7 @@ public class RefrigeratorDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 
 			// SQL文を準備する
-			String sql = "select r_i.unit "
+			String sql = "select DISTINCT r.f_id, r_i.unit "
 					+ "from refrigerators as r "
 					+ "left join recipe_ingredients as r_i on r.f_id = r_i.f_id "
 					+ "where r.f_id like ? order by r.f_id";
@@ -206,6 +206,8 @@ public class RefrigeratorDAO {
 				ResultSet rs = pStmt.executeQuery();
 
 				// 結果表をコレクションにコピーする
+				int rec_id = -111;
+				int num = -1;
 				while (rs.next()) {
 					Recipe card = new Recipe(
 							-1,
@@ -229,7 +231,6 @@ public class RefrigeratorDAO {
 					cardList.add(card);
 				}
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			cardList = null;
@@ -251,7 +252,6 @@ public class RefrigeratorDAO {
 		// 結果を返す
 		return cardList;
 	}
-
 
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(Refrigerator refrigerator) {
@@ -471,7 +471,6 @@ public class RefrigeratorDAO {
 			} else {
 				pStmt_r.setString(5, "");
 			}
-
 
 			// SQL文を実行する
 			if (pStmt_r.executeUpdate() == 1) {
