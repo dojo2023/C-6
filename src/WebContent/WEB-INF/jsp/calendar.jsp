@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="servlet.CalendarServlet" %>
+<% int[] c_e = (int[])request.getAttribute("c_e"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +34,11 @@
 
 	<!-- メインここから -->
 	<div class="wrapper">
+	<div hidden id="java_row_data">
+<c:forEach var="r" items="${ c_e }" varStatus="status">
+${ r }///
+</c:forEach>
+	</div>
     	<!-- 年月表示のヘッダー -->
     	<h2 id="header"></h2>
 
@@ -118,6 +124,13 @@
 <script>
 const week = ["日", "月", "火", "水", "木", "金", "土"];
 const today = new Date();
+
+const cd = [];
+const row_date = [];
+cd.push(document.getElementById('java_row_data').textContent.replace(/\r?\n/g, '').trim().split("///"));
+// console.log(document.getElementById('java_row_data').textContent.replace(/\r?\n/g, '').split("///"));
+// console.log(cd[0][2]);
+
 // 月末だとずれる可能性があるため、1日固定で取得
 var showDate = new Date(today.getFullYear(), today.getMonth(), 1);
 
@@ -180,9 +193,9 @@ function createProcess(year, month) {
                 if(year == today.getFullYear()
                   && month == (today.getMonth())
                   && count == today.getDate()){
-                    calendar += "<td class='today'>" + count +'<br>'+${c_e_weekSum[4]}+ "</td>";
+                    calendar += "<td class='today'>" + count +'<br>'+cd[0][count]+ "</td>";
                 } else {
-                    calendar += "<td>" + count +'<br>'+${c_e_weekSum[4]}+ "</td>";
+                    calendar += "<td>" + count +'<br>'+cd[0][count]+ "</td>";
                 }
             }
         }

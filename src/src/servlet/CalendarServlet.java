@@ -102,9 +102,6 @@ public class CalendarServlet extends HttpServlet {
 			e_o_weekSum[i] = 0;
 			diff_weekSum[i] = 0;
 		}
-		
-		// 日別の金額
-		
 
 		for (int i = cal.get(java.util.Calendar.MONTH)+1; i == cal.get(java.util.Calendar.MONTH)+1; i += 0) {
 			for (int j = 0; j < weekMax; j++) {
@@ -114,7 +111,6 @@ public class CalendarServlet extends HttpServlet {
 					break;
 				}
 			}
-			System.out.println(cal.get(java.util.Calendar.DATE));
 			cal.add(java.util.Calendar.DATE, 1);
 //			System.out.println(cal.get(java.util.Calendar.YEAR)+"/"+(cal.get(java.util.Calendar.MONTH)+1) +"/"+cal.get(java.util.Calendar.DATE));
 		}
@@ -123,6 +119,7 @@ public class CalendarServlet extends HttpServlet {
 			diff_weekSum[i] = c_e_weekSum[i] - e_o_weekSum[i];
 		}
 
+		request.setAttribute("c_e", cookingExpenses);
 		request.setAttribute("c_e_weekSum", c_e_weekSum);
 		request.setAttribute("c_e_Sum", Arrays.stream(c_e_weekSum).sum());
 		request.setAttribute("e_o_weekSum", e_o_weekSum);
