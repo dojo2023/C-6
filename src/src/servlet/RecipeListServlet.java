@@ -148,12 +148,8 @@ public class RecipeListServlet extends HttpServlet {
 			request.setAttribute("mainFood", mainFood);
 			RequestDispatcher dispatcher4 = request.getRequestDispatcher("/WEB-INF/jsp/recipeList.jsp");
 			dispatcher4.forward(request, response);
-		}
-		// レシピ一覧からレシピ詳細へフォワード処理
-		// リクエストパラメータを取得する
 
-		// レシピ検索から検索結果に行くほうのform文をif文で作成
-		if ((request.getParameter("r_select")) == "2") {
+		} if ((request.getParameter("r_select")) == "2") {
 			String rec_id = (request.getParameter("rec_id"));
 
 			request.setAttribute("rec_id", rec_id);

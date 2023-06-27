@@ -58,9 +58,6 @@ public class RecipeServlet extends HttpServlet {
 
 		RecipeDAO rDAO = new RecipeDAO();
 		List<Recipe> recipe = rDAO.select(recipes);
-//		for (Recipe recipe2 : recipe) {
-//			System.out.println("R_name:" + recipe2.getRecipe());
-//		}
 
 		//		System.out.println("============================");
 		//		System.out.println(recipe);
@@ -107,13 +104,28 @@ public class RecipeServlet extends HttpServlet {
 			RecipeDAO rDAO = new RecipeDAO();
 			Recipe r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
 			Recipes recipes = new Recipes(r);
-			List<Recipe> recipe = rDAO.select(recipes);
+			List<Recipe> recipe = rDAO.selectDate(recipes);
+
+			System.out.println("=====================");
+			for (Recipe recipe2 : recipe) {
+				System.out.println("getF_id:"+recipe2.getRec_id());
+				System.out.println("getU_id:"+recipe2.getU_id());
+				System.out.println("getR_date:"+recipe2.getR_date());
+				System.out.println("getR_date:"+recipe2.getR_count());
+			}
+			System.out.println("=====================");
+			System.out.println("getRec_id:"+r.getRec_id());
+			System.out.println("getU_id:"+r.getU_id());
+			System.out.println("getR_date:"+r.getR_date());
 
 			// ない場合は追加
 			if (recipe==null || recipe.size() == 0) {
-				rDAO.insert(r);
-				recipe = rDAO.select(new Recipes(r));
-				recipe.get(0).setR_count(0);
+				System.out.println("追加します");
+				rDAO.insertRecipe_counts(r);
+				recipe = rDAO.selectDate(new Recipes(r));
+				for (Recipe recipe2 : recipe) {
+					System.out.println(recipe2);
+				}
 				recipe.get(0).setR_count(0);
 			}
 
@@ -124,11 +136,11 @@ public class RecipeServlet extends HttpServlet {
 			// レシピ使用回数をリクエストスコープに格納する
 			request.setAttribute("recipe", recipe.get(0).getR_count());
 
-			r = new Recipe(rec_id);
+			r = new Recipe(rec_id, loginUser.getId(), new Date(utilDate.getTime()));
 			recipes = new Recipes(r);
 
 			rDAO = new RecipeDAO();
-			recipe = rDAO.select(recipes);
+			recipe = rDAO.selectDate(recipes);
 
 			// 検索結果をリクエストスコープに格納する
 			request.setAttribute("rec_id", rec_id);
@@ -162,7 +174,6 @@ public class RecipeServlet extends HttpServlet {
 			if (recipe==null || recipe.size() == 0) {
 				rDAO.insert(r);
 				recipe = rDAO.select(new Recipes(r));
-				recipe.get(0).setR_count(0);
 				recipe.get(0).setR_count(0);
 			}
 

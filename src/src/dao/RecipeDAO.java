@@ -50,7 +50,8 @@ public class RecipeDAO {
 
 					sql += "and r_i.r_i_count like ? and r_i.unit like ? and r.time like ? and r.wanpan like ? and "
 					+ "r.save_time like ? and r.microwave_oven like ? and r.recipe like ? and r.cooking_expenses like ? "
-					+ "and r.eating_out_expenses like ? and (CASE WHEN r_c.u_id IS NULL THEN '' ELSE r_c.u_id END) like ? and (CASE WHEN r_c.r_count IS NULL THEN -1 ELSE r_c.r_count END) like ?";
+					+ "and r.eating_out_expenses like ? and (CASE WHEN r_c.u_id IS NULL THEN '' ELSE r_c.u_id END) "
+					+ "like ? and (CASE WHEN r_c.r_count IS NULL THEN -1 ELSE r_c.r_count END) like ?";
 			// 条件式がu_idとrec_idのみなので、他の検索条件の追加
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -70,7 +71,7 @@ public class RecipeDAO {
 			} else {
 				pStmt.setString(3, "%");
 			}
-			System.out.println("F_id:"+param.getF_id());
+//			System.out.println("F_id:"+param.getF_id());
 			if (param.getF_id() != -1) {
 				pStmt.setString(4, "%" + param.getF_id() + "%");
 			} else {
@@ -351,10 +352,8 @@ public class RecipeDAO {
 		Connection conn = null;
 		List<Recipe> cardList = new ArrayList<Recipe>();
 		Recipe param = new Recipe();
-		System.out.println("Rec_id:"+recipes.getRecipes().get(0).getR_date()==null);
 		if (recipes.getRecipes().get(0).getRec_id() != -1) {
 			param = recipes.getRecipes().get(0);
-			System.out.println("Rec_id:"+recipes.getRecipes().get(0).getRec_id());
 		}
 
 		try {
@@ -371,23 +370,15 @@ public class RecipeDAO {
 					+ " from recipes as r "
 					+ "left join recipe_ingredients as r_i on r.rec_id = r_i.rec_id "
 					+ "left join recipe_counts as r_c on r.rec_id = r_c.rec_id "
-					+ "where r.rec_id like ? and r.r_name like ? and r_i.i_id like ? and r_i.f_id like ? ";
-
-			// f_name ver.を作る
-			for (String i : param.getIngredient()) {
-				if (i != null || i != "") {
-					// "" で囲う必要ないかも
-					sql = sql + "and r_i.ingredient like \'%" + i + "%\' ";
-				} else {
-					break;
-				}
-			}
-
-					sql += "and r_i.r_i_count like ? and r_i.unit like ? and r.time like ? and r.wanpan like ? and "
-					+ "r.save_time like ? and r.microwave_oven like ? and r.recipe like ? and r.cooking_expenses like ? "
-					+ "and r.eating_out_expenses like ? and r_c.u_id like ? and r_c.r_date like ? and r_c.r_count like ?";
+					+ "where r.rec_id like ? "
+					+ "and (CASE WHEN r_c.u_id IS NULL THEN '' ELSE r_c.u_id END) like ? "
+					+ "and r_c.r_date like ?";
 			// 条件式がu_idとrec_idのみなので、他の検索条件の追加
 			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			System.out.println(param.getU_id());
+			System.out.println(param.getRec_id());
+			System.out.println(param.getR_date());
 
 			// SQL文を完成させる
 			if (param.getRec_id() != -1) {
@@ -395,96 +386,51 @@ public class RecipeDAO {
 			} else {
 				pStmt.setString(1, "%");
 			}
-			if (param.getR_name() != null && !param.getR_name().equals("")) {
-				pStmt.setString(2, "%" + param.getR_name() + "%");
+			if (param.getU_id() != null && !param.getU_id().equals("")) {
+				pStmt.setString(2, "%" + param.getU_id() + "%");
 			} else {
 				pStmt.setString(2, "%");
 			}
-			if (param.getI_id() != -1) {
-				pStmt.setString(3, "%" + param.getI_id() + "%");
+			if (param.getR_date() != null) {
+				pStmt.setDate(3, param.getR_date());
 			} else {
 				pStmt.setString(3, "%");
-			}
-			if (param.getF_id() != -1) {
-				pStmt.setString(4, "%" + param.getF_id() + "%");
-			} else {
-				pStmt.setString(4, "%");
-			}
-			if (param.getR_i_count() != null && param.getR_i_count() != -1.0) {
-				pStmt.setString(5, "%" + param.getR_i_count() + "%");
-			} else {
-				pStmt.setString(5, "%");
-			}
-			if (param.getUnit() != -1) {
-				pStmt.setString(6, "%");
-			} else {
-				pStmt.setString(6, "%");
-			}
-			if (param.getTime() != null && !param.getTime().equals("")) {
-				pStmt.setString(7, "%" + param.getTime() + "%");
-			} else {
-				pStmt.setString(7, "%");
-			}
-			pStmt.setBoolean(8, param.getWanpan());
-			pStmt.setBoolean(9, param.getSave_time());
-			pStmt.setBoolean(10, param.getMicrowave_oven());
-			if (param.getRecipe() != null && !param.getRecipe().equals("")) {
-				pStmt.setString(11, "%" + param.getRecipe() + "%");
-			} else {
-				pStmt.setString(11, "%");
-			}
-			if (param.getCooking_expenses() != -1) {
-				pStmt.setString(12, "%" + param.getCooking_expenses() + "%");
-			} else {
-				pStmt.setString(12, "%");
-			}
-			if (param.getEating_out_expenses() != -1) {
-				pStmt.setString(13, "%" + param.getEating_out_expenses() + "%");
-			} else {
-				pStmt.setString(13, "%");
-			}
-			if (param.getU_id() != null && !param.getU_id().equals("")) {
-				pStmt.setString(14, "%" + param.getU_id() + "%");
-			} else {
-				pStmt.setString(14, "%");
-			}
-			if (param.getR_date() != null) {
-				pStmt.setString(15, "%" + param.getR_date() + "%");
-			} else {
-				pStmt.setString(15, "%");
-			}
-			if (param.getR_count() != -1) {
-				pStmt.setString(16, "%" + param.getR_count() + "%");
-			} else {
-				pStmt.setString(16, "%");
 			}
 
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
-			System.out.println(sql);
 
 			// 結果表をコレクションにコピーする
+			int rec_id =-111;
+			int num = 0;
 			while (rs.next()) {
-				Recipe card = new Recipe(
-						rs.getInt("recipes.rec_id"),
-						rs.getString("recipes.r_name"),
-						rs.getString("recipes.time"),
-						rs.getString("recipes.image"),
-						rs.getBoolean("recipes.wanpan"),
-						rs.getBoolean("recipes.save_time"),
-						rs.getBoolean("recipes.microwave_oven"),
-						rs.getString("recipes.recipe"),
-						rs.getInt("recipes.cooking_expenses"),
-						rs.getInt("recipes.eating_out_expenses"),
-						rs.getString("recipe_counts.u_id"),
-						rs.getDate("recipe_counts.r_date"),
-						rs.getInt("recipe_counts.r_count"),
-						rs.getInt("recipe_ingredients.i_id"),
-						rs.getInt("recipe_ingredients.f_id"),
-						rs.getString("recipe_ingredients.ingredient"),
-						rs.getDouble("recipe_ingredients.r_i_count"),
-						rs.getInt("recipe_ingredients.unit"));
-				cardList.add(card);
+				if (rec_id != rs.getInt("recipes.rec_id")) {
+					rec_id = rs.getInt("recipes.rec_id");
+					Recipe card = new Recipe(
+							rs.getInt("recipes.rec_id"),
+							rs.getString("recipes.r_name"),
+							rs.getString("recipes.time"),
+							rs.getString("recipes.image"),
+							rs.getBoolean("recipes.wanpan"),
+							rs.getBoolean("recipes.save_time"),
+							rs.getBoolean("recipes.microwave_oven"),
+							rs.getString("recipes.recipe"),
+							rs.getInt("recipes.cooking_expenses"),
+							rs.getInt("recipes.eating_out_expenses"),
+							rs.getString("recipe_counts.u_id"),
+							rs.getDate("recipe_counts.r_date"),
+							rs.getInt("recipe_counts.r_count"),
+							rs.getInt("recipe_ingredients.i_id"),
+							rs.getInt("recipe_ingredients.f_id"),
+							rs.getString("recipe_ingredients.ingredient"),
+							rs.getDouble("recipe_ingredients.r_i_count"),
+							rs.getInt("recipe_ingredients.unit"));
+					cardList.add(card);
+				} else {
+					List<String> ing = cardList.get(num).getIngredient();
+					ing.add(rs.getString("recipe_ingredients.ingredient"));
+					cardList.get(num).setIngredient(ing);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -636,9 +582,6 @@ public class RecipeDAO {
 
 					// 条件式がu_idとrec_idのみなので、他の検索条件の追加
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			for (Recipe recipe : recipes.getRecipes()) {
-				System.out.println("F_id:"+recipe.getF_id());
-			}
 
 			// SQL文を完成させる
 			for (Recipe recipe : recipes.getRecipes()) {
@@ -784,7 +727,7 @@ public class RecipeDAO {
 			if (recipe.getR_count() != -1) {
 				pStmt_c.setInt(4, recipe.getR_count());
 			} else {
-				pStmt_c.setInt(4, -1);
+				pStmt_c.setInt(4, 0);
 			}
 
 			for (String ingredient : recipe.getIngredient()) {
@@ -839,6 +782,76 @@ public class RecipeDAO {
 		// 結果を返す
 		return result;
 	}
+
+	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
+		public boolean insertRecipe_counts(Recipe recipe) {
+			Connection conn = null;
+			boolean result = false;
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("org.h2.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+
+				// SQL文を準備する
+				String sql_c = "insert into recipe_counts (u_id, rec_id, r_date, r_count) values (?, ?, ?, ?)";
+
+				PreparedStatement pStmt_c = conn.prepareStatement(sql_c);
+
+				System.out.println(recipe.getU_id());
+				System.out.println(recipe.getRec_id());
+				System.out.println(recipe.getR_date());
+				System.out.println(recipe.getR_count());
+
+				// SQL文を完成させる
+
+				if (recipe.getU_id() != null && !recipe.getU_id().equals("")) {
+					pStmt_c.setString(1, recipe.getU_id());
+				} else {
+					pStmt_c.setString(1, null);
+				}
+				if (recipe.getRec_id() != -1) {
+					pStmt_c.setInt(2, recipe.getRec_id());
+				} else {
+					pStmt_c.setInt(2, -1);
+				}
+				if (recipe.getR_date() != null && !recipe.getR_date().equals("")) {
+					pStmt_c.setDate(3, recipe.getR_date());
+				} else {
+					pStmt_c.setDate(3, null);
+				}
+				if (recipe.getR_count() != -1) {
+					pStmt_c.setInt(4, recipe.getR_count());
+				} else {
+					pStmt_c.setInt(4, 0);
+				}
+
+
+
+				// SQL文を実行する
+				if (pStmt_c.executeUpdate() == 1) {
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			// 結果を返す
+			return result;
+		}
 
 	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
 	public boolean update(Recipe recipe, Recipe pre_recipe) {

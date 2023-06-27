@@ -93,6 +93,7 @@ public class Recipe implements Serializable {
 		this.cooking_expenses = -1;
 		this.eating_out_expenses = -1;
 		this.u_id = "";
+		this.r_date = Date.valueOf("1111-11-11");
 		this.r_count = -1;
 		this.i_id = -1;
 		this.f_id = -1;
@@ -121,6 +122,28 @@ public class Recipe implements Serializable {
 		this.r_i_count = -1.0;
 		this.unit = 0;
 	}
+	//レシピ一覧表示時の空検索用コンストラクタの追加
+	public Recipe(int rec_id) {
+
+		this.rec_id = rec_id;
+		this.r_name = "";
+		this.time = "";
+		this.image = "";
+		this.wanpan = false;
+		this.save_time = false;
+		this.microwave_oven = false;
+		this.recipe = "";
+		this.cooking_expenses = -1;
+		this.eating_out_expenses = -1;
+		this.u_id = "";
+		this.r_date = Date.valueOf("1111-11-11");
+		this.r_count = -1;
+		this.i_id = -1;
+		this.f_id = -1;
+		this.ingredient.add("");
+		this.r_i_count = -1.0;
+		this.unit = 0;
+	}
 	public Recipe() {
 		Date sqlNow = new Date(System.currentTimeMillis()); // util.date => sql.dateへの変換
 		java.util.Date utilDate = sqlNow;
@@ -137,27 +160,6 @@ public class Recipe implements Serializable {
 		this.eating_out_expenses = -1;
 		this.u_id = "";
 		this.r_date = new Date(utilDate.getTime());
-		this.r_count = -1;
-		this.i_id = -1;
-		this.f_id = -1;
-		this.ingredient.add("");
-		this.r_i_count = -1.0;
-		this.unit = 0;
-	}
-	//レシピ一覧表示時の空検索用コンストラクタの追加
-	public Recipe(int rec_id) {
-
-		this.rec_id = rec_id;
-		this.r_name = "";
-		this.time = "";
-		this.image = "";
-		this.wanpan = false;
-		this.save_time = false;
-		this.microwave_oven = false;
-		this.recipe = "";
-		this.cooking_expenses = -1;
-		this.eating_out_expenses = -1;
-		this.u_id = "";
 		this.r_count = -1;
 		this.i_id = -1;
 		this.f_id = -1;
