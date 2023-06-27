@@ -36,6 +36,7 @@ onclick="location.href='/NMW/LogoutServlet'">
 	</header>
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
+
 	<!-- RecipeServletからレシピ内容のリスト受け取り -->
 	<c:forEach var="r" items="${ recipe }" varStatus="status">
 

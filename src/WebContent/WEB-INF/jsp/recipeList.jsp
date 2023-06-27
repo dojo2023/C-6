@@ -41,6 +41,15 @@
 		List<String> mainFood = (List<String>) request.getAttribute("mainFood");
 	%>
 
+	<!-- ランダム機能の処理 -->
+	<form action="/NMW/RecipeListServlet" method="post" name="random">
+		<% double count; %>
+		<% int c_br = 0; %>
+		<input type="image" src="/NMW/img/recipe/randamu.png" width="70" height="60">
+		<input type="hidden" id="submit_jsp_rec_id_ran" name="rec_id_ran" value="-1">
+		<input type="hidden" id="submit_jsp_rec_id_max" name="rec_id_max" value="0">
+	</form>
+
 	<!-- 検索条件 -->
 
 	<form method="POST" action="/NMW/RecipeListServlet">
