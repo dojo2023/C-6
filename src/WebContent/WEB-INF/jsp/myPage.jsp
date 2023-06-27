@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>マイページ | れしぴろーくん</title>
 <link rel="stylesheet" href="/NMW/css/myPage.css">
 <link rel="stylesheet" href="/NMW/css/common.css">
 </head>
@@ -13,6 +13,10 @@
 <!-- ヘッダーここから -->
     <header>
 	     <a href ="/NMW/RefrigeratorServlet"><img class="logo" src="/NMW/img/logo/logo.png" alt="れしぴろーくん"></a>
+<div class="logout">
+  <input class="btn btn--orange" type="submit" name="LOOUT" value="ログアウト"
+  onclick="location.href='/NMW/LogoutServlet'">
+</div>
 		 <nav>
 		   <ul>
 				<li><a href="/NMW/RefrigeratorServlet">冷蔵庫</a></li>
@@ -26,7 +30,7 @@
 	<!-- ヘッダーここまで -->
 	<!-- メインここから -->
 	<c:forEach var="m" items="${user_inf}" >
-		<form method="POST" action="/NMW/MyPageServlet">:
+		<form method="POST" action="/NMW/MyPageServlet">
 	       <ul>
 	         <li>
 			      ID<br>
@@ -37,19 +41,18 @@
 			     <input type="text" name="PW" value="${m.password}">
    			 </li>
    	    </c:forEach>
-   	         <li>
-			     好きな食べ物<br>
-			     <input type="text" name="likefood" value="じゃがいも">
-
-             </li>
-			 <li>
-			     嫌いな食べ物<br>
-			     <input type="text" name="dislikefood" value="にんじん">
-		     </li>
-
+   	         <div class="lfdf">
+   	         <li>好きな食べ物<br>
+			     <input type="text" name="likefood" value="じゃがいも"></li>
+                 <span class="df">
+			 <li>嫌いな食べ物<br>
+			     <input type="text" name="dislikefood" value="にんじん"></li>
+                 </span>
+			     </div>
 		     <li>
 			     <br><input type="submit" class="btn btn--orange" name="edit" value="編集">
 			 </li>
+
 		  </ul>
 
 

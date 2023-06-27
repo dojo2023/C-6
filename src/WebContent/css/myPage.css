@@ -4,3 +4,19 @@
 
 	list-style-type: none;
 }
+.lfdf input[type=text]{
+	width:200px;
+	height:50px;
+}
+.lfdf{
+	display:flex;
+	margin-top:20px;
+}
+
+ul{
+	margin:50px;
+}
+
+.df{
+	margin-left:30px;
+}
