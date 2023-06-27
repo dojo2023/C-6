@@ -9,13 +9,6 @@ function click_form(event){
 	console.log(document.getElementsByClassName("submit_jsp_f_id").value);
 	console.log(document.getElementsByClassName("submit_jsp_num").value);
 
-//    console.log(event.target.parentNode);
-//    console.log(document.getElementsByClassName("submit_jsp_f_id").value);
-
-//    console.log(f_id);
-//	console.log(num);
-//	console.log(event.currentTarget.value);
-
 	document.form_num.submit();
 }
 
