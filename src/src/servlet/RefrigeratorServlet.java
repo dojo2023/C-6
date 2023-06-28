@@ -92,7 +92,7 @@ public class RefrigeratorServlet extends HttpServlet {
 			if (recipe != null && recipe.size() != 0){
 				switch(recipe.get(0).getUnit().get(0)) {
 				case 1:
-					refrigerator.get(0).setF_count(refrigerator.get(0).getF_count() + 100);
+					refrigerator.get(0).setF_count(refrigerator.get(0).getF_count() + 99);
 				case 2:
 				case 3:
 				case 4:

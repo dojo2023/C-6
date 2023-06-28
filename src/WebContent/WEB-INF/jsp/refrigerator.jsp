@@ -81,7 +81,7 @@
 						<% } %>
 						</select><span class="unit">本</span>
 					<% } else {%>
-						<select>
+						<select class="select" name="<%= mainFood.get(i).getF_id() %>">
 							<% for (int j=200; j>=-200;j-=25) {%>
 								<% if(count+j >= 0) {%>
 									<% if(j != 0) {%>
