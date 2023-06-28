@@ -41,14 +41,14 @@
 			     <input type="text" name="PW" value="${m.password}">
    			 </li>
    	    </c:forEach>
-   	         <div class="lfdf">
+   	         <div class="lfdf"  style="margin-top:50px;">
    	         <li>好きな食べ物<br>
 			     <input type="text" name="likefood" value="じゃがいも"></li>
                  <span class="df">
 			 <li>嫌いな食べ物<br>
 			     <input type="text" name="dislikefood" value="にんじん"></li>
                  </span>
-			     </div>
+			 </div>
 		     <li>
 		         <div class="reg_btn">
 			     <br><input type="submit" class="btn btn--orange" name="edit" value="編集">
