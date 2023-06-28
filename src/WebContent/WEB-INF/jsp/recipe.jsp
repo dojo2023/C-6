@@ -124,9 +124,17 @@ onclick="location.href='/NMW/LogoutServlet'">
 				type="hidden" name="r_recipe" value="3">
 			<input class="btn btn--orange" type="submit" name="r_recipe" value="回数リセット"></input>
 		</form>
+	</div>
+	<div class="balloon">
 		<c:if test="${ r.r_count!=0 }">
-			<img src="/NMW/img/logo/logo_resipiro-.png">
+		<div class="icon">
+			<img src="/NMW/img/logo/resipiro-right.png">
+		</div>
+	  <div class="chatting">
+	    <div class="says">
 			<p>本日${r.r_count}回料理したピヨ</p>
+	    </div>
+	  </div>
 		</c:if>
 	</div>
 
