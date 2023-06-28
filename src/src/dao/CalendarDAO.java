@@ -25,12 +25,14 @@ public class CalendarDAO {
 			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
 			// SELECT文を準備する
 //			c_count以降にエラー
-			String sql = "select u_id, calendars.rec_id, date, "
-					+ "r_name, cooking_expenses, eating_out_expenses "
+			String sql = "select calendars.u_id, calendars.rec_id, date, "
+					+ "r_name, cooking_expenses, eating_out_expenses, recipe_counts.r_count "
 					+ "from calendars "
 					+ "left join recipes "
 					+ "on calendars.rec_id = recipes.rec_id "
-					+ "where u_id = ? and date like ?";
+					+ "left join recipe_counts "
+					+ "on calendars.rec_id = recipe_counts.rec_id "
+					+ "where calendars.u_id = ? and date like ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる(?を埋める)
@@ -45,6 +47,80 @@ public class CalendarDAO {
 				pStmt.setString(2, now+"%");
 			} else {
 				pStmt.setString(2, "%");
+			}
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+				Calendar c = new Calendar(
+						rs.getString("calendars.u_id"),
+						rs.getInt("calendars.rec_id"),
+						rs.getDate("calendars.date"),
+//						rs.getInt("calendars.c_count"),
+						rs.getString("recipes.r_name"),
+						rs.getInt("recipes.cooking_expenses"),
+						rs.getInt("recipes.eating_out_expenses"));
+
+				CalendarList.add(c);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			CalendarList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			CalendarList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					CalendarList = null;
+				}
+			}
+		}
+		// 結果を返す
+		return CalendarList;
+	}
+
+	public List<Calendar> selectDate(Calendar calendar) {
+		Connection conn = null;
+		List<Calendar> CalendarList = new ArrayList<Calendar>();
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("org.h2.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:h2:file:C:/pleiades/workspace/data/NMW", "sa", "");
+			// SELECT文を準備する
+//			c_count以降にエラー
+			String sql = "select calendars.u_id, calendars.rec_id, date, "
+					+ "r_name, cooking_expenses, eating_out_expenses, recipe_counts.r_count "
+					+ "from calendars "
+					+ "left join recipes "
+					+ "on calendars.rec_id = recipes.rec_id "
+					+ "left join recipe_counts "
+					+ "on calendars.rec_id = recipe_counts.rec_id "
+					+ "where calendars.u_id = ? and date like ? and calendars.rec_id like ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる(?を埋める)
+			if (calendar.getU_id() != null) {
+				pStmt.setString(1, calendar.getU_id());
+			} else {
+				pStmt.setString(1, null);
+			}
+			if (calendar.getDate() != null) {
+				pStmt.setDate(2, calendar.getDate());
+			} else {
+				pStmt.setString(2, "%");
+			}
+			if (calendar.getRec_id() != -1) {
+				pStmt.setInt(3, calendar.getRec_id());
+			} else {
+				pStmt.setString(3, "%");
 			}
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
@@ -220,7 +296,7 @@ public class CalendarDAO {
 		return calendarResult;
 	}
 
-	// 引数calenderで指定されたレコードを更新し、成功したらtrueを返す
+//	// 引数calenderで指定されたレコードを更新し、成功したらtrueを返す
 //	public boolean update(Calendar calendar) {
 //		Connection conn = null;
 //		boolean calendarResult = false;
