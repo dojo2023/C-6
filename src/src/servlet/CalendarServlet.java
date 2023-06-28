@@ -46,7 +46,6 @@ public class CalendarServlet extends HttpServlet {
 
 		// その月のカレンダーを取得
 		List<Calendar> calendar = caleDAO.select(new Calendar(loginUser.getId(), new Date(utilDate.getTime())));
-		System.out.println(calendar.get(0).getCooking_expenses());
 		int cookingExpenses[] = new int[31];
 		int eatingOutExpensese[] = new int[31];
 
@@ -61,40 +60,46 @@ public class CalendarServlet extends HttpServlet {
 
 		// 配列の日付番目に値段データの格納
 		List<Recipe> recipe = caleDAO.selectR_Count(new Calendar(loginUser.getId()));
+
 		int day;
 
 		for (int i=0;i<calendar.size();i++) {
-			if(recipe.get(i).getR_count() != -1) {
+			if(recipe.get(i).getR_count() != -1 || recipe.get(i).getR_count() != 0) {
 				// Date => String => int
 				c.setTime(calendar.get(i).getDate());
 				day = c.get(java.util.Calendar.DAY_OF_MONTH);
 
-				cookingExpenses[day] = Integer
+				cookingExpenses[day] += Integer
 						.parseInt(String.valueOf(calendar.get(i).getCooking_expenses())) * recipe.get(i).getR_count();
 //				System.out.println(i+"回目"+":"+calendar.get(i).getCooking_expenses()+"*"+recipe.get(i).getR_count()+"="+Integer
 //						.parseInt(String.valueOf(calendar.get(i).getCooking_expenses())) * recipe.get(i).getR_count());
-				eatingOutExpensese[day] = Integer
+				eatingOutExpensese[day] += Integer
 						.parseInt(String.valueOf(calendar.get(i).getEating_out_expenses())) * recipe.get(i).getR_count();
 			} else {
 				// Date => String => int
 				c.setTime(calendar.get(i).getDate());
 				day = c.get(java.util.Calendar.DAY_OF_MONTH);
 
-				cookingExpenses[day] = Integer
+				cookingExpenses[day] += Integer
 						.parseInt(String.valueOf(calendar.get(i).getCooking_expenses()));
-				eatingOutExpensese[day] = Integer
+				eatingOutExpensese[day] += Integer
 						.parseInt(String.valueOf(calendar.get(i).getEating_out_expenses()));
 			}
 		}
+//		for (int i = 0; i < cookingExpenses.length; i++) {
+//			System.out.println(i + ":" + cookingExpenses[i]);
+//		}
 		//現在時刻でカレンダーのインスタンスを取得
 		java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.set(java.util.Calendar.DATE, 1);
 
         // 月の週の数の取得
         int weekMax = cal.getActualMaximum(java.util.Calendar.WEEK_OF_MONTH);
+        weekMax++;
 		int c_e_weekSum[] = new int[weekMax];
 		int e_o_weekSum[] = new int[weekMax];
 		int diff_weekSum[] = new int[weekMax];
+		System.out.println(weekMax);
 
 		// 配列の初期化
 		for (int i = 0; i < c_e_weekSum.length; i++) {

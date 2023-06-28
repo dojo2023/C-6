@@ -11,7 +11,7 @@
 	line-height:60px;
 	font-size: 18px;
 	background-position: right 15px;
-	margin-left:130px;
+	margin-left:200px;
 }
 .c_search_btn{
 	border:none;
@@ -40,4 +40,51 @@ hr{
 .btn{
 	display: flex;
 	margin-left:120px;
+	margin-top:20px;
+}
+/*れしぴろーくん吹き出し*/
+.balloon {
+  width: 100%;
+  margin: 2em 0;
+  overflow: hidden;
+}
+
+.balloon .icon {
+  float: left;
+  margin-right: -90px;
+  width: 150px;
+}
+.balloon .icon img{
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.balloon .chatting {
+  width: 100%;
+}
+
+.says {
+  display: inline-block;
+  position: relative;
+  margin: 40px 0 0 105px;
+  padding: 17px 13px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 18px;
+  left: -24px;
+  border: 12px solid transparent;
+  border-right: 12px solid #fff;
+}
+
+.says p {
+  margin: 0;
+  padding: 0;
+  background: #fff;
 }
