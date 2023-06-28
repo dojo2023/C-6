@@ -106,8 +106,8 @@ public class RefrigeratorServlet extends HttpServlet {
 			// updateする
 			rDAO.update(refrigerator.get(0), pre_refrigerator.get(0));
 		} else {
-			System.out.println("f_id:"+request.getParameter("f_id"));
-			System.out.println("num:"+request.getParameter("num"));
+//			System.out.println("f_id:"+request.getParameter("f_id"));
+//			System.out.println("num:"+request.getParameter("num"));
 			int f_id = Integer.parseInt(request.getParameter("f_id"));
 			Double num = Double.parseDouble(request.getParameter("num"));
 
@@ -170,12 +170,17 @@ public class RefrigeratorServlet extends HttpServlet {
 			RefrigeratorDAO rfDAO = new RefrigeratorDAO();
 			List<Refrigerator> refrigerator_f = rfDAO.select(new Refrigerator(loginUser_f.getId()));
 			List<Refrigerator> pre_refrigerator_f = rfDAO.select(new Refrigerator(loginUser_f.getId()));
+			System.out.println(pre_refrigerator_f);
+			for (Refrigerator refrigerator2 : pre_refrigerator_f) {
+				System.out.println("refrigerator:"+refrigerator2);
+			}
 
 			//冷蔵庫の食材の個数からレシピの食材の個数を引く
 			for (Refrigerator refrigerator_f_list : refrigerator_f) {
 				for (int i = 0; i < recipe.size(); i++) {
 					//レシピの食材IDと冷蔵庫の食材IDが同じだったら
 					if (recipe.get(i).getF_id() == refrigerator_f_list.getF_id()) {
+						System.out.println(refrigerator_f_list.getF_count()+ "-"+ recipe.get(i).getR_i_count().get(i));
 						if (refrigerator_f_list.getF_count() - recipe.get(i).getR_i_count().get(i) < 0) {
 							refrigerator_f_list.setF_count(0);	// 0以下の時は0に
 						} else {

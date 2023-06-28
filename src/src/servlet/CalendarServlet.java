@@ -99,7 +99,6 @@ public class CalendarServlet extends HttpServlet {
 		int c_e_weekSum[] = new int[weekMax];
 		int e_o_weekSum[] = new int[weekMax];
 		int diff_weekSum[] = new int[weekMax];
-		System.out.println(weekMax);
 
 		// 配列の初期化
 		for (int i = 0; i < c_e_weekSum.length; i++) {

@@ -288,6 +288,10 @@ public class Recipe implements Serializable {
 		this.ingredient = ingredient;
 	}
 
+	public void setIngredient(String ingredient) {
+		this.ingredient.add(ingredient);
+	}
+
 	public List<Double> getR_i_count() {
 		return r_i_count;
 	}

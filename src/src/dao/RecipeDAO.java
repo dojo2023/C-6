@@ -245,7 +245,7 @@ public class RecipeDAO {
 			} else {
 				pStmt.setString(3, "%");
 			}
-			System.out.println("F_id:"+param.getF_id());
+//			System.out.println("F_id:"+param.getF_id());
 			if (param.getF_id() != -1) {
 				pStmt.setInt(4, param.getF_id());
 			} else {
@@ -389,9 +389,9 @@ public class RecipeDAO {
 			// 条件式がu_idとrec_idのみなので、他の検索条件の追加
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
-			System.out.println(param.getU_id());
-			System.out.println(param.getRec_id());
-			System.out.println(param.getR_date());
+//			System.out.println(param.getU_id());
+//			System.out.println(param.getRec_id());
+//			System.out.println(param.getR_date());
 
 			// SQL文を完成させる
 			if (param.getRec_id() != -1) {
@@ -1098,10 +1098,10 @@ public class RecipeDAO {
 
 				PreparedStatement pStmt_c = conn.prepareStatement(sql_c);
 
-				System.out.println(recipe.getU_id());
-				System.out.println(recipe.getRec_id());
-				System.out.println(recipe.getR_date());
-				System.out.println(recipe.getR_count());
+//				System.out.println(recipe.getU_id());
+//				System.out.println(recipe.getRec_id());
+//				System.out.println(recipe.getR_date());
+//				System.out.println(recipe.getR_count());
 
 				// SQL文を完成させる
 

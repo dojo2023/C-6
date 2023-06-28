@@ -109,10 +109,10 @@ public class RecipeListServlet extends HttpServlet {
 			if (request.getParameter("f_id") != null) {
 				// jspから検索条件をgetParameterで抽出する（主要食材）
 				int f_id = Integer.parseInt(request.getParameter("f_id"));
-				System.out.println(Integer.parseInt(request.getParameter("f_id")));
+//				System.out.println(Integer.parseInt(request.getParameter("f_id")));
 				Recipe r = new Recipe();
 				r.setF_id(f_id);
-				System.out.println(r.getF_id());
+//				System.out.println(r.getF_id());
 				Recipes f_id_s = new Recipes(r);
 				// jspから検索条件をgetParameterで抽出する（ワンパン等）
 //			String[] c_id_list = request.getParameterValues("c_id");
@@ -154,7 +154,7 @@ public class RecipeListServlet extends HttpServlet {
 			} else if(request.getParameter("button") != null){
 				// jspから検索条件をgetParameterで抽出する（主要食材）
 				String button = request.getParameter("button");
-				System.out.println("button:"+request.getParameter("button"));
+//				System.out.println("button:"+request.getParameter("button"));
 				RecipeDAO reDao = new RecipeDAO();
 				Recipe r = new Recipe();
 				List<Recipe> recipesList = reDao.select(new Recipes(new Recipe()));
